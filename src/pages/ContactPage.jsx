@@ -21,8 +21,8 @@ const contactSchema = {
       'addressCountry': 'PK',
     },
     'sameAs': [
-      'https://github.com/rashidkhan4067',
-      'https://www.linkedin.com/in/rashid-shafique09',
+      'https://github.com/rashidshafique-dev',
+      'https://www.linkedin.com/in/rashidshafique-dev',
     ],
   },
 };

@@ -18,6 +18,7 @@ const getProjectSlug = (project) => {
 };
 
 const repoTitleOverrides = {
+  'rashidshafique-dev': 'Sales Data Pipeline',
   'rashidkhan4067': 'Sales Data Pipeline',
   'sales-data-analysis-system': 'Sales Data Pipeline',
   'medicare / hospital management': 'MediCare / Hospital Management',
@@ -45,8 +46,8 @@ const formatProjectTitle = (name) => {
     .trim();
 };
 
-const CACHE_KEY = 'github_repos_raw_cache_v12';
-const CACHE_TIME_KEY = 'github_repos_raw_cache_time_v12';
+const CACHE_KEY = 'github_repos_raw_cache_v13';
+const CACHE_TIME_KEY = 'github_repos_raw_cache_time_v13';
 const ONE_HOUR = 60 * 60 * 1000;
 
 const mergeProjects = (rawGithubRepos) => {
@@ -137,12 +138,12 @@ export default function ProjectsSection() {
           return;
         }
 
-        const response = await fetch('https://api.github.com/users/rashidkhan4067/repos?sort=updated&per_page=30');
+        const response = await fetch('https://api.github.com/users/rashidshafique-dev/repos?sort=updated&per_page=30');
         if (!response.ok) throw new Error('API fetch failed');
         const repos = await response.json();
 
         const mappedProjects = repos
-          .filter(repo => !repo.fork && repo.name.toLowerCase() !== 'rashidkhan4067' && repo.name.toLowerCase() !== 'portfolio-' && repo.name.toLowerCase() !== 'foody-app')
+          .filter(repo => !repo.fork && repo.name.toLowerCase() !== 'rashidshafique-dev' && repo.name.toLowerCase() !== 'rashidkhan4067' && repo.name.toLowerCase() !== 'portfolio-' && repo.name.toLowerCase() !== 'foody-app')
           .map((repo, index) => {
             let category = 'Open Source';
             let accentColor = '#7C3AED';

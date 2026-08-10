@@ -33,6 +33,7 @@ const stripEmojis = (text) => {
 };
 
 const repoTitleOverrides = {
+  'rashidshafique-dev': 'Sales Data Pipeline',
   'rashidkhan4067': 'Sales Data Pipeline',
   'sales-data-analysis-system': 'Sales Data Pipeline',
   'medicare / hospital management': 'MediCare / Hospital Management',
@@ -60,8 +61,8 @@ const formatProjectTitle = (name) => {
     .trim();
 };
 
-const CACHE_KEY = 'github_repos_raw_cache_v12';
-const CACHE_TIME_KEY = 'github_repos_raw_cache_time_v12';
+const CACHE_KEY = 'github_repos_raw_cache_v13';
+const CACHE_TIME_KEY = 'github_repos_raw_cache_time_v13';
 const ONE_HOUR = 60 * 60 * 1000;
 
 const mergeProjects = (rawGithubRepos) => {
@@ -158,7 +159,7 @@ function ProjectVisualPlaceholder({ project }) {
             <path d="M 245 90 L 275 90" stroke="var(--projects-accent)" strokeWidth="1.5" markerEnd="url(#arrow)" />
 
             <rect x="280" y="65" width="90" height="50" rx="6" fill="var(--bg-tertiary)" stroke="var(--projects-accent)" strokeWidth="1.5" />
-            <text x="325" y="95" fill="var(--text-secondary)" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">Store Data</text>
+            <text x="325" y="95" fill="var(--text-secondary)" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">Store DB</text>
           </>
         )}
 
@@ -184,7 +185,7 @@ export default function DetailedProjects() {
         return mergeProjects(rawRepos);
       }
     } catch (e) {
-      console.warn('Failed to parse projects cache on init:', e);
+      console.warn('Failed to parse detailed projects cache on init:', e);
     }
     return [...projects].sort((a, b) => a.id - b.id);
   });
@@ -196,7 +197,7 @@ export default function DetailedProjects() {
         return false;
       }
     } catch {
-      // Return true if cache retrieval fails
+      // Ignore cache retrieval errors
     }
     return true;
   });
@@ -253,12 +254,12 @@ export default function DetailedProjects() {
           return;
         }
 
-        const response = await fetch('https://api.github.com/users/rashidkhan4067/repos?sort=updated&per_page=30');
+        const response = await fetch('https://api.github.com/users/rashidshafique-dev/repos?sort=updated&per_page=30');
         if (!response.ok) throw new Error('API fetch failed');
         const repos = await response.json();
 
         const mappedProjects = repos
-          .filter(repo => !repo.fork && repo.name.toLowerCase() !== 'rashidkhan4067' && repo.name.toLowerCase() !== 'portfolio-' && repo.name.toLowerCase() !== 'foody-app')
+          .filter(repo => !repo.fork && repo.name.toLowerCase() !== 'rashidshafique-dev' && repo.name.toLowerCase() !== 'rashidkhan4067' && repo.name.toLowerCase() !== 'portfolio-' && repo.name.toLowerCase() !== 'foody-app')
           .map((repo, index) => {
             let category = 'Open Source';
             let accentColor = '#7C3AED';

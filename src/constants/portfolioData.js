@@ -32,13 +32,13 @@ export const personalInfo = {
   location: 'Faisalabad, Pakistan',
   email: 'rashidshafique.dev@gmail.com',
   phone: '+92 319 8696623',
-  avatarUrl: 'https://avatars.githubusercontent.com/rashidkhan4067',
+  avatarUrl: 'https://avatars.githubusercontent.com/rashidshafique-dev',
   resumeUrl: '/resume.pdf',
   socials: {
-    github: 'https://github.com/rashidkhan4067',
-    linkedin: 'https://www.linkedin.com/in/rashid-shafique09',
+    github: 'https://github.com/rashidshafique-dev',
+    linkedin: 'https://www.linkedin.com/in/rashidshafique-dev',
     twitter: 'https://twitter.com',
-    dribbble: 'https://github.com/rashidkhan4067',
+    dribbble: 'https://github.com/rashidshafique-dev',
   },
 };
 
@@ -68,7 +68,7 @@ export const projects = [
     category: 'Full-Stack',
     featured: true,
     liveUrl: 'https://bhuttascents.com',
-    githubUrl: 'https://github.com/rashidkhan4067/BhuttaScents',
+    githubUrl: 'https://github.com/rashidshafique-dev/BhuttaScents',
     accentColor: '#D4AF37', // Gold metallic accent for luxury brand
     imageUrl: bhuttaScientsImg,
     metric: 'Real Client (Alhamdullilah Satisfied)',
@@ -97,7 +97,7 @@ export const projects = [
     category: 'Full-Stack',
     featured: true,
     liveUrl: 'https://al-shifaa-hms.vercel.app/',
-    githubUrl: 'https://github.com/rashidkhan4067/AI-HMS',
+    githubUrl: 'https://github.com/rashidshafique-dev/AI-HMS',
     accentColor: '#10B981', // Google/Material green/emerald
     imageUrl: aiHmsImg,
     metric: '42% Latency Reduction',

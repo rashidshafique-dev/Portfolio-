@@ -84,8 +84,8 @@ Follow these steps to set up the project locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/rashidkhan4067/solid-project.git
-   cd solid-project/portfolio
+   git clone https://github.com/rashidshafique-dev/portfolio.git
+   cd portfolio
    ```
 
 2. **Install dependencies:**
