@@ -463,15 +463,76 @@ export default function DetailedProjects() {
               {/* Left Column: Text Case Study */}
               <div className={styles.mainContentCol}>
                 
-                {/* Problem Statement */}
+                {/* 1. Problem & Architectural Context */}
                 <section className={styles.articleSection}>
-                  <h2 className={styles.articleSectionTitle}>Problem & Architectural Context</h2>
+                  <h2 className={styles.articleSectionTitle}>The Problem & Constraints</h2>
                   <p className={styles.articleParagraph}>{problemStatementText}</p>
                 </section>
 
-                {/* Challenges & Decisions */}
+                {/* 2. System Architecture Overview */}
+                {selectedProject.systemOverview && (
+                  <section className={styles.articleSection}>
+                    <h2 className={styles.articleSectionTitle}>System Architecture & Data Flow</h2>
+                    <div className={styles.architectureCard}>
+                      <p className={styles.architectureText}>{selectedProject.systemOverview}</p>
+                    </div>
+                  </section>
+                )}
+
+                {/* 3. Key Engineering Decisions Matrix */}
+                {selectedProject.engineeringDecisions && selectedProject.engineeringDecisions.length > 0 && (
+                  <section className={styles.articleSection}>
+                    <h2 className={styles.articleSectionTitle}>Key Architectural Decisions</h2>
+                    <div className={styles.decisionsList}>
+                      {selectedProject.engineeringDecisions.map((d, idx) => (
+                        <div key={idx} className={styles.decisionCard}>
+                          <div className={styles.decisionHeader}>
+                            <span className={styles.decisionBadge}>Decision {idx + 1}</span>
+                            <h3 className={styles.decisionTitle}>{d.decision}</h3>
+                          </div>
+                          <div className={styles.decisionBody}>
+                            <div className={styles.decisionRow}>
+                              <span className={styles.decisionLabel}>Rationale:</span>
+                              <span className={styles.decisionValue}>{d.reason}</span>
+                            </div>
+                            <div className={styles.decisionRow}>
+                              <span className={styles.decisionLabelTradeoff}>Trade-off:</span>
+                              <span className={styles.decisionValueTradeoff}>{d.tradeoff}</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {/* 4. The Hard Engineering Problem */}
+                {selectedProject.hardProblem && (
+                  <section className={styles.articleSection}>
+                    <h2 className={styles.articleSectionTitle}>The Hard Technical Challenge</h2>
+                    <div className={styles.hardProblemCard}>
+                      <div className={styles.hardProblemHeader}>
+                        <span className={styles.hardProblemDot} />
+                        <span className={styles.hardProblemLabel}>CRITICAL BOTTLENECK & RESOLUTION</span>
+                      </div>
+                      <p className={styles.hardProblemText}>{selectedProject.hardProblem}</p>
+                    </div>
+                  </section>
+                )}
+
+                {/* 5. What We Intentionally Didn't Build (The Art of Subtraction) */}
+                {selectedProject.whatWeCut && (
+                  <section className={styles.articleSection}>
+                    <h2 className={styles.articleSectionTitle}>What We Intentionally Didn't Build</h2>
+                    <div className={styles.subtractionCard}>
+                      <p className={styles.subtractionText}>{selectedProject.whatWeCut}</p>
+                    </div>
+                  </section>
+                )}
+
+                {/* 6. Key Challenges & Decisions */}
                 <section className={styles.articleSection}>
-                  <h2 className={styles.articleSectionTitle}>Key Challenges & Engineering Decisions</h2>
+                  <h2 className={styles.articleSectionTitle}>Implementation Milestones & Decisions</h2>
                   <ul className={styles.articleChallengesList}>
                     {challengesList.map((challenge, idx) => (
                       <li key={idx} className={styles.articleChallengeItem}>
@@ -482,7 +543,7 @@ export default function DetailedProjects() {
                   </ul>
                 </section>
 
-                {/* Outcome & Impact */}
+                {/* 7. Outcome & Production Impact */}
                 <section className={styles.articleSection}>
                   <h2 className={styles.articleSectionTitle}>Outcome & Production Impact</h2>
                   <div className={styles.articleOutcomeCallout}>
@@ -493,7 +554,7 @@ export default function DetailedProjects() {
                 {/* Project Milestones */}
                 {selectedProject.milestones && (
                   <section className={styles.articleSection}>
-                    <h2 className={styles.articleSectionTitle}>Development Milestones</h2>
+                    <h2 className={styles.articleSectionTitle}>Development Roadmap Milestones</h2>
                     <div className={styles.milestoneTimeline}>
                       {selectedProject.milestones.map((milestone, idx) => (
                         <div key={idx} className={styles.milestoneItem}>

@@ -31,11 +31,14 @@ export default function BuildLogsSection() {
     }
   };
 
-  const categories = ['All', 'Data Engineering', 'Backend', 'IoT'];
+  const categories = ['All', 'Backend', 'Performance', 'Big Data', 'AI', 'IoT', 'Algorithms'];
 
   const filteredLogs = activeCategory === 'All'
     ? buildLogs
-    : buildLogs.filter(log => log.tags.includes(activeCategory));
+    : buildLogs.filter(log => 
+        log.tags.some(tag => tag.toLowerCase().includes(activeCategory.toLowerCase())) ||
+        log.type.toLowerCase().includes(activeCategory.toLowerCase())
+      );
 
   return (
     <section className={styles.section} id="build-logs-section">
