@@ -77,6 +77,17 @@ export default function PortfolioFooter() {
             </li>
             <li>
               <a 
+                href={personalInfo.socials.newsletter} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={styles.connectLink}
+              >
+                <LinkedinIcon size={14} className={styles.connectIcon} aria-hidden="true" />
+                <span>Newsletter</span>
+              </a>
+            </li>
+            <li>
+              <a 
                 href={`mailto:${personalInfo.email}`} 
                 className={styles.connectLink}
               >

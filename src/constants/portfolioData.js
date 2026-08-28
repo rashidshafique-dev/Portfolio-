@@ -37,6 +37,7 @@ export const personalInfo = {
   socials: {
     github: 'https://github.com/rashidshafique-dev',
     linkedin: 'https://www.linkedin.com/in/rashidshafique-dev',
+    newsletter: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7495340020820512769',
     twitter: 'https://x.com/rashidshafiqdev',
     x: 'https://x.com/rashidshafiqdev',
     facebook: 'https://www.facebook.com/share/1DQzUBXR7e/',

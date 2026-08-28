@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Tag } from 'lucide-react';
+import { ArrowRight, Tag, ExternalLink } from 'lucide-react';
 import { buildLogs } from '../../../constants/portfolioData';
 import styles from '../styles.module.css';
 import Modal from '../../../components/Modal';
@@ -44,10 +44,21 @@ export default function BuildLogsSection() {
         {/* Section Header */}
         <div className={styles.headerContainer}>
           <span className={styles.eyebrow}>HIGHLIGHTED INSIGHTS</span>
-          <h2 className={styles.title}>Build Logs</h2>
+          <h1 className={styles.title}>Build Logs</h1>
           <p className={styles.subtitle}>
             A structured collection of low-latency optimization logs, system telemetry, and pipeline architectural write-ups.
           </p>
+          <div style={{ marginTop: '0.85rem' }}>
+            <a
+              href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7495340020820512769"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.newsletterCtaBtn}
+            >
+              <span>Subscribe to Newsletter on LinkedIn</span>
+              <ExternalLink size={13} aria-hidden="true" />
+            </a>
+          </div>
         </div>
 
         {/* Category Filter Selector pills */}

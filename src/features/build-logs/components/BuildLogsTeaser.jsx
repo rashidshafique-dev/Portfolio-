@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Tag } from 'lucide-react';
+import { ArrowRight, Tag, ExternalLink } from 'lucide-react';
 import { buildLogs } from '../../../constants/portfolioData';
 import styles from '../styles.module.css';
 
@@ -71,12 +71,21 @@ export default function BuildLogsTeaser() {
           ))}
         </div>
 
-        {/* Premium Section CTA Button */}
+        {/* Section CTAs */}
         <div className={styles.ctaWrapper}>
           <Link to="/build-logs" className={styles.teaserCtaBtn}>
             <span>Open Journal</span>
-            <ArrowRight size={14} className="ml-[6px]" aria-hidden="true" />
+            <ArrowRight size={14} aria-hidden="true" />
           </Link>
+          <a
+            href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7495340020820512769"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.newsletterCtaBtn}
+          >
+            <span>Subscribe on LinkedIn</span>
+            <ExternalLink size={13} aria-hidden="true" />
+          </a>
         </div>
 
       </div>
