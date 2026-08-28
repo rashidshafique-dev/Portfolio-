@@ -1,30 +1,70 @@
 import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Briefcase, Terminal, GraduationCap, MapPin, Calendar, Zap } from 'lucide-react';
 import { experience } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import styles from '../styles.module.css';
 
+function getRoleIcon(role) {
+  if (role.toLowerCase().includes('academic') || role.toLowerCase().includes('researcher')) {
+    return <GraduationCap size={18} />;
+  }
+  if (role.toLowerCase().includes('open source')) {
+    return <Terminal size={18} />;
+  }
+  return <Briefcase size={18} />;
+}
+
 function ExperienceCard({ job }) {
   return (
-    <motion.div variants={itemVariants}>
+    <motion.div variants={itemVariants} className={styles.timelineItemWrapper}>
+      <div className={styles.timelineNode}>
+        <div className={styles.timelineDot} />
+        <div className={styles.timelineLine} />
+      </div>
+
       <article className={styles.card}>
-        {/* Top Row: Role + Company Left, Date + Badges Right */}
+        {/* Top Header Row */}
         <div className={styles.topRow}>
           <div className={styles.leftCol}>
-            <h3 className={styles.roleTitle}>{job.role}</h3>
-            <a
-              href={job.companyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.companyLink}
-            >
-              {job.company} <ExternalLink size={11} />
-            </a>
+            <div className={styles.roleHeader}>
+              <div className={styles.roleIconContainer}>
+                {getRoleIcon(job.role)}
+              </div>
+              <div>
+                <h3 className={styles.roleTitle}>{job.role}</h3>
+                <a
+                  href={job.companyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.companyLink}
+                >
+                  <span>{job.company}</span>
+                  <ExternalLink size={11} aria-hidden="true" />
+                </a>
+              </div>
+            </div>
           </div>
+
           <div className={styles.rightCol}>
-            <span className={styles.dateRange}>{job.period}</span>
-            {job.location && <span className={styles.location}>{job.location}</span>}
-            <span className={styles.categoryBadge}>{job.type}</span>
+            <div className={styles.metaRow}>
+              <span className={styles.dateRange}>
+                <Calendar size={12} /> {job.period}
+              </span>
+              {job.location && (
+                <span className={styles.location}>
+                  <MapPin size={12} /> {job.location}
+                </span>
+              )}
+            </div>
+            <div className={styles.badgeRow}>
+              {job.metric && (
+                <span className={styles.metricBadge}>
+                  <Zap size={11} />
+                  <span>{job.metric}</span>
+                </span>
+              )}
+              <span className={styles.categoryBadge}>{job.type}</span>
+            </div>
           </div>
         </div>
 

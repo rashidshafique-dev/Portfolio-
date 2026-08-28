@@ -12,19 +12,26 @@ export default function AboutSection() {
   return (
     <SectionWrapper id="about">
       <div className={styles.aboutGrid}>
-        {/* Left — Avatar & Info */}
+        {/* Left — Portrait Card */}
         <motion.div className={styles.aboutLeft} variants={itemVariants}>
           <div className={styles.avatarCard}>
             <div className={styles.avatar}>
-              <img src={profileImg} alt={personalInfo.name} className={styles.avatarImg} width="100" height="100" />
+              <img 
+                src={profileImg} 
+                alt={personalInfo.name} 
+                className={styles.avatarImg} 
+                width="280" 
+                height="320" 
+                loading="eager"
+              />
             </div>
             <div className={styles.avatarInfo}>
               <h3 className={styles.avatarName}>{personalInfo.name}</h3>
               <p className={styles.avatarRole}>{personalInfo.title}</p>
               <div className={styles.avatarMeta}>
                 <span><MapPin size={13} /> {personalInfo.location}</span>
-                <span><Briefcase size={13} /> Full-time</span>
-                <span><Calendar size={13} /> 3+ yrs coding</span>
+                <span><Briefcase size={13} /> Full-time Available</span>
+                <span><Calendar size={13} /> 3+ Yrs Experience</span>
               </div>
             </div>
             <div className={styles.avatarActions}>

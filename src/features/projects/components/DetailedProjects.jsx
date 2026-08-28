@@ -377,24 +377,37 @@ export default function DetailedProjects() {
 
               {/* Quick Action Buttons for immediate access */}
               <div className={styles.headerActions}>
-                <a
-                  href={selectedProject.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.articlePrimaryAction}
-                >
-                  <ExternalLink size={14} aria-hidden="true" />
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href={selectedProject.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.articleSecondaryAction}
-                >
-                  <Github size={14} aria-hidden="true" />
-                  <span>GitHub</span>
-                </a>
+                {selectedProject.liveUrl && (
+                  <a
+                    href={selectedProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.articlePrimaryAction}
+                  >
+                    <ExternalLink size={14} aria-hidden="true" />
+                    <span>Live Demo</span>
+                  </a>
+                )}
+                {selectedProject.githubUrl && (
+                  <a
+                    href={selectedProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.articleSecondaryAction}
+                  >
+                    <Github size={14} aria-hidden="true" />
+                    <span>GitHub Repository</span>
+                  </a>
+                )}
+                {selectedProject.relatedLogTitle && (
+                  <Link
+                    to={`/build-logs#${selectedProject.relatedLogTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                    className={styles.articleSecondaryAction}
+                  >
+                    <BookOpen size={14} aria-hidden="true" />
+                    <span>Read Build Log</span>
+                  </Link>
+                )}
               </div>
             </header>
 
@@ -452,13 +465,13 @@ export default function DetailedProjects() {
                 
                 {/* Problem Statement */}
                 <section className={styles.articleSection}>
-                  <h2 className={styles.articleSectionTitle}>Problem & Role</h2>
+                  <h2 className={styles.articleSectionTitle}>Problem & Architectural Context</h2>
                   <p className={styles.articleParagraph}>{problemStatementText}</p>
                 </section>
 
                 {/* Challenges & Decisions */}
                 <section className={styles.articleSection}>
-                  <h2 className={styles.articleSectionTitle}>Key Challenges & Decisions</h2>
+                  <h2 className={styles.articleSectionTitle}>Key Challenges & Engineering Decisions</h2>
                   <ul className={styles.articleChallengesList}>
                     {challengesList.map((challenge, idx) => (
                       <li key={idx} className={styles.articleChallengeItem}>
@@ -471,7 +484,7 @@ export default function DetailedProjects() {
 
                 {/* Outcome & Impact */}
                 <section className={styles.articleSection}>
-                  <h2 className={styles.articleSectionTitle}>Outcome & Impact</h2>
+                  <h2 className={styles.articleSectionTitle}>Outcome & Production Impact</h2>
                   <div className={styles.articleOutcomeCallout}>
                     <p className={styles.articleOutcomeText}>{outcomeText}</p>
                   </div>
@@ -534,7 +547,7 @@ export default function DetailedProjects() {
 
               </div>
 
-              {/* Right Column: Sidebar Metadata */}
+              {/* Right Column: Sidebar Specs */}
               <aside className={styles.sidebarCol}>
                 <div className={styles.sidebarCard}>
                   <h3 className={styles.sidebarTitle}>Technologies Used</h3>
@@ -546,34 +559,22 @@ export default function DetailedProjects() {
                     ))}
                   </div>
 
-                  <div className={styles.sidebarActions}>
-                    <a
-                      href={selectedProject.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.articlePrimaryAction}
-                    >
-                      <ExternalLink size={14} aria-hidden="true" />
-                      <span>Live Demo</span>
-                    </a>
-                    <a
-                      href={selectedProject.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.articleSecondaryAction}
-                    >
-                      <Github size={14} aria-hidden="true" />
-                      <span>View Code</span>
-                    </a>
-                    {selectedProject.relatedLogTitle && (
-                      <Link
-                        to={`/build-logs#${selectedProject.relatedLogTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-                        className={styles.articleSecondaryAction}
-                      >
-                        <BookOpen size={14} aria-hidden="true" />
-                        <span>Read the Build Log</span>
-                      </Link>
-                    )}
+                  <div className={styles.sidebarDivider} />
+
+                  <h3 className={styles.sidebarTitle} style={{ marginTop: '1.25rem' }}>Project Specifications</h3>
+                  <div className={styles.sidebarSpecList}>
+                    <div className={styles.sidebarSpecRow}>
+                      <span className={styles.sidebarSpecLabel}>Category</span>
+                      <span className={styles.sidebarSpecValue}>{selectedProject.category}</span>
+                    </div>
+                    <div className={styles.sidebarSpecRow}>
+                      <span className={styles.sidebarSpecLabel}>Status</span>
+                      <span className={styles.sidebarSpecValue}>{statusText}</span>
+                    </div>
+                    <div className={styles.sidebarSpecRow}>
+                      <span className={styles.sidebarSpecLabel}>Architecture</span>
+                      <span className={styles.sidebarSpecValue}>Full-Stack / Distributed</span>
+                    </div>
                   </div>
                 </div>
               </aside>

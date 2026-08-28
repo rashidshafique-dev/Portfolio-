@@ -511,6 +511,46 @@
   border-color: rgba(255, 255, 255, 0.08);
 }
 
+.sidebarDivider {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.06);
+  margin: 0;
+}
+
+[data-theme='dark'] .sidebarDivider {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebarSpecList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sidebarSpecRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.sidebarSpecLabel {
+  color: var(--md-on-surface-variant, #5f6368);
+}
+
+[data-theme='dark'] .sidebarSpecLabel {
+  color: #9aa0a6;
+}
+
+.sidebarSpecValue {
+  font-weight: 600;
+  color: var(--md-on-surface, #202124);
+}
+
+[data-theme='dark'] .sidebarSpecValue {
+  color: #e8eaed;
+}
+
 .sidebarActions {
   display: flex;
   flex-direction: column;

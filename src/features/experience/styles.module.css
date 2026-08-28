@@ -1,15 +1,69 @@
 /* ==========================================================================
    GOOGLE / LINEAR-LEVEL REFINED EXPERIENCE SECTION
-   Restrained neutral surfaces, 16px corner radius, crisp metadata
+   Structured timeline track, metric badges, role icons, 16px cards
    ========================================================================== */
 
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  max-width: 48rem;
+  gap: 1.5rem;
+  max-width: 52rem;
   margin: 2rem auto 0 auto;
   width: 100%;
+}
+
+.timelineItemWrapper {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+@media (max-width: 640px) {
+  .timelineItemWrapper {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.timelineNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .timelineNode {
+    display: none;
+  }
+}
+
+.timelineDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--md-primary, #1a73e8);
+  border: 2px solid var(--md-surface, #ffffff);
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+  margin-top: 24px;
+  flex-shrink: 0;
+}
+
+[data-theme='dark'] .timelineDot {
+  background-color: #8ab4f8;
+  border-color: #0d0d0f;
+  box-shadow: 0 0 0 2px rgba(138, 180, 248, 0.2);
+}
+
+.timelineLine {
+  width: 1px;
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.08);
+  margin-top: 6px;
+}
+
+[data-theme='dark'] .timelineLine {
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Neutral Restrained Experience Card */
@@ -51,7 +105,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   position: relative;
   z-index: 2;
 }
@@ -60,7 +114,7 @@
   .topRow {
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
+    gap: 12px;
   }
 }
 
@@ -68,6 +122,33 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  flex: 1;
+}
+
+.roleHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.roleIconContainer {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: rgba(26, 115, 232, 0.08);
+  color: var(--md-primary, #1a73e8);
+  border: 1px solid rgba(26, 115, 232, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+[data-theme='dark'] .roleIconContainer {
+  background-color: rgba(138, 180, 248, 0.12);
+  color: #8ab4f8;
+  border-color: rgba(138, 180, 248, 0.2);
 }
 
 .roleTitle {
@@ -109,6 +190,7 @@
   align-items: flex-end;
   text-align: right;
   flex-shrink: 0;
+  gap: 0.35rem;
 }
 
 @media (max-width: 768px) {
@@ -118,11 +200,21 @@
   }
 }
 
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 .dateRange {
   font-size: 0.78rem;
   font-family: var(--font-mono, monospace);
   color: var(--md-on-surface-variant, #5f6368);
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 [data-theme='dark'] .dateRange {
@@ -132,23 +224,43 @@
 .location {
   font-size: 0.75rem;
   color: var(--md-on-surface-variant, #5f6368);
-  display: block;
-  text-align: right;
-  margin-top: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 [data-theme='dark'] .location {
   color: #9aa0a6;
 }
 
-@media (max-width: 768px) {
-  .location {
-    text-align: left;
-  }
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.metricBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background-color: rgba(52, 168, 83, 0.08);
+  color: #2d8a4e;
+  border: 1px solid rgba(52, 168, 83, 0.2);
+  border-radius: 9999px;
+  padding: 2px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+[data-theme='dark'] .metricBadge {
+  background-color: rgba(52, 168, 83, 0.14);
+  color: #5bb974;
+  border-color: rgba(52, 168, 83, 0.3);
 }
 
 .categoryBadge {
-  margin-top: 6px;
   background-color: rgba(26, 115, 232, 0.08);
   color: var(--md-primary, #1a73e8);
   border: 1px solid rgba(26, 115, 232, 0.15);
@@ -158,20 +270,13 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  display: block;
-  width: fit-content;
+  display: inline-block;
 }
 
 [data-theme='dark'] .categoryBadge {
   background-color: rgba(138, 180, 248, 0.12);
   border-color: rgba(138, 180, 248, 0.2);
   color: #8ab4f8;
-}
-
-@media (min-width: 769px) {
-  .categoryBadge {
-    margin-left: auto;
-  }
 }
 
 /* Divider */
@@ -311,7 +416,7 @@
 .subtitle {
   font-size: 0.95rem;
   color: var(--md-on-surface-variant, #5f6368);
-  max-width: 30rem;
+  max-width: 32rem;
   margin: 0.4rem auto 0 auto;
   text-align: center;
   line-height: 1.5;
