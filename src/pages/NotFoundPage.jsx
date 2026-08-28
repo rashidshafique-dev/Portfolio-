@@ -25,7 +25,7 @@ export default function NotFoundPage() {
           Let's get you back on track.
         </p>
         <div className={styles.actions}>
-          <Button variant="gradient" size="lg" href="/" icon={<Home size={16} />}>
+          <Button variant="primary" size="lg" href="/" icon={<Home size={16} />}>
             Back to Home
           </Button>
           <Button

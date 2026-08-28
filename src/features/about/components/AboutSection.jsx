@@ -53,7 +53,7 @@ export default function AboutSection() {
         <motion.div className={styles.aboutRight} variants={itemVariants}>
           <SectionHeading
             eyebrow="About Me"
-            title="Crafting Scalable Digital Experiences"
+            title="Architecting Scalable Backend & AI Systems"
             subtitle={
               <>
                 <p>

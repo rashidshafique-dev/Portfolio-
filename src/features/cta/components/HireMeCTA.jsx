@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, ArrowRight } from 'lucide-react';
+import { ExternalLink, ArrowRight, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import styles from '../styles.module.css';
 
@@ -9,23 +9,24 @@ export default function HireMeCTA() {
       <div className={styles.container}>
         <motion.div 
           className={styles.card}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
         >
           <div className={styles.textBlock}>
             <h2 className={styles.title}>
-              I will build a full stack web app with django and react
+              Let’s Build Scalable, Production-Grade Systems
             </h2>
             <p className={styles.desc}>
-              Hire me on Fiverr for high-performance backend systems, distributed architectures, and custom React interfaces. Available for end-to-end full-stack development.
+              Available for full-stack software engineering roles, high-performance Python/Django backends, and custom AI-integrated web applications.
             </p>
           </div>
           <div className={styles.actions}>
-            <Link to="/contact" className={styles.contactBtn}>
-              <span>Contact Me</span>
-              <ArrowRight size={16} />
+            <Link to="/contact" className={styles.primaryCtaBtn}>
+              <Mail size={16} aria-hidden="true" />
+              <span>Get in Touch</span>
+              <ArrowRight size={15} aria-hidden="true" />
             </Link>
             <a 
               href="https://www.fiverr.com/s/rEYj067" 
@@ -33,8 +34,8 @@ export default function HireMeCTA() {
               rel="noopener noreferrer" 
               className={styles.fiverrBtn}
             >
-              <span>Order on Fiverr</span>
-              <ExternalLink size={16} />
+              <span>Fiverr Services</span>
+              <ExternalLink size={14} aria-hidden="true" />
             </a>
           </div>
         </motion.div>

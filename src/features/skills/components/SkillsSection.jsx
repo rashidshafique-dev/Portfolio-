@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FileCode2,
@@ -30,48 +30,48 @@ const SKILLS = [
     category: "Systems Engineering & Core Languages",
     filter: "languages",
     items: [
-      { name: "Python", desc: "Object-oriented scripting & high-performance core", tag: "Core", icon: "FileCode2", currentFocus: true, level: "Expert", exp: "3+ years of production use" },
-      { name: "C++", desc: "High-performance systems & compiled algorithms", tag: "Systems", icon: "Cpu", level: "Proficient", exp: "2+ years of academic use" },
-      { name: "Java", desc: "Enterprise app design & robust architectures", tag: "Enterprise", icon: "Coffee", level: "Proficient", exp: "1+ year of academic use" },
-      { name: "HTML5", desc: "Semantic markup & structure foundation", tag: "Web", icon: "Globe", level: "Proficient", exp: "4+ years of web use" },
+      { name: "Python", desc: "Object-oriented scripting, low-latency backends, and algorithmic workflows.", icon: "FileCode2", currentFocus: true, level: "Expert" },
+      { name: "C++", desc: "High-performance systems programming and algorithm optimization.", icon: "Cpu", level: "Proficient" },
+      { name: "Java", desc: "Enterprise architecture fundamentals and OOP design patterns.", icon: "Coffee", level: "Proficient" },
+      { name: "HTML5 & CSS3", desc: "Semantic DOM structure and modern responsive styling architectures.", icon: "Globe", level: "Expert" },
     ]
   },
   {
     category: "Distributed Systems & API Engineering",
     filter: "backend",
     items: [
-      { name: "Django", desc: "Secure, rapid full-stack Python framework", tag: "Primary", icon: "Server", currentFocus: true, level: "Expert", exp: "3+ years of production use" },
-      { name: "FastAPI", desc: "High-performance async APIs with auto docs", tag: "API", icon: "Zap", level: "Expert", exp: "2+ years of production use" },
-      { name: "Node JS", desc: "Event-driven asynchronous backend execution", tag: "Runtime", icon: "Box", level: "Proficient", exp: "2+ years of API dev" },
-      { name: "DRF", desc: "Powerful REST API toolkit for Django", tag: "API", icon: "Layers", level: "Expert", exp: "3+ years of REST APIs" },
+      { name: "Django", desc: "Enterprise Python web framework with ORM and secure session management.", icon: "Server", currentFocus: true, level: "Expert" },
+      { name: "FastAPI", desc: "Asynchronous, high-throughput REST APIs with automatic OpenAPI docs.", icon: "Zap", level: "Expert" },
+      { name: "Django REST", desc: "Stateless REST API layers, serializer validations, and permission classes.", icon: "Layers", currentFocus: true, level: "Expert" },
+      { name: "Node.js & Express", desc: "Event-driven asynchronous microservices and API gateways.", icon: "Box", level: "Proficient" },
     ]
   },
   {
     category: "User Interface & Experience",
     filter: "frontend",
     items: [
-      { name: "React JS", desc: "Component-based single page applications", tag: "Primary", icon: "Atom", currentFocus: true, level: "Expert", exp: "3+ years of frontend dev" },
-      { name: "Tailwind CSS", desc: "Utility-first modern responsive interfaces", tag: "Styling", icon: "Paintbrush", level: "Expert", exp: "3+ years of styling" },
-      { name: "Vite", desc: "Lightning-fast frontend build tooling", tag: "Tooling", icon: "Flame", level: "Proficient", exp: "2+ years of build tooling" },
-      { name: "shadcn/ui", desc: "Accessible, composable UI components", tag: "UI Lib", icon: "Component", level: "Proficient", exp: "1+ year of UI design" },
+      { name: "React.js", desc: "Component architectures, state management hooks, and Virtual DOM workflows.", icon: "Atom", currentFocus: true, level: "Expert" },
+      { name: "Tailwind CSS", desc: "Utility-first design tokens and responsive layout systems.", icon: "Paintbrush", level: "Expert" },
+      { name: "Vite", desc: "Next-generation frontend tooling and optimized production bundling.", icon: "Flame", level: "Proficient" },
+      { name: "React Native", desc: "Cross-platform mobile application development for Android and iOS.", icon: "Component", level: "Proficient" },
     ]
   },
   {
     category: "Data Architecture & Storage",
     filter: "database",
     items: [
-      { name: "PostgreSQL", desc: "Advanced open-source relational database", tag: "Primary", icon: "Database", currentFocus: true, level: "Expert", exp: "3+ years of database admin" },
-      { name: "JWT Auth", desc: "Stateless token-based authentication", tag: "Auth", icon: "KeyRound", level: "Expert", exp: "3+ years of auth integration" },
-      { name: "Google OAuth", desc: "Secure third-party authentication flow", tag: "Auth", icon: "ShieldCheck", level: "Proficient", exp: "2+ years of OAuth flow" },
+      { name: "PostgreSQL", desc: "Relational database modeling, B-tree indexing, and ACID transaction safety.", icon: "Database", currentFocus: true, level: "Expert" },
+      { name: "JWT & OAuth", desc: "Stateless authentication, token auto-rotation, and SSO integration.", icon: "KeyRound", level: "Expert" },
+      { name: "Supabase & Firebase", desc: "Real-time database sync, cloud storage, and managed auth services.", icon: "ShieldCheck", level: "Proficient" },
     ]
   },
   {
     category: "DevOps & Automated Deployment",
     filter: "devops",
     items: [
-      { name: "Vercel", desc: "Zero-config frontend deployment platform", tag: "Deploy", icon: "Triangle", level: "Proficient", exp: "3+ years of deployment" },
-      { name: "Railway", desc: "Backend and database cloud hosting", tag: "Deploy", icon: "Train", level: "Proficient", exp: "2+ years of hosting" },
-      { name: "Git & GitHub", desc: "Version control and collaborative workflows", tag: "VCS", icon: "GitBranch", level: "Expert", exp: "4+ years of collab vcs" },
+      { name: "Git & GitHub", desc: "Distributed version control, branch workflows, and PR code reviews.", icon: "GitBranch", currentFocus: true, level: "Expert" },
+      { name: "Vercel & Railway", desc: "Automated CI/CD deployment pipelines and edge runtime hosting.", icon: "Triangle", level: "Proficient" },
+      { name: "Linux & Bash", desc: "Server administration, cron automation, and shell scripting.", icon: "Container", level: "Proficient" },
     ]
   }
 ];
@@ -123,31 +123,27 @@ export default function SkillsSection() {
         })).filter(cat => cat.items.length > 0)
       : SKILLS.filter(cat => cat.filter === activeFilter);
 
-  // Reset filter is handled by tabs
   return (
     <section className={styles.section} id="skills">
       <div className="container">
         
-        {/* Section Header */}
+        {/* Section Header — Clean, single concise statement */}
         <div className={styles.headerContainer}>
           <span className={styles.eyebrow}>TECHNICAL STACK</span>
           <h2 className={styles.title}>Skills & Technologies</h2>
           <p className={styles.subtitle}>
-            A cohesive engineering toolkit built to design, deploy, and scale robust applications.
-          </p>
-          <p className={styles.summaryLine}>
-            Focusing on scalable Python/Django backends and high-performance React interfaces, with deep experience in containerized deployment.
+            Production-grade backend architectures, distributed data pipelines, and responsive frontend systems.
           </p>
         </div>
 
-        {/* Filter Chips */}
+        {/* Filter Chips — Subtler borders and cleaner active states */}
         <nav className={styles.filterTabsContainer} aria-label="Skills category filtering">
-          <div className={`flex overflow-x-auto gap-2 pb-1 scrollbar-none -mx-5 px-5 md:flex-wrap md:overflow-visible md:mx-0 md:px-0 md:justify-center ${styles.filterTabsScroller}`}>
+          <div className={styles.filterTabsScroller}>
             {FILTER_CHIPS.map((chip) => (
               <button
                 key={chip.value}
                 onClick={() => setActiveFilter(chip.value)}
-                className={`${styles.filterChip} ${activeFilter === chip.value ? styles.activeChip : ''} flex-shrink-0`}
+                className={`${styles.filterChip} ${activeFilter === chip.value ? styles.activeChip : ''}`}
                 aria-pressed={activeFilter === chip.value ? "true" : "false"}
               >
                 {chip.label}
@@ -157,14 +153,14 @@ export default function SkillsSection() {
         </nav>
 
         {/* Categories / Grid */}
-        <div>
+        <div className={styles.categoriesWrapper}>
           {filteredCategories.map((categoryGroup) => (
             <div key={categoryGroup.filter} className={styles.categorySection}>
               {/* Show category label when activeFilter is "all" or "focus" */}
               {(activeFilter === "all" || activeFilter === "focus") && (
-                <span className={styles.categoryLabel}>
+                <h3 className={styles.categoryLabel}>
                   {categoryGroup.category}
-                </span>
+                </h3>
               )}
               
               <div className={styles.grid}>
@@ -174,53 +170,31 @@ export default function SkillsSection() {
                     return (
                       <motion.div 
                         layout
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
                         key={skill.name} 
-                        className={`${styles.skillCard} ${skill.currentFocus ? styles.focusCard : ''}`}
+                        className={styles.skillCard}
                       >
-                        {/* Subtle Interactive Hover Tooltip */}
-                        {skill.exp && (
-                          <div className={styles.tooltipText}>
-                            {skill.exp}
-                          </div>
-                        )}
-
-                        {/* Row 1: MD3 icon container + skill name */}
-                        <div className={styles.cardRow1}>
+                        {/* Header: Subtle icon + Technology name + Proficiency */}
+                        <div className={styles.cardHeader}>
                           <div className={styles.iconWrapper}>
-                            <IconComponent size={20} strokeWidth={1.75} aria-hidden="true" />
+                            <IconComponent size={16} strokeWidth={1.75} aria-hidden="true" />
                           </div>
-                          <div className={styles.nameContainer}>
-                            <div className={styles.nameRow}>
-                              <span className={styles.skillName}>
-                                {skill.name}
-                              </span>
-                              {skill.level && (
-                                <span className={`${styles.levelBadge} ${skill.level === 'Expert' ? styles.expertBadge : styles.proficientBadge}`}>
-                                  {skill.level}
-                                </span>
-                              )}
-                            </div>
-                            {skill.currentFocus && (
-                              <span className={styles.focusBadge}>
-                                Primary Stack
-                              </span>
-                            )}
+                          <div className={styles.nameBlock}>
+                            <span className={styles.skillName}>{skill.name}</span>
+                            <span className={styles.skillLevel}>&bull; {skill.level}</span>
                           </div>
+                          {skill.currentFocus && (
+                            <span className={styles.focusPill}>Primary</span>
+                          )}
                         </div>
 
-                        {/* Row 2: description — flex-1 equalises card height */}
-                        <p className={`${styles.skillDesc} ${styles.skillDescFlex}`}>
+                        {/* Concise Engineering Description */}
+                        <p className={styles.skillDesc}>
                           {skill.desc}
                         </p>
-
-                        {/* Row 3: tag badge */}
-                        <span className={styles.tagBadge}>
-                          {skill.tag}
-                        </span>
                       </motion.div>
                     );
                   })}

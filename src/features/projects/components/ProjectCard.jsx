@@ -27,6 +27,13 @@ export default function ProjectCard({ project, onClick }) {
   // Enforce maximum of 5 tech stack chips per card
   const slicedTechStack = project.tech || project.techStack ? (project.tech || project.techStack).slice(0, 5) : [];
 
+  const handleTitleClick = (e) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick(e, project);
+    }
+  };
+
   return (
     <article 
       role="article"
@@ -75,6 +82,7 @@ export default function ProjectCard({ project, onClick }) {
           <Link 
             to={`/projects#${slug}`}
             className={styles.projectTitleLink}
+            onClick={handleTitleClick}
           >
             {project.title}
           </Link>

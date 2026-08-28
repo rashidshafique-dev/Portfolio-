@@ -7,7 +7,7 @@ import {
   ArrowLeft,
   BookOpen
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { GithubIcon as Github } from '../../../components/SocialIcons';
 import { projects } from '../../../constants/portfolioData';
 import styles from '../detailed-styles.module.css';
@@ -202,6 +202,7 @@ export default function DetailedProjects() {
     return true;
   });
 
+  const location = useLocation();
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeImg, setActiveImg] = useState(null);
 
@@ -218,30 +219,21 @@ export default function DetailedProjects() {
     }
   }, [selectedProject]);
 
-  // Sync state with URL hash
+  // Sync state with URL hash and router location
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.substring(1).toLowerCase();
-      if (hash) {
-        const found = projectList.find(p => getProjectSlug(p) === hash);
-        if (found) {
-          setSelectedProject(found);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          setSelectedProject(null);
-        }
-      } else {
-        setSelectedProject(null);
+    const rawHash = (location.hash || window.location.hash || '').replace(/^#/, '').toLowerCase();
+    if (rawHash && projectList && projectList.length > 0) {
+      const found = projectList.find(p => getProjectSlug(p) === rawHash);
+      if (found) {
+        setSelectedProject(found);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
       }
-    };
-
-    if (!loading) {
-      handleHashChange();
     }
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [loading, projectList]);
+    if (!rawHash) {
+      setSelectedProject(null);
+    }
+  }, [location, projectList, loading]);
 
   useEffect(() => {
     async function fetchGithubRepos() {
@@ -301,11 +293,13 @@ export default function DetailedProjects() {
             };
           });
 
-        if (mappedProjects.length > 0) {
-          const sortedProjects = mergeProjects(mappedProjects);
-          setProjectList(sortedProjects);
+        const merged = mergeProjects(mappedProjects);
+        setProjectList(merged);
+        try {
           sessionStorage.setItem(CACHE_KEY, JSON.stringify(mappedProjects));
           sessionStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+        } catch (storageErr) {
+          console.warn('SessionStorage quota exceeded, skipping caching:', storageErr);
         }
       } catch (error) {
         console.warn('GitHub API rate limit or error, falling back to cached static data:', error);
@@ -313,7 +307,11 @@ export default function DetailedProjects() {
         if (expiredCache) {
           setProjectList(mergeProjects(JSON.parse(expiredCache)));
         } else {
-          setProjectList([...projects].sort((a, b) => a.id - b.id));
+          setProjectList([...projects].sort((a, b) => {
+            const idA = a.id !== undefined ? a.id : 999;
+            const idB = b.id !== undefined ? b.id : 999;
+            return idA - idB;
+          }));
         }
       } finally {
         setLoading(false);
@@ -326,11 +324,14 @@ export default function DetailedProjects() {
     if (e.target.closest('a') || e.target.closest('button')) {
       return;
     }
-    window.location.hash = getProjectSlug(project);
+    const slug = getProjectSlug(project);
+    setSelectedProject(project);
+    window.location.hash = slug;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBack = () => {
-    window.location.hash = '';
+    window.history.pushState('', document.title, window.location.pathname);
     setSelectedProject(null);
   };
 
@@ -373,52 +374,74 @@ export default function DetailedProjects() {
               </div>
               <h1 className={styles.articleTitle}>{selectedProject.title}</h1>
               <p className={styles.articleTagline}>{selectedProject.tagline || stripEmojis(selectedProject.description)}</p>
+
+              {/* Quick Action Buttons for immediate access */}
+              <div className={styles.headerActions}>
+                <a
+                  href={selectedProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.articlePrimaryAction}
+                >
+                  <ExternalLink size={14} aria-hidden="true" />
+                  <span>Live Demo</span>
+                </a>
+                <a
+                  href={selectedProject.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.articleSecondaryAction}
+                >
+                  <Github size={14} aria-hidden="true" />
+                  <span>GitHub</span>
+                </a>
+              </div>
             </header>
 
-            {/* Hero Image Container */}
-            <div className={styles.articleHero} style={{ '--projects-accent': selectedProject.accentColor || '#1A73E8' }}>
-              <div className={styles.browserHeader} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                  <span className={styles.browserDot} />
-                  <span className={styles.browserDot} />
-                  <span className={styles.browserDot} />
+            {/* Hero Image / Mockup Container */}
+            <div className={styles.heroSectionWrapper}>
+              <div className={styles.articleHero}>
+                <div className={styles.browserHeader}>
+                  <div className={styles.browserDotsGroup}>
+                    <span className={styles.browserDot} style={{ backgroundColor: '#ef4444' }} />
+                    <span className={styles.browserDot} style={{ backgroundColor: '#f59e0b' }} />
+                    <span className={styles.browserDot} style={{ backgroundColor: '#10b981' }} />
+                  </div>
+                  <div className={styles.browserUrlBar}>
+                    {selectedProject.liveUrl ? selectedProject.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') : `${getProjectSlug(selectedProject)}.app`}
+                  </div>
+                  <div style={{ width: '40px' }} />
                 </div>
-                {selectedProject.screenshots && selectedProject.screenshots.length > 0 && (
-                  <div style={{ display: 'flex', gap: '8px', height: '100%', alignItems: 'center' }}>
+                <div className={styles.browserBody}>
+                  {hasImage ? (
+                    <img
+                      src={activeImg || selectedProject.imageUrl}
+                      alt={`${selectedProject.title} Preview`}
+                      className={styles.heroImage}
+                    />
+                  ) : (
+                    <ProjectVisualPlaceholder project={selectedProject} />
+                  )}
+                </div>
+              </div>
+
+              {/* Clean Screenshot Gallery Tabs Below Mockup */}
+              {selectedProject.screenshots && selectedProject.screenshots.length > 1 && (
+                <div className={styles.screenshotTabsContainer}>
+                  <span className={styles.screenshotTabsLabel}>Views:</span>
+                  <div className={styles.screenshotTabsScroller}>
                     {selectedProject.screenshots.map((s) => (
                       <button
                         key={s.label}
                         onClick={() => setActiveImg(s.url)}
-                        style={{
-                          background: 'none',
-                          border: 'none',
-                          color: activeImg === s.url ? 'var(--text-primary)' : 'var(--text-secondary)',
-                          fontSize: '0.75rem',
-                          fontWeight: activeImg === s.url ? '700' : '500',
-                          padding: '2px 8px',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                          backgroundColor: activeImg === s.url ? 'color-mix(in srgb, var(--projects-accent, var(--accent-brand)) 12%, transparent)' : 'transparent',
-                          transition: 'all 0.15s ease'
-                        }}
+                        className={`${styles.screenshotTabBtn} ${activeImg === s.url ? styles.screenshotTabBtnActive : ''}`}
                       >
                         {s.label}
                       </button>
                     ))}
                   </div>
-                )}
-              </div>
-              <div className={styles.browserBody}>
-                {hasImage ? (
-                  <img
-                    src={activeImg || selectedProject.imageUrl}
-                    alt={`${selectedProject.title} Preview`}
-                    className={styles.heroImage}
-                  />
-                ) : (
-                  <ProjectVisualPlaceholder project={selectedProject} />
-                )}
-              </div>
+                </div>
+              )}
             </div>
 
             {/* Article Content Area */}
@@ -439,7 +462,7 @@ export default function DetailedProjects() {
                   <ul className={styles.articleChallengesList}>
                     {challengesList.map((challenge, idx) => (
                       <li key={idx} className={styles.articleChallengeItem}>
-                        <span className={styles.bulletDot} style={{ backgroundColor: selectedProject.accentColor || 'var(--accent-brand)' }} />
+                        <span className={styles.bulletDot} />
                         <span className={styles.challengeText}>{challenge}</span>
                       </li>
                     ))}
@@ -449,7 +472,7 @@ export default function DetailedProjects() {
                 {/* Outcome & Impact */}
                 <section className={styles.articleSection}>
                   <h2 className={styles.articleSectionTitle}>Outcome & Impact</h2>
-                  <div className={styles.articleOutcomeCallout} style={{ borderLeftColor: selectedProject.accentColor || 'var(--accent-brand)' }}>
+                  <div className={styles.articleOutcomeCallout}>
                     <p className={styles.articleOutcomeText}>{outcomeText}</p>
                   </div>
                 </section>
@@ -529,10 +552,6 @@ export default function DetailedProjects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.articlePrimaryAction}
-                      style={{ 
-                        backgroundColor: selectedProject.accentColor || 'var(--accent-brand)',
-                        borderColor: selectedProject.accentColor || 'var(--accent-brand)'
-                      }}
                     >
                       <ExternalLink size={14} aria-hidden="true" />
                       <span>Live Demo</span>
@@ -550,12 +569,6 @@ export default function DetailedProjects() {
                       <Link
                         to={`/build-logs#${selectedProject.relatedLogTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
                         className={styles.articleSecondaryAction}
-                        style={{
-                          '--projects-accent': selectedProject.accentColor || 'var(--accent-brand)',
-                          borderColor: 'var(--projects-accent)',
-                          color: 'var(--projects-accent)',
-                          backgroundColor: 'color-mix(in srgb, var(--projects-accent) 4%, transparent)'
-                        }}
                       >
                         <BookOpen size={14} aria-hidden="true" />
                         <span>Read the Build Log</span>

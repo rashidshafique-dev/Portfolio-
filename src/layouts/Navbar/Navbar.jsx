@@ -3,46 +3,35 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Sun, Moon, Menu, X, Code2,
-  Home, User2, FolderGit2, Sparkles, Briefcase, Mail, FileText
+  Home, User2, FolderGit2, Sparkles, Briefcase, Mail, FileText, BookOpen
 } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../../components/SocialIcons';
 import { useThemeStore, useUIStore } from '../../store';
 import { navLinks, personalInfo } from '../../constants/portfolioData';
 import styles from './Navbar.module.css';
 
-// Map nav paths to beautiful cohesive M3 Google Icons
+// Map nav paths to clean icons
 const iconMap = {
   '/': Home,
   '/about': User2,
   '/projects': FolderGit2,
   '/skills': Sparkles,
   '/experience': Briefcase,
-  '/contact': Mail
+  '/contact': Mail,
+  '/build-logs': BookOpen
 };
 
 export default function Navbar() {
   const { theme, toggleTheme } = useThemeStore();
   const { isMobileMenuOpen, toggleMobileMenu, setMobileMenuOpen } = useUIStore();
   const [scrolled, setScrolled] = useState(false);
-  const [stdoutLog, setStdoutLog] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
-
-  const triggerStdout = (message) => {
-    setStdoutLog(message);
-  };
-
-  useEffect(() => {
-    if (stdoutLog) {
-      const timer = setTimeout(() => setStdoutLog(''), 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [stdoutLog]);
 
   // Handle scrolled navbar consistency on scroll and route changes
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    handleScroll(); // Re-evaluate immediately on mount/navigation
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location]);
@@ -52,46 +41,23 @@ export default function Navbar() {
     setMobileMenuOpen(false);
   }, [location, setMobileMenuOpen]);
 
-  // Global keyboard shortcut listeners
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      const activeEl = document.activeElement;
-      if (
-        activeEl &&
-        (activeEl.tagName === 'INPUT' ||
-          activeEl.tagName === 'TEXTAREA' ||
-          activeEl.isContentEditable)
-      ) {
-        return;
-      }
-
-      if (e.key === 'c' || e.key === 'C') {
-        e.preventDefault();
-        triggerStdout('shortcut [C] -> navigating to contact');
-        navigate('/contact');
-      } else if (e.key === 'r' || e.key === 'R') {
-        e.preventDefault();
-        triggerStdout('shortcut [R] -> opening resume');
-        window.open(personalInfo.resumeUrl, '_blank', 'noopener,noreferrer');
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigate]);
+  const handleMobileNav = (href) => {
+    setMobileMenuOpen(false);
+    navigate(href);
+  };
 
   return (
     <motion.nav
       className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className={`container ${styles.inner}`}>
         {/* Logo */}
         <NavLink to="/" className={styles.logo} aria-label="Home">
           <span className={styles.logoIcon}>
-            <Code2 size={20} aria-hidden="true" />
+            <Code2 size={18} aria-hidden="true" />
           </span>
           <span className={styles.logoText}>
             Rashid<span className={styles.logoDot}>.dev</span>
@@ -128,10 +94,10 @@ export default function Navbar() {
                 initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.15 }}
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
               </motion.span>
             </AnimatePresence>
           </button>
@@ -143,7 +109,6 @@ export default function Navbar() {
             rel="noopener noreferrer"
             download="Muhammad_Rashid_Resume.pdf"
             aria-label="Download Resume"
-            onClick={() => triggerStdout('opening resume')}
           >
             Resume
           </a>
@@ -164,7 +129,7 @@ export default function Navbar() {
                 transition={{ duration: 0.15 }}
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                {isMobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
               </motion.span>
             </AnimatePresence>
           </button>
@@ -179,7 +144,8 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={toggleMobileMenu}
+            transition={{ duration: 0.2 }}
+            onClick={() => setMobileMenuOpen(false)}
           />
         )}
       </AnimatePresence>
@@ -192,50 +158,51 @@ export default function Navbar() {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.mobileMenuHeader}>
               <div className={styles.mobileBrand}>
                 <span className={styles.mobileBrandIcon}>
-                  <Code2 size={20} aria-hidden="true" />
+                  <Code2 size={18} aria-hidden="true" />
                 </span>
                 <div className={styles.mobileBrandText}>
                   <span className={styles.mobileBrandName}>Rashid<span className={styles.logoDot}>.dev</span></span>
-                  <span className={styles.mobileBrandSub}>Systems Engineer</span>
+                  <span className={styles.mobileBrandSub}>Software Engineer</span>
                 </div>
               </div>
               <button
                 className={styles.menuCloseBtn}
-                onClick={toggleMobileMenu}
+                onClick={() => setMobileMenuOpen(false)}
                 aria-label="Close menu"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
+            
             <ul role="list" className={styles.mobileNavList}>
               {navLinks.map((link, i) => {
                 const LinkIcon = iconMap[link.href] || Code2;
+                const isCurrent = location.pathname === link.href || (link.href !== '/' && location.pathname.startsWith(link.href));
                 return (
                   <motion.li
                     key={link.href}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 16 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + i * 0.05 }}
+                    transition={{ delay: 0.04 + i * 0.03, duration: 0.2 }}
                   >
-                    <NavLink
-                      to={link.href}
-                      className={({ isActive }) =>
-                        `${styles.mobileLink} ${isActive ? styles.mobileLinkActive : ''}`
-                      }
-                      end={link.href === '/'}
+                    <button
+                      type="button"
+                      className={`${styles.mobileLink} ${isCurrent ? styles.mobileLinkActive : ''}`}
+                      onClick={() => handleMobileNav(link.href)}
                     >
-                      <LinkIcon size={20} className={styles.mobileLinkIcon} aria-hidden="true" />
+                      <LinkIcon size={18} className={styles.mobileLinkIcon} aria-hidden="true" />
                       <span>{link.label}</span>
-                    </NavLink>
+                    </button>
                   </motion.li>
                 );
               })}
             </ul>
+            
             <div className={styles.mobileActions}>
               <a
                 href={personalInfo.resumeUrl}
@@ -243,10 +210,10 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 download="Muhammad_Rashid_Resume.pdf"
-                onClick={() => triggerStdout('opening resume')}
+                onClick={() => setMobileMenuOpen(false)}
               >
-                <FileText size={18} className={styles.mobileResumeBtnIcon} />
-                <span>Resume</span>
+                <FileText size={16} className={styles.mobileResumeBtnIcon} />
+                <span>Download Resume</span>
               </a>
               
               <div className={styles.mobileSocials}>
@@ -255,40 +222,27 @@ export default function Navbar() {
                   target="_blank" 
                   rel="noopener noreferrer" 
                   aria-label="GitHub"
-                  onClick={() => triggerStdout('opening github')}
+                  className={styles.mobileSocialBtn}
                 >
-                  <Github size={18} />
+                  <Github size={16} />
+                  <span>GitHub</span>
                 </a>
                 <a 
                   href={personalInfo.socials.linkedin} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   aria-label="LinkedIn"
-                  onClick={() => triggerStdout('opening linkedin')}
+                  className={styles.mobileSocialBtn}
                 >
-                  <Linkedin size={18} />
+                  <Linkedin size={16} />
+                  <span>LinkedIn</span>
                 </a>
               </div>
               
               <div className={styles.mobileFooterText}>
-                <span>{personalInfo.location}</span>
+                <span>{personalInfo.location} · Open to Roles</span>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Terminal stdout diagnostic toast */}
-      <AnimatePresence>
-        {stdoutLog && (
-          <motion.div
-            className={styles.stdoutToast}
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 5, scale: 0.98 }}
-            transition={{ duration: 0.15 }}
-          >
-            <code>stdout: {stdoutLog}</code>
           </motion.div>
         )}
       </AnimatePresence>
