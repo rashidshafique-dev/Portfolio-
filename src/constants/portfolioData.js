@@ -729,7 +729,6 @@ export const experience = [
     period: '2023 — Present',
     type: 'Employment',
     location: 'Faisalabad, Pakistan / Remote',
-    metric: '42% Latency Optimized',
     description: 'Architecting and shipping production-grade Python backend services, secure REST APIs, and full-stack web and cross-platform mobile applications.',
     highlights: [
       'Architected and shipped production-grade Python backend services (Django, DRF, FastAPI) applying OOP design patterns and modular software principles for clean, maintainable codebases.',
@@ -748,7 +747,6 @@ export const experience = [
     period: 'Sept 2023 — 2027 (Expected)',
     type: 'Education',
     location: 'Faisalabad, Pakistan',
-    metric: 'Top Academic Tier',
     description: 'Rigorous academic coursework and deep research focus in Data Structures, Algorithmic Analysis, and Relational Database Optimization.',
     highlights: [
       'Core Coursework: Data Structures & Algorithms, Object-Oriented Programming (OOP), Relational Database Management Systems (RDBMS & SQL), Operating Systems, Software Engineering, Web Systems Architecture.',

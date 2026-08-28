@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Briefcase, Terminal, GraduationCap, MapPin, Calendar, Zap } from 'lucide-react';
+import { ExternalLink, Briefcase, Terminal, GraduationCap, MapPin, Calendar } from 'lucide-react';
 import { experience } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import styles from '../styles.module.css';
@@ -56,15 +56,9 @@ function ExperienceCard({ job }) {
                 </span>
               )}
             </div>
-            <div className={styles.badgeRow}>
-              {job.metric && (
-                <span className={styles.metricBadge}>
-                  <Zap size={11} />
-                  <span>{job.metric}</span>
-                </span>
-              )}
+            {job.type && (
               <span className={styles.categoryBadge}>{job.type}</span>
-            </div>
+            )}
           </div>
         </div>
 
