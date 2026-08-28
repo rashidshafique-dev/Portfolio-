@@ -109,8 +109,8 @@ export default function HeroSection() {
                 alt="Muhammad Rashid Shafique — Backend-Focused Full-Stack Engineer"
                 className={`${styles.profileImageLarge} object-top`}
                 loading="eager"
-                width="380"
-                height="475"
+                width="340"
+                height="425"
                 fetchpriority="high"
                 style={{ objectPosition: 'center 25%' }}
               />
