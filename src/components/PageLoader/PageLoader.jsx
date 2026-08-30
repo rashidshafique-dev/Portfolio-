@@ -22,7 +22,7 @@ export default function PageLoader() {
         {/* Name + role */}
         <div className={styles.textBlock}>
           <p className={styles.name}>Muhammad Rashid Shafique</p>
-          <p className={styles.tagline}>Systems Engineer &amp; Full‑Stack Developer</p>
+          <p className={styles.tagline}>Full-Stack Software Engineer</p>
         </div>
 
         {/* Animated dots */}
