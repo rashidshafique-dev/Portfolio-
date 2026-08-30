@@ -340,13 +340,75 @@
   font-weight: 400;
 }
 
+/* Ambient glow aura behind profile photo */
+.ambientAura {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(26, 115, 232, 0.2) 0%, rgba(66, 133, 244, 0.08) 50%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+[data-theme='dark'] .ambientAura {
+  background: radial-gradient(circle, rgba(138, 180, 248, 0.22) 0%, rgba(66, 133, 244, 0.1) 50%, transparent 70%);
+  filter: blur(48px);
+}
+
 /* CTA Buttons row */
 .ctaRow {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  flex-wrap: wrap;
+  gap: 0.65rem;
   width: 100%;
   margin-bottom: 1.25rem;
+}
+
+/* Dedicated High-Converting Resume Hero Button */
+.resumeHeroButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0 18px;
+  height: 40px;
+  background-color: rgba(26, 115, 232, 0.08);
+  color: var(--md-primary, #1a73e8);
+  border: 1px solid rgba(26, 115, 232, 0.25);
+  font-size: var(--md-label-large-size);
+  font-weight: 500;
+  letter-spacing: var(--md-label-large-ls);
+  border-radius: var(--md-shape-full);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+[data-theme='dark'] .resumeHeroButton {
+  background-color: rgba(138, 180, 248, 0.12);
+  border-color: rgba(138, 180, 248, 0.25);
+  color: #8ab4f8;
+}
+
+.resumeHeroButton:hover {
+  background-color: var(--md-primary, #1a73e8);
+  color: #ffffff;
+  border-color: var(--md-primary, #1a73e8);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.25);
+}
+
+[data-theme='dark'] .resumeHeroButton:hover {
+  background-color: #8ab4f8;
+  color: #101216;
+  border-color: #8ab4f8;
+  box-shadow: 0 4px 14px rgba(138, 180, 248, 0.3);
 }
 
 /* MD3 Filled button — pill shape */
@@ -355,71 +417,78 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0 24px;
-  height: 40px;
-  background-color: var(--md-primary);
-  color: var(--md-on-primary);
-  font-size: var(--md-label-large-size); /* 14px */
-  font-weight: 400; /* Reverted to regular to maintain two weights */
-  letter-spacing: var(--md-label-large-ls);
+  padding: 0 22px;
+  height: 42px;
+  background-color: var(--md-primary, #1a73e8);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   border-radius: var(--md-shape-full); /* pill */
   text-decoration: none;
-  border: none;
+  border: 1px solid var(--md-primary, #1a73e8);
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  transition: background-color var(--transition-fast);
+  cursor: pointer;
+  transition: all 180ms ease;
 }
 
-.primaryButton::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background-color: var(--md-on-primary);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-  pointer-events: none;
+.primaryButton:hover {
+  background-color: #1557b0;
+  border-color: #1557b0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.25);
 }
 
-.primaryButton:hover::after { opacity: 0.08; }
-.primaryButton:active::after { opacity: 0.12; }
+.primaryButton:active {
+  transform: scale(0.98);
+}
 
-/* MD3 Outlined button — pill shape */
+/* MD3 Outlined button — pill shape with exact identical dimensions */
 .secondaryButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0 24px;
-  height: 40px;
+  padding: 0 22px;
+  height: 42px;
   background-color: transparent;
-  color: var(--md-primary);
-  font-size: var(--md-label-large-size);
-  font-weight: 400; /* Reverted to regular to maintain two weights */
-  letter-spacing: var(--md-label-large-ls);
-  border: 1px solid var(--md-outline);
+  color: var(--md-primary, #1a73e8);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(26, 115, 232, 0.35);
   border-radius: var(--md-shape-full); /* pill */
   text-decoration: none;
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  transition: border-color var(--transition-fast);
+  cursor: pointer;
+  transition: all 180ms ease;
 }
 
-.secondaryButton::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background-color: var(--md-primary);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-  pointer-events: none;
+[data-theme='dark'] .secondaryButton {
+  border-color: rgba(138, 180, 248, 0.35);
+  color: #8ab4f8;
 }
 
-.secondaryButton:hover::after { opacity: 0.08; }
-.secondaryButton:active::after { opacity: 0.12; }
+.secondaryButton:hover {
+  border-color: var(--md-primary, #1a73e8);
+  background-color: rgba(26, 115, 232, 0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='dark'] .secondaryButton:hover {
+  border-color: #8ab4f8;
+  background-color: rgba(138, 180, 248, 0.1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.secondaryButton:active {
+  transform: scale(0.98);
+}
 
 /* MD3 Tonal button — pill shape (UX layout elevation) */
 .tonalButton {
@@ -488,7 +557,7 @@
 
 @media (max-width: 640px) {
   .hero {
-    padding: 1.5rem 1.25rem 2.5rem; /* px-5 pt-6 pb-10 */
+    padding: 1.15rem 1.25rem 2.25rem; /* Optical compact breathing room */
     background-color: var(--md-surface);
     min-height: auto;
     display: flex;
@@ -502,19 +571,28 @@
 
   .gridContainer { gap: 0; }
 
+  .ambientAura { display: none; }
+
   .rightColumn {
     justify-content: flex-start;
-    margin-bottom: 16px; /* mb-4 gap: photo -> badge */
+    margin-bottom: 14px;
   }
 
   .profileCard {
     width: 96px;
     height: 96px;
     max-width: 96px;
-    border-radius: 20px; /* rounded-[20px] */
+    border-radius: 20px;
     border: none;
     background: transparent;
     box-shadow: none;
+    overflow: hidden;
+  }
+
+  [data-theme='dark'] .profileCard {
+    border: none;
+    box-shadow: none;
+    background: transparent;
   }
 
   .profileImageLarge {
@@ -589,45 +667,46 @@
 
   .ctaRow {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     align-items: center;
     width: 100%;
-    gap: 12px; /* gap-3 */
+    gap: 10px;
   }
 
   .primaryButton,
-  .secondaryButton,
-  .tonalButton {
-    flex: 1 1 140px;
-    min-width: 130px;
+  .secondaryButton {
+    flex: 1 1 0;
+    min-width: 0;
     white-space: nowrap;
-    height: 40px;
+    height: 42px;
     border-radius: 9999px;
-    font-size: 13px;
-    font-weight: 400; /* Reverted to regular to maintain two weights */
-    padding: 0 1rem;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 0 12px;
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+    box-sizing: border-box;
   }
 
   .primaryButton {
-    background-color: var(--md-primary);
-    color: var(--md-on-primary);
-    border: none;
+    background-color: var(--md-primary, #1a73e8);
+    color: #ffffff;
+    border: 1px solid var(--md-primary, #1a73e8);
   }
 
   .secondaryButton {
     background-color: transparent;
-    border: 1px solid var(--md-outline-variant);
-    color: var(--md-primary);
+    border: 1px solid rgba(26, 115, 232, 0.35);
+    color: var(--md-primary, #1a73e8);
   }
 
-  .tonalButton {
-    background-color: var(--md-secondary-container) !important;
-    color: var(--md-on-secondary-container) !important;
-    border: none !important;
+  [data-theme='dark'] .secondaryButton {
+    border-color: rgba(138, 180, 248, 0.35);
+    color: #8ab4f8;
   }
 
   .ctaIcon {

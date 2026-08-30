@@ -181,21 +181,19 @@ export default function Navbar() {
             
             <ul role="list" className={styles.mobileNavList}>
               {navLinks.map((link, i) => {
-                const LinkIcon = iconMap[link.href] || Code2;
                 const isCurrent = location.pathname === link.href || (link.href !== '/' && location.pathname.startsWith(link.href));
                 return (
                   <motion.li
                     key={link.href}
-                    initial={{ opacity: 0, x: 16 }}
+                    initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.04 + i * 0.03, duration: 0.2 }}
+                    transition={{ delay: 0.03 + i * 0.02, duration: 0.18 }}
                   >
                     <button
                       type="button"
                       className={`${styles.mobileLink} ${isCurrent ? styles.mobileLinkActive : ''}`}
                       onClick={() => handleMobileNav(link.href)}
                     >
-                      <LinkIcon size={18} className={styles.mobileLinkIcon} aria-hidden="true" />
                       <span>{link.label}</span>
                     </button>
                   </motion.li>
@@ -212,7 +210,7 @@ export default function Navbar() {
                 download="Muhammad_Rashid_Resume.pdf"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <FileText size={16} className={styles.mobileResumeBtnIcon} />
+                <FileText size={15} className={styles.mobileResumeBtnIcon} />
                 <span>Download Resume</span>
               </a>
               
@@ -224,7 +222,7 @@ export default function Navbar() {
                   aria-label="GitHub"
                   className={styles.mobileSocialBtn}
                 >
-                  <Github size={16} />
+                  <Github size={15} />
                   <span>GitHub</span>
                 </a>
                 <a 
@@ -234,13 +232,9 @@ export default function Navbar() {
                   aria-label="LinkedIn"
                   className={styles.mobileSocialBtn}
                 >
-                  <Linkedin size={16} />
+                  <Linkedin size={15} />
                   <span>LinkedIn</span>
                 </a>
-              </div>
-              
-              <div className={styles.mobileFooterText}>
-                <span>{personalInfo.location} · Open to Roles</span>
               </div>
             </div>
           </motion.div>

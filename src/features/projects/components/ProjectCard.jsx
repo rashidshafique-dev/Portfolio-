@@ -62,19 +62,11 @@ export default function ProjectCard({ project, onClick }) {
  
       {/* Card Info and Meta */}
       <div className={styles.cardContent}>
-        {/* Row 1 — badge */}
+        {/* Row 1 — Clean Category Badge */}
         <div className={styles.cardHeaderMeta}>
           <span className={styles.categoryBadge}>
             {project.category || 'Software'}
           </span>
-          {project.metric && (
-            <span 
-              className={styles.metricBadge} 
-              style={{ '--projects-accent': project.accentColor || 'var(--accent-brand)' }}
-            >
-              {project.metric}
-            </span>
-          )}
         </div>
  
         {/* Row 2 — project title */}

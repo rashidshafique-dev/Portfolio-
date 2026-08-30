@@ -13,9 +13,11 @@
 /* MD3 Label Medium eyebrow */
 .eyebrow {
   display: inline-block;
-  font-size: var(--md-label-medium-size);   /* 12px */
+  font-size: var(--md-label-medium-size);
+  /* 12px */
   line-height: var(--md-label-medium-lh);
-  letter-spacing: 0.1em;                    /* tracking-widest */
+  letter-spacing: 0.1em;
+  /* tracking-widest */
   font-weight: 500;
   text-transform: uppercase;
   color: var(--md-primary);
@@ -24,9 +26,11 @@
 
 /* MD3 Headline Medium — weight 400, NOT bold */
 .title {
-  font-size: var(--md-headline-medium-size); /* 28px */
+  font-size: var(--md-headline-medium-size);
+  /* 28px */
   font-weight: 400;
-  line-height: var(--md-headline-medium-lh); /* 36px */
+  line-height: var(--md-headline-medium-lh);
+  /* 36px */
   letter-spacing: var(--md-headline-medium-ls);
   color: var(--md-on-surface);
   margin-top: 0;
@@ -35,9 +39,12 @@
 
 /* MD3 Body Medium subtitle */
 .subtitle {
-  font-size: var(--md-body-medium-size);    /* 14px */
-  line-height: var(--md-body-medium-lh);   /* 20px */
-  letter-spacing: var(--md-body-medium-ls);/* 0.25px */
+  font-size: var(--md-body-medium-size);
+  /* 14px */
+  line-height: var(--md-body-medium-lh);
+  /* 20px */
+  letter-spacing: var(--md-body-medium-ls);
+  /* 0.25px */
   color: var(--md-on-surface-variant);
   max-width: 560px;
 }

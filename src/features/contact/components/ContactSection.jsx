@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Phone, Clock, CheckCircle2, AlertCircle, Loader2, Briefcase, Monitor, Laptop } from 'lucide-react';
+import { Send, Mail, MapPin, Phone, Clock, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../../../components/SocialIcons';
 import { personalInfo } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import styles from '../styles.module.css';
@@ -89,14 +90,15 @@ export default function ContactSection() {
         <span className={styles.eyebrow}>GET IN TOUCH</span>
         <h1 className={styles.title}>Let's Work Together</h1>
         <p className={styles.subtitle}>
-          Available for internships, junior roles, and freelance projects — remote or Faisalabad, Pakistan.
+          Available for full-stack engineering roles, Python backend contracts, and custom web applications.
         </p>
       </div>
 
       <div className={styles.contactGrid}>
-        {/* Left Column — Contact Details Card */}
+        {/* Left Column — Direct Details Card */}
         <motion.div className={styles.contactInfo} variants={itemVariants}>
-          <h3 className={styles.infoTitle}>Contact Details</h3>
+          <h3 className={styles.infoTitle}>Direct Contact</h3>
+          
           <div className={styles.infoItems}>
             <div className={styles.infoItem}>
               <span className={styles.infoIcon}><Mail size={16} /></span>
@@ -107,63 +109,57 @@ export default function ContactSection() {
                 </a>
               </div>
             </div>
-            <div className={styles.infoItem}>
-              <span className={styles.infoIcon}><MapPin size={16} /></span>
-              <div>
-                <p className={styles.infoLabel}>Location</p>
-                <p className={styles.infoValue}>{personalInfo.location}</p>
-              </div>
-            </div>
+            
             <div className={styles.infoItem}>
               <span className={styles.infoIcon}><Phone size={16} /></span>
               <div>
-                <p className={styles.infoLabel}>Phone</p>
+                <p className={styles.infoLabel}>Phone / WhatsApp</p>
                 <a href={`tel:${personalInfo.phone}`} className={styles.infoValue}>
                   {personalInfo.phone}
                 </a>
               </div>
             </div>
+
             <div className={styles.infoItem}>
-              <span className={styles.infoIcon}><Clock size={16} /></span>
+              <span className={styles.infoIcon}><MapPin size={16} /></span>
               <div>
-                <p className={styles.infoLabel}>Working Hours</p>
-                <p className={styles.infoValue}>Mon–Fri (GMT+5)</p>
+                <p className={styles.infoLabel}>Location & Timezone</p>
+                <p className={styles.infoValue}>{personalInfo.location} · GMT+5</p>
               </div>
             </div>
           </div>
 
           <div className={styles.availBadge}>
             <span className={`${styles.availDot} animate-pulse`} />
-            <span>Currently Available</span>
+            <span>Available for Full-Time & Contracts</span>
           </div>
 
           <div className={styles.divider} />
 
-          {/* What I'm Looking For */}
-          <div className={styles.lookingFor}>
-            <h4 className={styles.lookingForTitle}>What I'm Looking For</h4>
-            <div className={styles.lookingForItems}>
-              <div className={styles.lookingForItem}>
-                <span className={styles.lookingForIcon}><Briefcase size={14} /></span>
-                <div>
-                  <p className={styles.lookingForLabel}>Open To</p>
-                  <p className={styles.lookingForValue}>Internships · Junior Full-Stack · Backend Roles · Freelance</p>
-                </div>
-              </div>
-              <div className={styles.lookingForItem}>
-                <span className={styles.lookingForIcon}><Monitor size={14} /></span>
-                <div>
-                  <p className={styles.lookingForLabel}>Work Mode</p>
-                  <p className={styles.lookingForValue}>Remote · On-site (Faisalabad, Pakistan)</p>
-                </div>
-              </div>
-              <div className={styles.lookingForItem}>
-                <span className={styles.lookingForIcon}><Laptop size={14} /></span>
-                <div>
-                  <p className={styles.lookingForLabel}>Core Stack</p>
-                  <p className={styles.lookingForValue}>Python · Django · FastAPI · React.js · PostgreSQL</p>
-                </div>
-              </div>
+          {/* Social Profiles */}
+          <div className={styles.socialSection}>
+            <p className={styles.socialHeading}>Profiles & Networks</p>
+            <div className={styles.socialGrid}>
+              <a
+                href={personalInfo.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialBtn}
+                aria-label="GitHub"
+              >
+                <Github size={14} />
+                <span>GitHub</span>
+              </a>
+              <a
+                href={personalInfo.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.socialBtn}
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={14} />
+                <span>LinkedIn</span>
+              </a>
             </div>
           </div>
         </motion.div>

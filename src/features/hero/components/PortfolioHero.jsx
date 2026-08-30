@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, FileText, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import styles from '../styles.module.css';
 import profileLargeImg from '../../../assets/profile1.webp';
@@ -62,7 +62,8 @@ const TwitterIcon = ({ size = 18 }) => (
 export default function HeroSection() {
   return (
     <section className={styles.hero} id="hero">
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .object-top {
           object-position: top center !important;
         }
@@ -101,8 +102,9 @@ export default function HeroSection() {
       <div className="container">
         <div className={`${styles.gridContainer} items-center`}>
 
-          {/* ── Group B: Right Column (Large profile photo) ── */}
+          {/* ── Group B: Right Column (Large profile photo with ambient aura) ── */}
           <div className={styles.rightColumn}>
+            <div className={styles.ambientAura} aria-hidden="true" />
             <div className={styles.profileCard}>
               <img
                 src={profileLargeImg}
@@ -111,7 +113,7 @@ export default function HeroSection() {
                 loading="eager"
                 width="340"
                 height="425"
-                fetchpriority="high"
+                fetchPriority="high"
                 style={{ objectPosition: 'center 25%' }}
               />
             </div>
@@ -119,11 +121,11 @@ export default function HeroSection() {
 
           {/* ── Group A & C: Header & Details (Pill, Positioning Line, Name, Tagline, Bio, CTAs) ── */}
           <div className={styles.headerBlock} style={{ gridRow: '1 / span 2' }}>
-            {/* ── delay1: Status badge ── */}
+            {/* ── delay1: Status badge (Simple & Professional) ── */}
             <div className={`${styles.avatarStatusRow} ${styles.animItem} ${styles.delay1}`}>
               <div className={styles.statusBadge}>
                 <span className={styles.statusDot} />
-                <span className={styles.statusText}>Available for Opportunities</span>
+                <span className={styles.statusText}>Available for Hire</span>
               </div>
             </div>
 
@@ -134,32 +136,36 @@ export default function HeroSection() {
 
             {/* ── delay3: Role subtitle (hierarchy bridge between name and bio) ── */}
             <p className={`${styles.roleSubtitle} ${styles.animItem} ${styles.delay3}`}>
-              Full-Stack Developer &middot; Python &middot; Django &middot; React
+              Full-Stack Software Engineer &middot; Python &middot; Django &middot; React
             </p>
 
             {/* ── delay4: Bio ── */}
             <p className={`${styles.description} ${styles.animItem} ${styles.delay4}`}>
-              I build full-stack web apps and Python backends. CS student at UAF, working on real projects on the side — always learning, always shipping.
+              Engineering scalable full-stack web applications, secure Python REST backends, and modern React interfaces. Focused on robust system architecture, database performance optimization, and clean production code.
             </p>
 
-            {/* ── delay5: CTA Buttons ── */}
+            {/* ── delay5: CTA Buttons (Symmetric Equal-Sized Pair) ── */}
             <div className={`${styles.ctaRow} ${styles.animItem} ${styles.delay5}`}>
               <Link
                 to="/projects"
                 className={styles.primaryButton}
                 aria-label="Explore projects by Muhammad Rashid Shafique"
               >
-                <span>Explore My Work</span>
-                <ArrowRight size={18} className={styles.ctaIcon} aria-hidden="true" />
+                <span>Explore Work</span>
+                <ArrowRight size={16} className={styles.ctaIcon} aria-hidden="true" />
               </Link>
 
-              <Link
-                to="/contact"
+              <a
+                href={personalInfo.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Muhammad_Rashid_Resume.pdf"
                 className={styles.secondaryButton}
-                aria-label="Contact Muhammad Rashid Shafique"
+                aria-label="Download Resume"
               >
-                <span>Contact Me</span>
-              </Link>
+                <FileText size={15} aria-hidden="true" />
+                <span>Resume</span>
+              </a>
             </div>
 
             {/* ── delay6: Social Links ── */}

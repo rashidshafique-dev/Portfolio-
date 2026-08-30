@@ -26,9 +26,9 @@ import bhuttaImageImg from '../assets/image.png';
 
 export const personalInfo = {
   name: 'Muhammad Rashid Shafique',
-  title: 'Full-Stack Developer · Python · Django · React',
-  tagline: 'I build full-stack web apps and Python backends. Currently a BS Computer Science student at UAF — working on real projects, shipping real things.',
-  bio: `I'm a CS student at UAF and a self-taught full-stack developer. I mostly work with Python (Django, FastAPI) on the backend and React on the frontend. I enjoy solving actual problems with code — not just building things for the sake of it.`,
+  title: 'Full-Stack Software Engineer · Python · Django · React',
+  tagline: 'Building scalable web applications, secure Python REST APIs, and high-performance backend systems.',
+  bio: 'Software Engineer specializing in Python backends (Django, FastAPI), relational database architecture (PostgreSQL), and modern React frontends. Strong foundation in Data Structures, Algorithms, and System Design with a proven track record of shipping production client solutions.',
   location: 'Faisalabad, Pakistan',
   email: 'rashidshafique.dev@gmail.com',
   phone: '+92 319 8696623',
@@ -50,27 +50,55 @@ export const personalInfo = {
   },
 };
 
+export const credentials = [
+  {
+    id: 1,
+    title: 'BS in Computer Science',
+    institution: 'University of Agriculture Faisalabad (UAF)',
+    period: '2023 — 2027',
+    badge: 'Degree',
+    highlights: 'Data Structures, Algorithms (Big-O), Relational Databases (SQL), Operating Systems, Software Architecture',
+  },
+  {
+    id: 2,
+    title: 'Python & Django Backend Engineering',
+    institution: 'Production Systems & API Architecture',
+    period: '2023 — Present',
+    badge: 'Backend',
+    highlights: 'REST Framework, Stateless JWT Rotation, PostgreSQL Indexing, Multi-Threaded I/O, Async Pipelines',
+  },
+  {
+    id: 3,
+    title: 'Full-Stack React & Web Performance',
+    institution: 'Commercial Platform Development',
+    period: '2024 — Present',
+    badge: 'Frontend',
+    highlights: 'React SPA, Vanilla CSS Design Systems, Core Web Vitals (0.00 CLS), State Management',
+  },
+];
+
 export const navLinks = [
   { label: 'Home',       href: '/'           },
   { label: 'About',      href: '/about'       },
   { label: 'Projects',   href: '/projects'    },
   { label: 'Skills',     href: '/skills'      },
   { label: 'Experience', href: '/experience'  },
+  { label: 'Build Logs', href: '/build-logs'  },
   { label: 'Contact',    href: '/contact'     },
 ];
 
 export const stats = [
-  { value: '25+',    label: 'Tech Skills' }, // Comprehensive framework, language & database tools
-  { value: '10+',    label: 'Projects Built' }, // Real-world & semester projects
-  { value: '42%',    label: 'Latency Optimized' }, // Optimized C++, socket servers & APIs
-  { value: '99.9%',  label: 'System Uptime' } // Reliable crons, databases & deployments
+  { value: '25+',    label: 'Technologies & Tools' },
+  { value: '10+',    label: 'Engineered Systems' },
+  { value: '42%',    label: 'Query Latency Cut' },
+  { value: '99.9%',  label: 'Service Reliability' }
 ];
 
 export const projects = [
   {
     id: 1,
     title: 'Bhutta Scents',
-    description: 'Live client e-commerce site at bhuttascents.com — a premium fragrance storefront for Bhutta Scents. Delivered 0 CLS layout shift and 100% client satisfaction with smooth CSS animations and responsive grid layouts.',
+    description: 'Live luxury fragrance e-commerce platform (bhuttascents.com) featuring 50+ curated SKUs, zero layout shift (0.00 CLS), sub-second cart mutations with Context/LocalStorage, and 100% verified client satisfaction.',
     techStack: ['React', 'Vite', 'Vanilla CSS', 'State Management'],
     tech: ['React', 'Vite', 'Vanilla CSS', 'State Management'],
     category: 'Full-Stack',
@@ -79,7 +107,7 @@ export const projects = [
     githubUrl: 'https://github.com/rashidshafique-dev/BhuttaScents',
     accentColor: '#D4AF37', // Gold metallic accent for luxury brand
     imageUrl: bhuttaScientsImg,
-    metric: 'Real Client (Alhamdullilah Satisfied)',
+    metric: '0.00 CLS · 50+ SKUs · Live Client',
     relatedLogTitle: 'Eliminating Cumulative Layout Shift (CLS) on High-Resolution E-Commerce Grids',
     screenshots: [
       { label: 'Product Banner', url: bhuttaImageImg },
@@ -119,7 +147,7 @@ export const projects = [
   {
     id: 2,
     title: 'Al Shifaa Clinic',
-    description: 'A secure hospital management system with 7 role-based dashboards (Admin, Doctor, Nurse, Patient, Receptionist, Pharmacist, Lab). Integrates stateless JWT auth with Google OAuth 2.0 SSO and a 42% latency reduction from SQL indexing.',
+    description: 'Full-stack clinic system with 7 role-based portals (Doctor, Patient, Admin, Pharmacist, Lab, Nurse, Receptionist), 15+ secure Django REST APIs, stateless JWT token auto-rotation, and 42% faster query response via PostgreSQL composite indexing.',
     techStack: ['React', 'Django REST Framework', 'PostgreSQL', 'JWT', 'LLMs'],
     tech: ['React', 'Django REST Framework', 'PostgreSQL', 'JWT', 'LLMs'],
     category: 'Full-Stack',
@@ -128,7 +156,7 @@ export const projects = [
     githubUrl: 'https://github.com/rashidshafique-dev/AI-HMS',
     accentColor: '#10B981',
     imageUrl: aiHmsImg,
-    metric: '42% Latency Reduction',
+    metric: '7 Role Portals · 42% Query Latency Reduced',
     relatedLogTitle: 'Solving JWT Token-Refresh Race Conditions in React & Django REST Framework',
     tagline: 'AI-powered hospital management system with secure multi-role access control.',
     status: 'In Progress',
@@ -771,14 +799,13 @@ export const currentAcademicStatus = getCurrentSemesterInfo();
 export const experience = [
   {
     id: 1,
-    role: 'Freelance Full-Stack Developer',
+    role: 'Full-Stack Software Engineer',
     company: 'Self-Employed / Remote',
     companyUrl: 'https://github.com/rashidshafique-dev',
     period: '2023 — Present',
-    type: 'Freelance',
+    type: 'Full-Stack & Backend',
     category: 'work',
     location: 'Faisalabad · Remote',
-    metric: '⚡ 42% Query Latency Reduced',
     isCurrent: true,
     description: 'Building high-performance REST APIs, Python backend services, and responsive React web applications.',
     highlights: [
@@ -791,14 +818,13 @@ export const experience = [
   },
   {
     id: 2,
-    role: 'Frontend Engineer (Client Project)',
+    role: 'Frontend Engineer',
     company: 'Bhutta Scents',
     companyUrl: 'https://bhuttascents.com',
     period: '2024 — 2025',
-    type: 'Client Project',
+    type: 'Commercial Platform',
     category: 'client',
     location: 'Faisalabad, Pakistan',
-    metric: '⭐ 100% Client Satisfaction · Live at bhuttascents.com',
     isCurrent: false,
     description: 'Engineered an end-to-end luxury fragrance e-commerce web application with custom Vanilla CSS and instant cart operations.',
     highlights: [
@@ -823,11 +849,11 @@ export const experience = [
     progress: currentAcademicStatus.progress,
     progressLabel: currentAcademicStatus.progressLabel,
     isCurrent: true,
-    description: `Undergraduate computer science student currently in ${currentAcademicStatus.semesterText} (${currentAcademicStatus.yearText}), focusing on algorithms, database architecture, and backend systems.`,
+    description: `Undergraduate candidate in Computer Science (${currentAcademicStatus.semesterText}, ${currentAcademicStatus.yearText}), with focused coursework in algorithmic analysis, relational database architecture, and backend systems.`,
     highlights: [
       'Coursework: Data Structures & Algorithms, Object-Oriented Programming (OOP), Relational Databases (SQL), Operating Systems, Software Engineering.',
-      'Applied coursework to engineer semester systems: IoT telemetry (AquaSync) and Sales analytics ML forecasting.',
-      'Core focus on algorithmic time/space complexity analysis (Big-O) and modular code design.',
+      'Engineered full-stack and IoT telemetry systems applying core CS principles (AquaSync & predictive sales analytics).',
+      'Core focus on algorithmic time/space complexity analysis (Big-O) and modular system design.',
     ],
     techStack: ['Data Structures', 'Algorithms', 'OOP', 'SQL & RDBMS', 'C++', 'Python'],
     color: '#1A73E8',

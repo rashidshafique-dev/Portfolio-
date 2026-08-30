@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import ExperienceSection from '../features/experience';
+import HireMeCTA from '../features/cta';
 
 const BASE_URL = 'https://rashid-shafique-portfolio.vercel.app';
 
@@ -67,6 +68,7 @@ export default function ExperiencePage() {
         <script type="application/ld+json">{JSON.stringify(experienceSchema)}</script>
       </Helmet>
       <ExperienceSection />
+      <HireMeCTA />
     </>
   );
 }

@@ -209,47 +209,65 @@ a.infoValue:hover {
   background-color: rgba(255, 255, 255, 0.08);
 }
 
-/* Quick Stats Row */
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-}
-
-.statCard {
-  background-color: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  padding: 10px 12px;
+/* Social Section */
+.socialSection {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0.6rem;
 }
 
-[data-theme='dark'] .statCard {
-  background-color: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.06);
-}
-
-.statValue {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--md-on-surface, #202124);
+.socialHeading {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--md-on-surface-variant, #5f6368);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
   line-height: 1.2;
 }
 
-[data-theme='dark'] .statValue {
+[data-theme='dark'] .socialHeading {
+  color: #9aa0a6;
+}
+
+.socialGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+}
+
+.socialBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  color: var(--md-on-surface, #202124);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+[data-theme='dark'] .socialBtn {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
   color: #e8eaed;
 }
 
-.statLabel {
-  font-size: 0.7rem;
-  color: var(--md-on-surface-variant, #5f6368);
-  line-height: 1.2;
+.socialBtn:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: var(--md-primary, #1a73e8);
 }
 
-[data-theme='dark'] .statLabel {
-  color: #9aa0a6;
+[data-theme='dark'] .socialBtn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #8ab4f8;
 }
 
 /* Right Column — Contact Form Card */

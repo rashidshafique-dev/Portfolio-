@@ -214,10 +214,10 @@ export default function TestimonialsSection() {
         
         {/* Section Header */}
         <div className={styles.headerContainer}>
-          <span className={styles.eyebrow}>SOCIAL PROOF</span>
-          <h2 className={styles.title}>What People Say</h2>
+          <span className={styles.eyebrow}>RECOMMENDATIONS</span>
+          <h2 className={styles.title}>Testimonials & Feedback</h2>
           <p className={styles.subtitle}>
-            Feedback from engineering leaders, product managers, and founders I've had the privilege of working with.
+            Endorsements from clients, engineering collaborators, and mentors on technical execution and product delivery.
           </p>
         </div>
 

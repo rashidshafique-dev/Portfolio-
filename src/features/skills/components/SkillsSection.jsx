@@ -30,48 +30,48 @@ const SKILLS = [
     category: "Core Languages",
     filter: "languages",
     items: [
-      { name: "Python", desc: "My main language. I use it for backends, APIs, automation scripts, and data projects.", icon: "FileCode2", currentFocus: true, level: "Expert" },
-      { name: "C++", desc: "Used in coursework and for the AquaSync IoT project (Arduino firmware).", icon: "Cpu", level: "Familiar" },
-      { name: "Java", desc: "Covered in university. Good for understanding OOP and data structures concepts.", icon: "Coffee", level: "Familiar" },
-      { name: "HTML5 & CSS3", desc: "I write clean HTML and CSS by hand — no generated code, proper structure.", icon: "Globe", level: "Expert" },
+      { name: "Python", desc: "Core language for backend systems, asynchronous APIs, automation, and data pipelines.", icon: "FileCode2" },
+      { name: "C++", desc: "Low-level system architecture, algorithm efficiency, and hardware firmware (AquaSync IoT).", icon: "Cpu" },
+      { name: "Java", desc: "Object-oriented architecture, thread concurrency, and computational structures.", icon: "Coffee" },
+      { name: "HTML5 & CSS3", desc: "Semantic markup, modern CSS tokens, responsive flex/grid primitives, and Web Vitals.", icon: "Globe" },
     ]
   },
   {
     category: "Backend & API Engineering",
     filter: "backend",
     items: [
-      { name: "Django", desc: "My go-to Python framework. ORM, auth, REST APIs — I know it well.", icon: "Server", currentFocus: true, level: "Expert" },
-      { name: "FastAPI", desc: "For async APIs that need to be fast. Auto-docs are a nice bonus.", icon: "Zap", level: "Expert" },
-      { name: "Django REST", desc: "Serializers, viewsets, permissions — I use DRF on all my Django projects.", icon: "Layers", currentFocus: true, level: "Expert" },
-      { name: "Node.js & Express", desc: "Used it on a few projects. Comfortable enough for simple REST APIs.", icon: "Box", level: "Proficient" },
+      { name: "Django", desc: "Production Python framework with robust ORM modeling, middleware, and secure authentication.", icon: "Server" },
+      { name: "FastAPI", desc: "High-throughput asynchronous REST APIs with Pydantic validation and automatic OpenAPI specs.", icon: "Zap" },
+      { name: "Django REST", desc: "Custom viewsets, serializers, declarative permission policies, and token rotation.", icon: "Layers" },
+      { name: "Node.js & Express", desc: "Event-driven asynchronous micro-services and scalable REST API endpoints.", icon: "Box" },
     ]
   },
   {
     category: "Frontend & UI",
     filter: "frontend",
     items: [
-      { name: "React.js", desc: "My main frontend tool. Hooks, state management, component patterns — daily use.", icon: "Atom", currentFocus: true, level: "Expert" },
-      { name: "Tailwind CSS", desc: "Great for moving fast. I use it when I don't need fine-grained control.", icon: "Paintbrush", level: "Expert" },
-      { name: "Vite", desc: "My build tool of choice — fast dev server, clean production builds.", icon: "Flame", level: "Proficient" },
-      { name: "React Native", desc: "Built cross-platform mobile apps with it. Comfortable with Expo workflow.", icon: "Component", level: "Proficient" },
+      { name: "React.js", desc: "Single-page application architectures, custom hooks, context controllers, and optimized render trees.", icon: "Atom" },
+      { name: "Tailwind CSS", desc: "Rapid responsive interface construction with utility-first modern design systems.", icon: "Paintbrush" },
+      { name: "Vite", desc: "Modern frontend build tooling with hot module replacement and optimized production bundles.", icon: "Flame" },
+      { name: "React Native", desc: "Cross-platform mobile interfaces, native device bridges, and Expo workflow management.", icon: "Component" },
     ]
   },
   {
     category: "Databases & Auth",
     filter: "database",
     items: [
-      { name: "PostgreSQL", desc: "Relational DB I use most. I care about schema design and proper indexing.", icon: "Database", currentFocus: true, level: "Expert" },
-      { name: "JWT & OAuth", desc: "Handled auth on every project — token rotation, blacklisting, Google OAuth.", icon: "KeyRound", level: "Expert" },
-      { name: "Supabase & Firebase", desc: "For projects that need real-time data or quick managed auth setup.", icon: "ShieldCheck", level: "Proficient" },
+      { name: "PostgreSQL", desc: "Normalized relational schema modeling, composite B-tree indexing, and query optimization.", icon: "Database" },
+      { name: "JWT & OAuth 2.0", desc: "Stateless authentication, single-use token rotation queues, and Google SSO integrations.", icon: "KeyRound" },
+      { name: "Supabase & Firebase", desc: "Cloud database architectures, real-time subscriptions, and managed auth infrastructure.", icon: "ShieldCheck" },
     ]
   },
   {
     category: "DevOps & Tools",
     filter: "devops",
     items: [
-      { name: "Git & GitHub", desc: "Use it every day. Branching, PRs, conflict resolution — comfortable with it all.", icon: "GitBranch", currentFocus: true, level: "Expert" },
-      { name: "Vercel & Railway", desc: "Where I deploy. Both are fast to set up and reliable for personal projects.", icon: "Triangle", level: "Proficient" },
-      { name: "Linux & Bash", desc: "I work in Linux terminals, write shell scripts, and set up cron jobs.", icon: "Container", level: "Proficient" },
+      { name: "Git & GitHub", desc: "Version control workflows, trunk-based development, pull request reviews, and CI automation.", icon: "GitBranch" },
+      { name: "Vercel & Railway", desc: "Automated continuous deployment pipelines with zero-downtime production rollouts.", icon: "Triangle" },
+      { name: "Linux & Bash", desc: "Command-line environments, automated shell scripts, system crons, and daemon management.", icon: "Container" },
     ]
   }
 ];
@@ -104,52 +104,33 @@ export default function SkillsSection() {
   const [activeFilter, setActiveFilter] = useState("all");
 
   const FILTER_CHIPS = [
-    { label: "All", value: "all" },
-    { label: "Primary Stack", value: "focus" },
-    { label: "Familiar (Academic)", value: "familiar" },
+    { label: "All Skills", value: "all" },
     { label: "Languages", value: "languages" },
-    { label: "Backend", value: "backend" },
-    { label: "UI/UX", value: "frontend" },
-    { label: "Data & Storage", value: "database" },
-    { label: "DevOps", value: "devops" }
+    { label: "Backend & APIs", value: "backend" },
+    { label: "Frontend & UI", value: "frontend" },
+    { label: "Databases & Auth", value: "database" },
+    { label: "DevOps & Tools", value: "devops" }
   ];
 
   // Filter skills based on active filter
   const filteredCategories = activeFilter === "all"
     ? SKILLS
-    : activeFilter === "focus"
-      ? SKILLS.map(cat => ({
-          ...cat,
-          items: cat.items.filter(item => item.currentFocus)
-        })).filter(cat => cat.items.length > 0)
-      : activeFilter === "familiar"
-        ? SKILLS.map(cat => ({
-            ...cat,
-            items: cat.items.filter(item => item.level === "Familiar")
-          })).filter(cat => cat.items.length > 0)
-        : SKILLS.filter(cat => cat.filter === activeFilter);
+    : SKILLS.filter(cat => cat.filter === activeFilter);
 
   return (
     <section className={styles.section} id="skills">
       <div className="container">
         
-        {/* Section Header — Clean, single concise statement */}
+        {/* Section Header */}
         <div className={styles.headerContainer}>
           <span className={styles.eyebrow}>TECHNICAL STACK</span>
           <h2 className={styles.title}>Skills & Technologies</h2>
           <p className={styles.subtitle}>
-            Python backends, React frontends, and data-driven tools — built and deployed.
+            Production technologies and frameworks engineered across full-stack systems.
           </p>
         </div>
 
-        {/* Level Legend */}
-        <div className={styles.levelLegend}>
-          <span className={styles.legendItem}><span className={styles.legendDotCore} /> Core Stack</span>
-          <span className={styles.legendItem}><span className={styles.legendDotProficient} /> Proficient</span>
-          <span className={styles.legendItem}><span className={styles.legendDotFamiliar} /> Familiar (Academic)</span>
-        </div>
-
-        {/* Filter Chips — Subtler borders and cleaner active states */}
+        {/* Filter Chips */}
         <nav className={styles.filterTabsContainer} aria-label="Skills category filtering">
           <div className={styles.filterTabsScroller}>
             {FILTER_CHIPS.map((chip) => (
@@ -169,8 +150,7 @@ export default function SkillsSection() {
         <div className={styles.categoriesWrapper}>
           {filteredCategories.map((categoryGroup) => (
             <div key={categoryGroup.filter} className={styles.categorySection}>
-              {/* Show category label when activeFilter is "all" or "focus" */}
-              {(activeFilter === "all" || activeFilter === "focus") && (
+              {activeFilter === "all" && (
                 <h3 className={styles.categoryLabel}>
                   {categoryGroup.category}
                 </h3>
@@ -190,21 +170,14 @@ export default function SkillsSection() {
                         key={skill.name} 
                         className={styles.skillCard}
                       >
-                        {/* Header: Subtle icon + Technology name + Proficiency */}
+                        {/* Header: Clean Icon + Technology name */}
                         <div className={styles.cardHeader}>
                           <div className={styles.iconWrapper}>
                             <IconComponent size={16} strokeWidth={1.75} aria-hidden="true" />
                           </div>
                           <div className={styles.nameBlock}>
                             <span className={styles.skillName}>{skill.name}</span>
-                            <span className={styles.skillLevel}>&bull; {skill.level}</span>
                           </div>
-                          {skill.currentFocus && (
-                            <span className={styles.focusPill}>Primary</span>
-                          )}
-                          {!skill.currentFocus && skill.level === "Familiar" && (
-                            <span className={styles.familiarPill}>Academic</span>
-                          )}
                         </div>
 
                         {/* Concise Engineering Description */}

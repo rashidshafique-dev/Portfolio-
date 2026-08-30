@@ -234,7 +234,7 @@ export default function ProjectsSection() {
           <span className={styles.eyebrow}>TECHNICAL PORTFOLIO</span>
           <h2 className={styles.title}>Featured Projects</h2>
           <p className={styles.subtitle}>
-            Web apps, Python backends, and real-world semester projects.
+            Production web platforms, high-performance Python backends, and full-stack systems.
           </p>
         </div>
 

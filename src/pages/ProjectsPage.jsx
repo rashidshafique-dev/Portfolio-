@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { DetailedProjects } from '../features/projects';
+import HireMeCTA from '../features/cta';
 
 const BASE_URL = 'https://rashid-shafique-portfolio.vercel.app';
 
@@ -71,6 +72,7 @@ export default function ProjectsPage() {
         <script type="application/ld+json">{JSON.stringify(projectsSchema)}</script>
       </Helmet>
       <DetailedProjects />
+      <HireMeCTA />
     </>
   );
 }

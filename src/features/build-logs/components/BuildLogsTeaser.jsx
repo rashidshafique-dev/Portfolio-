@@ -19,12 +19,12 @@ export default function BuildLogsTeaser() {
           <span className={styles.eyebrow}>HIGHLIGHTED INSIGHTS</span>
           <h2 className={styles.title}>Build Logs</h2>
           <p className={styles.subtitle}>
-            Engineering decisions, performance notes, and lessons from real projects.
+            Architectural decisions, system optimizations, and deep technical case studies.
           </p>
         </div>
 
-        {/* CSS Grid layout following spec */}
-        <div className={styles.logsGrid}>
+        {/* CSS Grid layout for Home page teaser */}
+        <div className={`${styles.logsGrid} ${styles.teaserGrid}`}>
           {latestLogs.map((log) => {
             const slug = log.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
             return (
@@ -34,11 +34,10 @@ export default function BuildLogsTeaser() {
                 onClick={() => navigate(`/build-logs#${slug}`)}
               >
               
-              {/* Top Row: Tags Left, Date Right */}
+              {/* Top Row: Category Left, Date Right */}
               <div className={styles.topRow}>
                 <div className={styles.tagList}>
                   <span className={styles.cardTag}>{log.type}</span>
-                  <span className={styles.cardTag}>{log.metric}</span>
                 </div>
                 <span className={styles.cardDate}>{log.date}</span>
               </div>

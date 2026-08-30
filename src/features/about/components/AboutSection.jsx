@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { MapPin, Calendar, Briefcase, Download } from 'lucide-react';
+import { MapPin, Calendar, Briefcase, Download, Award } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../../../components/SocialIcons';
-import { personalInfo, timeline } from '../../../constants/portfolioData';
+import { personalInfo, timeline, credentials } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import SectionHeading from '../../../components/SectionHeading';
 import Button from '../../../components/Button';
@@ -30,8 +30,7 @@ export default function AboutSection() {
               <p className={styles.avatarRole}>{personalInfo.title}</p>
               <div className={styles.avatarMeta}>
                 <span><MapPin size={13} /> {personalInfo.location}</span>
-                <span><Briefcase size={13} /> Full-time Available</span>
-                <span><Calendar size={13} /> Coding Since 2023</span>
+                <span><Briefcase size={13} /> Available for Full-Time & Freelance</span>
               </div>
             </div>
             <div className={styles.avatarActions}>
@@ -56,25 +55,45 @@ export default function AboutSection() {
           </div>
         </motion.div>
 
-        {/* Right — Bio & Timeline */}
+        {/* Right — Bio, Credentials & Timeline */}
         <motion.div className={styles.aboutRight} variants={itemVariants}>
           <SectionHeading
             eyebrow="About Me"
-            title="Building Full-Stack Web & Python Backend Systems"
+            title="Building Full-Stack Web & Scalable Python Backends"
             subtitle={
               <>
                 <p>
-                  I am a Software Engineer specializing in full-stack web applications, AI integration, and Python backend development.
+                  I am a Software Engineer specializing in backend architectures, REST API engineering, and modern React web platforms.
                 </p>
                 <p>
-                  Currently pursuing my BS in Computer Science at the University of Agriculture Faisalabad (UAF), I apply strong academic fundamentals in Data Structures, Algorithms, and Database Design to build real-world web applications, secure REST APIs, and data-driven Python tools.
+                  With strong fundamentals in Data Structures, Algorithms, and Relational Database Design, I architect robust production systems with clean code, composite SQL indexing, and seamless full-stack integrations.
                 </p>
               </>
             }
             level={1}
           />
 
-          <h4 className={styles.timelineTitle}>Career Timeline</h4>
+          {/* Engineering Credentials & Core Accreditations */}
+          {credentials && credentials.length > 0 && (
+            <div className={styles.credentialsSection}>
+              <h4 className={styles.timelineTitle}>Core Accreditations & Technical Focus</h4>
+              <div className={styles.credentialsGrid}>
+                {credentials.map((cred) => (
+                  <div key={cred.id} className={styles.credentialCard}>
+                    <div className={styles.credentialHeader}>
+                      <span className={styles.credentialBadge}>{cred.badge}</span>
+                      <span className={styles.credentialPeriod}>{cred.period}</span>
+                    </div>
+                    <h5 className={styles.credentialTitle}>{cred.title}</h5>
+                    <p className={styles.credentialInstitution}>{cred.institution}</p>
+                    <p className={styles.credentialHighlights}>{cred.highlights}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <h4 className={styles.timelineTitle}>Engineering Milestones</h4>
           <div className={styles.timeline}>
             {timeline.map((item, i) => (
               <motion.div

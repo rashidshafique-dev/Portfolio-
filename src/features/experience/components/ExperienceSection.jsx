@@ -16,6 +16,7 @@ import {
 import { Link } from 'react-router-dom';
 import { experience, timeline, personalInfo } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
+import HireMeCTA from '../../cta/components/HireMeCTA';
 import styles from '../styles.module.css';
 
 function getRoleIcon(category) {
@@ -46,7 +47,7 @@ function ExperienceCard({ job, isLast }) {
       {/* Modern Compact Google Material 3 Card */}
       <article className={styles.card}>
         
-        {/* Header Block: Role, Company, Date, Status */}
+        {/* Header Block: Clean, Structured, Un-fragmented */}
         <div className={styles.cardHeader}>
           <div className={styles.headerLeft}>
             <div className={styles.roleIcon}>
@@ -62,6 +63,7 @@ function ExperienceCard({ job, isLast }) {
                   </span>
                 )}
               </div>
+              
               <div className={styles.companyMeta}>
                 <a
                   href={job.companyUrl}
@@ -73,12 +75,10 @@ function ExperienceCard({ job, isLast }) {
                   <span>{job.company}</span>
                   <ExternalLink size={11} aria-hidden="true" />
                 </a>
-                <span className={styles.metaDot}>•</span>
-                <span className={styles.locationText}>
-                  <MapPin size={11} /> {job.location}
-                </span>
-                <span className={styles.metaDot}>•</span>
-                <span className={styles.typeBadge}>{job.type}</span>
+                <span className={styles.metaDot}>&bull;</span>
+                <span className={styles.locationText}>{job.location}</span>
+                <span className={styles.metaDot}>&bull;</span>
+                <span className={styles.typeText}>{job.type}</span>
               </div>
             </div>
           </div>
@@ -90,15 +90,6 @@ function ExperienceCard({ job, isLast }) {
             </span>
           </div>
         </div>
-
-        {/* Compact Highlight Metric Ribbon (if present) */}
-        {job.metric && (
-          <div className={styles.metricRow}>
-            <span className={styles.metricPill}>
-              {job.metric}
-            </span>
-          </div>
-        )}
 
         {/* Concise Description */}
         <p className={styles.description}>{job.description}</p>
@@ -172,11 +163,11 @@ export default function ExperienceSection() {
   const [activeFilter, setActiveFilter] = useState('all');
 
   const FILTER_TABS = [
-    { label: 'All Experience', value: 'all', count: experience.length },
-    { label: 'Work & Freelance', value: 'work', count: experience.filter(e => e.category === 'work').length },
-    { label: 'Client Projects', value: 'client', count: experience.filter(e => e.category === 'client').length },
-    { label: 'Education', value: 'education', count: experience.filter(e => e.category === 'education').length },
-    { label: 'Career Milestones', value: 'milestones', count: timeline.length },
+    { label: 'All Experience', value: 'all' },
+    { label: 'Engineering Roles', value: 'work' },
+    { label: 'Client Platforms', value: 'client' },
+    { label: 'Academic Background', value: 'education' },
+    { label: 'Key Milestones', value: 'milestones' },
   ];
 
   const filteredExperience = activeFilter === 'all'
@@ -187,10 +178,10 @@ export default function ExperienceSection() {
     <SectionWrapper id="experience">
       {/* Section Header */}
       <div className={styles.headerContainer}>
-        <span className={styles.eyebrow}>WORK HISTORY &amp; EDUCATION</span>
-        <h1 className={styles.title}>Experience &amp; Journey</h1>
+        <span className={styles.eyebrow}>CAREER &amp; EXPERIENCE</span>
+        <h1 className={styles.title}>Engineering Experience</h1>
         <p className={styles.subtitle}>
-          A track record of shipping real-world web apps, freelance client deliverables, and solid computer science coursework.
+          A track record of engineering scalable backend architectures, high-performance web platforms, and client solutions.
         </p>
       </div>
 
@@ -205,7 +196,6 @@ export default function ExperienceSection() {
               aria-pressed={activeFilter === tab.value ? 'true' : 'false'}
             >
               <span>{tab.label}</span>
-              <span className={styles.tabCount}>({tab.count})</span>
             </button>
           ))}
         </div>
@@ -227,43 +217,6 @@ export default function ExperienceSection() {
           </AnimatePresence>
         </div>
       )}
-
-      {/* Bottom Resume & Contact Quick Action Banner */}
-      <motion.div
-        className={styles.ctaBanner}
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-      >
-        <div className={styles.ctaContent}>
-          <div className={styles.ctaIconBox}>
-            <Sparkles size={18} />
-          </div>
-          <div>
-            <h3 className={styles.ctaTitle}>Looking for a Dedicated Software Engineer?</h3>
-            <p className={styles.ctaText}>
-              Available for full-time internships, junior backend/full-stack engineering roles, and custom web builds.
-            </p>
-          </div>
-        </div>
-        <div className={styles.ctaActions}>
-          <a
-            href={personalInfo.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            download="Muhammad_Rashid_Resume.pdf"
-            className={styles.ctaResumeBtn}
-          >
-            <FileText size={14} />
-            <span>Download Resume</span>
-          </a>
-          <Link to="/contact" className={styles.ctaContactBtn}>
-            <span>Get in Touch</span>
-            <ArrowRight size={14} />
-          </Link>
-        </div>
-      </motion.div>
     </SectionWrapper>
   );
 }

@@ -170,7 +170,110 @@
   border-color: #1557b0 !important;
 }
 
-/* ── Timeline ── */
+/* ── Credentials Grid ── */
+.credentialsSection {
+  margin-bottom: 2.25rem;
+}
+
+.credentialsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .credentialsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.credentialCard {
+  background-color: #f8f9fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 12px;
+  padding: 0.95rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: transform 150ms ease, border-color 150ms ease;
+}
+
+[data-theme='dark'] .credentialCard {
+  background-color: #14171c;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.credentialCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(26, 115, 232, 0.4);
+}
+
+.credentialHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.credentialBadge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--md-primary, #1a73e8);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+[data-theme='dark'] .credentialBadge {
+  color: #8ab4f8;
+}
+
+.credentialPeriod {
+  font-size: 0.7rem;
+  color: var(--md-on-surface-variant, #5f6368);
+  white-space: nowrap;
+}
+
+[data-theme='dark'] .credentialPeriod {
+  color: #9aa0a6;
+}
+
+.credentialTitle {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--md-on-surface, #202124);
+  margin: 0;
+  line-height: 1.35;
+}
+
+[data-theme='dark'] .credentialTitle {
+  color: #e8eaed;
+}
+
+.credentialInstitution {
+  font-size: 0.75rem;
+  color: var(--md-primary, #1a73e8);
+  margin: 0;
+  font-weight: 500;
+}
+
+[data-theme='dark'] .credentialInstitution {
+  color: #8ab4f8;
+}
+
+.credentialHighlights {
+  font-size: 0.74rem;
+  color: var(--md-on-surface-variant, #5f6368);
+  line-height: 1.45;
+  margin: 0.2rem 0 0 0;
+}
+
+[data-theme='dark'] .credentialHighlights {
+  color: #9aa0a6;
+}
+
+/* ── Career Timeline ── */
 .timelineTitle {
   font-size: 0.75rem;
   font-weight: 700;

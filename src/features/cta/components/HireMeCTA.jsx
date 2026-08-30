@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, ArrowRight, Mail } from 'lucide-react';
+import { ExternalLink, ArrowRight, Mail, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { personalInfo } from '../../../constants/portfolioData';
 import styles from '../styles.module.css';
 
 export default function HireMeCTA() {
@@ -16,10 +17,10 @@ export default function HireMeCTA() {
         >
           <div className={styles.textBlock}>
             <h2 className={styles.title}>
-              Let's Build Something Real Together
+              Let's Build Scalable Systems Together
             </h2>
             <p className={styles.desc}>
-              Available for full-stack software engineering roles, high-performance Python/Django backends, and custom AI-integrated web applications.
+              Available for full-stack software engineering roles, high-performance Python/Django backends, and custom web applications.
             </p>
           </div>
           <div className={styles.actions}>
@@ -28,6 +29,16 @@ export default function HireMeCTA() {
               <span>Get in Touch</span>
               <ArrowRight size={15} aria-hidden="true" />
             </Link>
+            <a 
+              href={personalInfo.resumeUrl}
+              target="_blank" 
+              rel="noopener noreferrer" 
+              download="Muhammad_Rashid_Resume.pdf"
+              className={styles.fiverrBtn}
+            >
+              <FileText size={15} aria-hidden="true" />
+              <span>Resume PDF</span>
+            </a>
             <a 
               href="https://www.fiverr.com/s/rEYj067" 
               target="_blank" 

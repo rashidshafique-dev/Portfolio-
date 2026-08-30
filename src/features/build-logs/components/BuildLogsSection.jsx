@@ -4,6 +4,7 @@ import { ArrowRight, Tag, ExternalLink } from 'lucide-react';
 import { buildLogs } from '../../../constants/portfolioData';
 import styles from '../styles.module.css';
 import Modal from '../../../components/Modal';
+import LogContentRenderer from './LogContentRenderer';
 
 export default function BuildLogsSection() {
   const [selectedLog, setSelectedLog] = useState(null);
@@ -89,11 +90,10 @@ export default function BuildLogsSection() {
               onClick={() => openLog(log)}
             >
               
-              {/* Top Row: Tags Left, Date Right */}
+              {/* Top Row: Category Left, Date Right */}
               <div className={styles.topRow}>
                 <div className={styles.tagList}>
                   <span className={styles.cardTag}>{log.type}</span>
-                  <span className={styles.cardTag}>{log.metric}</span>
                 </div>
                 <span className={styles.cardDate}>{log.date}</span>
               </div>
@@ -154,7 +154,7 @@ export default function BuildLogsSection() {
                 </div>
               </div>
               <div className={styles.modalBody}>
-                {selectedLog.content}
+                <LogContentRenderer content={selectedLog.content} />
               </div>
             </div>
           )}
