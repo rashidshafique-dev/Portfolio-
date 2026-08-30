@@ -187,18 +187,7 @@ export default function DetailedProjects() {
     }
     return [...projects].sort((a, b) => a.id - b.id);
   });
-  const [loading, setLoading] = useState(() => {
-    try {
-      const cachedData = sessionStorage.getItem(CACHE_KEY);
-      const cachedTime = sessionStorage.getItem(CACHE_TIME_KEY);
-      if (cachedData && cachedTime && (Date.now() - Number(cachedTime) < ONE_HOUR)) {
-        return false;
-      }
-    } catch {
-      // Ignore cache retrieval errors
-    }
-    return true;
-  });
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const [selectedProject, setSelectedProject] = useState(null);

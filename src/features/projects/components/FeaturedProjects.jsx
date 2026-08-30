@@ -105,18 +105,7 @@ export default function ProjectsSection() {
     });
   });
 
-  const [loading, setLoading] = useState(() => {
-    try {
-      const cachedData = sessionStorage.getItem(CACHE_KEY);
-      const cachedTime = sessionStorage.getItem(CACHE_TIME_KEY);
-      if (cachedData && cachedTime && (Date.now() - Number(cachedTime) < ONE_HOUR)) {
-        return false;
-      }
-    } catch {
-      // Ignore cache retrieval errors
-    }
-    return true;
-  });
+  const [loading, setLoading] = useState(false);
 
   const handleCardClick = (e, project) => {
     if (e.target.closest('a') || e.target.closest('button')) {

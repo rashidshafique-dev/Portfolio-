@@ -5,8 +5,8 @@ import styles from '../styles.module.css';
 
 export default function BuildLogsTeaser() {
   const navigate = useNavigate();
-  // Extract the latest 2 build logs
-  const latestLogs = buildLogs && buildLogs.length > 0 ? buildLogs.slice(0, 2) : [];
+  // Extract the top 3 most relevant build logs for recruiters
+  const latestLogs = buildLogs && buildLogs.length > 0 ? buildLogs.slice(0, 3) : [];
 
   if (latestLogs.length === 0) return null;
 
@@ -25,12 +25,14 @@ export default function BuildLogsTeaser() {
 
         {/* CSS Grid layout following spec */}
         <div className={styles.logsGrid}>
-          {latestLogs.map((log) => (
-            <article 
-              key={log.id} 
-              className={styles.card}
-              onClick={() => navigate('/build-logs')}
-            >
+          {latestLogs.map((log) => {
+            const slug = log.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            return (
+              <article 
+                key={log.id} 
+                className={styles.card}
+                onClick={() => navigate(`/build-logs#${slug}`)}
+              >
               
               {/* Top Row: Tags Left, Date Right */}
               <div className={styles.topRow}>
@@ -68,7 +70,8 @@ export default function BuildLogsTeaser() {
               </div>
 
             </article>
-          ))}
+            );
+          })}
         </div>
 
         {/* Section CTAs */}

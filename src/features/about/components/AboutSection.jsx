@@ -31,7 +31,7 @@ export default function AboutSection() {
               <div className={styles.avatarMeta}>
                 <span><MapPin size={13} /> {personalInfo.location}</span>
                 <span><Briefcase size={13} /> Full-time Available</span>
-                <span><Calendar size={13} /> 3+ Yrs Experience</span>
+                <span><Calendar size={13} /> Coding Since 2023</span>
               </div>
             </div>
             <div className={styles.avatarActions}>

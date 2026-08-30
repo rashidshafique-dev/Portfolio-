@@ -139,7 +139,7 @@ export default function HeroSection() {
 
             {/* ── delay4: Bio ── */}
             <p className={`${styles.description} ${styles.animItem} ${styles.delay4}`}>
-              Building modern web applications with Python, Django, React, and SQL. Currently strengthening my computer science foundation through hands-on projects while learning software engineering best practices.
+              I build full-stack web apps and Python backends. CS student at UAF, working on real projects on the side — always learning, always shipping.
             </p>
 
             {/* ── delay5: CTA Buttons ── */}

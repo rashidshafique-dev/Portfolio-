@@ -27,51 +27,51 @@ import styles from '../styles.module.css';
 
 const SKILLS = [
   {
-    category: "Systems Engineering & Core Languages",
+    category: "Core Languages",
     filter: "languages",
     items: [
-      { name: "Python", desc: "Object-oriented scripting, low-latency backends, and algorithmic workflows.", icon: "FileCode2", currentFocus: true, level: "Expert" },
-      { name: "C++", desc: "Systems programming, OOP, and algorithm design — studied at UAF and used in IoT (AquaSync / Arduino).", icon: "Cpu", level: "Familiar" },
-      { name: "Java", desc: "OOP design patterns and data structures — studied academically at UAF.", icon: "Coffee", level: "Familiar" },
-      { name: "HTML5 & CSS3", desc: "Semantic DOM structure and modern responsive styling architectures.", icon: "Globe", level: "Expert" },
+      { name: "Python", desc: "My main language. I use it for backends, APIs, automation scripts, and data projects.", icon: "FileCode2", currentFocus: true, level: "Expert" },
+      { name: "C++", desc: "Used in coursework and for the AquaSync IoT project (Arduino firmware).", icon: "Cpu", level: "Familiar" },
+      { name: "Java", desc: "Covered in university. Good for understanding OOP and data structures concepts.", icon: "Coffee", level: "Familiar" },
+      { name: "HTML5 & CSS3", desc: "I write clean HTML and CSS by hand — no generated code, proper structure.", icon: "Globe", level: "Expert" },
     ]
   },
   {
     category: "Backend & API Engineering",
     filter: "backend",
     items: [
-      { name: "Django", desc: "Enterprise Python web framework with ORM and secure session management.", icon: "Server", currentFocus: true, level: "Expert" },
-      { name: "FastAPI", desc: "Asynchronous, high-throughput REST APIs with automatic OpenAPI docs.", icon: "Zap", level: "Expert" },
-      { name: "Django REST", desc: "Stateless REST API layers, serializer validations, and permission classes.", icon: "Layers", currentFocus: true, level: "Expert" },
-      { name: "Node.js & Express", desc: "Event-driven asynchronous microservices and API gateways.", icon: "Box", level: "Proficient" },
+      { name: "Django", desc: "My go-to Python framework. ORM, auth, REST APIs — I know it well.", icon: "Server", currentFocus: true, level: "Expert" },
+      { name: "FastAPI", desc: "For async APIs that need to be fast. Auto-docs are a nice bonus.", icon: "Zap", level: "Expert" },
+      { name: "Django REST", desc: "Serializers, viewsets, permissions — I use DRF on all my Django projects.", icon: "Layers", currentFocus: true, level: "Expert" },
+      { name: "Node.js & Express", desc: "Used it on a few projects. Comfortable enough for simple REST APIs.", icon: "Box", level: "Proficient" },
     ]
   },
   {
-    category: "User Interface & Experience",
+    category: "Frontend & UI",
     filter: "frontend",
     items: [
-      { name: "React.js", desc: "Component architectures, state management hooks, and Virtual DOM workflows.", icon: "Atom", currentFocus: true, level: "Expert" },
-      { name: "Tailwind CSS", desc: "Utility-first design tokens and responsive layout systems.", icon: "Paintbrush", level: "Expert" },
-      { name: "Vite", desc: "Next-generation frontend tooling and optimized production bundling.", icon: "Flame", level: "Proficient" },
-      { name: "React Native", desc: "Cross-platform mobile application development for Android and iOS.", icon: "Component", level: "Proficient" },
+      { name: "React.js", desc: "My main frontend tool. Hooks, state management, component patterns — daily use.", icon: "Atom", currentFocus: true, level: "Expert" },
+      { name: "Tailwind CSS", desc: "Great for moving fast. I use it when I don't need fine-grained control.", icon: "Paintbrush", level: "Expert" },
+      { name: "Vite", desc: "My build tool of choice — fast dev server, clean production builds.", icon: "Flame", level: "Proficient" },
+      { name: "React Native", desc: "Built cross-platform mobile apps with it. Comfortable with Expo workflow.", icon: "Component", level: "Proficient" },
     ]
   },
   {
-    category: "Data Architecture & Storage",
+    category: "Databases & Auth",
     filter: "database",
     items: [
-      { name: "PostgreSQL", desc: "Relational database modeling, B-tree indexing, and ACID transaction safety.", icon: "Database", currentFocus: true, level: "Expert" },
-      { name: "JWT & OAuth", desc: "Stateless authentication, token auto-rotation, and SSO integration.", icon: "KeyRound", level: "Expert" },
-      { name: "Supabase & Firebase", desc: "Real-time database sync, cloud storage, and managed auth services.", icon: "ShieldCheck", level: "Proficient" },
+      { name: "PostgreSQL", desc: "Relational DB I use most. I care about schema design and proper indexing.", icon: "Database", currentFocus: true, level: "Expert" },
+      { name: "JWT & OAuth", desc: "Handled auth on every project — token rotation, blacklisting, Google OAuth.", icon: "KeyRound", level: "Expert" },
+      { name: "Supabase & Firebase", desc: "For projects that need real-time data or quick managed auth setup.", icon: "ShieldCheck", level: "Proficient" },
     ]
   },
   {
-    category: "DevOps & Automated Deployment",
+    category: "DevOps & Tools",
     filter: "devops",
     items: [
-      { name: "Git & GitHub", desc: "Distributed version control, branch workflows, and PR code reviews.", icon: "GitBranch", currentFocus: true, level: "Expert" },
-      { name: "Vercel & Railway", desc: "Automated CI/CD deployment pipelines and edge runtime hosting.", icon: "Triangle", level: "Proficient" },
-      { name: "Linux & Bash", desc: "Server administration, cron automation, and shell scripting.", icon: "Container", level: "Proficient" },
+      { name: "Git & GitHub", desc: "Use it every day. Branching, PRs, conflict resolution — comfortable with it all.", icon: "GitBranch", currentFocus: true, level: "Expert" },
+      { name: "Vercel & Railway", desc: "Where I deploy. Both are fast to set up and reliable for personal projects.", icon: "Triangle", level: "Proficient" },
+      { name: "Linux & Bash", desc: "I work in Linux terminals, write shell scripts, and set up cron jobs.", icon: "Container", level: "Proficient" },
     ]
   }
 ];

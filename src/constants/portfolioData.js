@@ -26,9 +26,9 @@ import bhuttaImageImg from '../assets/image.png';
 
 export const personalInfo = {
   name: 'Muhammad Rashid Shafique',
-  title: 'Full-Stack Software Engineer & AI Systems Developer',
-  tagline: 'Full-stack software engineer specializing in AI-integrated web and mobile applications — building end-to-end projects from database design and secure REST APIs to responsive React frontends and cross-platform mobile apps.',
-  bio: `I am a Full-Stack Software Engineer and BS Computer Science student at the University of Agriculture Faisalabad (UAF). I build real-world web applications, secure REST APIs, and data-driven Python tools by applying strong fundamentals in Data Structures, Algorithms, OOP, and Relational Database Design.`,
+  title: 'Full-Stack Developer · Python · Django · React',
+  tagline: 'I build full-stack web apps and Python backends. Currently a BS Computer Science student at UAF — working on real projects, shipping real things.',
+  bio: `I'm a CS student at UAF and a self-taught full-stack developer. I mostly work with Python (Django, FastAPI) on the backend and React on the frontend. I enjoy solving actual problems with code — not just building things for the sake of it.`,
   location: 'Faisalabad, Pakistan',
   email: 'rashidshafique.dev@gmail.com',
   phone: '+92 319 8696623',
@@ -720,39 +720,116 @@ export const projects = [
 
 export const projectCategories = ['All', 'Full-Stack', 'AI/ML', 'Open Source', 'Mobile', 'IoT'];
 
+/**
+ * Dynamically calculates academic semester, year, and progress percentage
+ * based on enrollment in Sept 2023 at UAF (4-year BS CS degree, graduating in 2027).
+ */
+export const getCurrentSemesterInfo = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth(); // 0-indexed: 0 = Jan, 7 = Aug, 11 = Dec
+
+  let semester = 1;
+  const yearDiff = year - 2023;
+
+  if (yearDiff <= 0) {
+    semester = 1;
+  } else {
+    // January belongs to the Fall semester that started previous year
+    if (month === 0) {
+      semester = (yearDiff - 1) * 2 + 1;
+    } else if (month >= 1 && month <= 6) {
+      // Spring Semester (Feb - Jul)
+      semester = (yearDiff - 1) * 2 + 2;
+    } else {
+      // Fall Semester (Aug - Dec)
+      semester = yearDiff * 2 + 1;
+    }
+  }
+
+  // Bound semester between 1 and 8 (for 4-year degree)
+  semester = Math.max(1, Math.min(8, semester));
+  const academicYear = Math.min(4, Math.ceil(semester / 2));
+  const progressPercent = Math.min(100, Math.round((semester / 8) * 100));
+
+  const suffix = semester === 1 ? '1st' : semester === 2 ? '2nd' : semester === 3 ? '3rd' : `${semester}th`;
+  
+  return {
+    semester,
+    semesterText: `${suffix} Semester`,
+    academicYear,
+    yearText: `Year ${academicYear} of 4`,
+    progress: progressPercent,
+    progressLabel: `Year ${academicYear} of 4 (${suffix} Semester)`,
+    metric: `🎓 ${suffix} Semester · Year ${academicYear} of 4`,
+    period: '2023 — 2027 (Expected)',
+  };
+};
+
+export const currentAcademicStatus = getCurrentSemesterInfo();
+
 export const experience = [
   {
     id: 1,
-    role: 'Software Engineer — Full-Stack & AI Systems',
-    company: 'Independent / Open-Source Engineering',
+    role: 'Freelance Full-Stack Developer',
+    company: 'Self-Employed / Remote',
     companyUrl: 'https://github.com/rashidshafique-dev',
     period: '2023 — Present',
-    type: 'Employment',
-    location: 'Faisalabad, Pakistan / Remote',
-    description: 'Building and shipping Python backend services, secure REST APIs, and full-stack web and cross-platform mobile applications.',
+    type: 'Freelance',
+    category: 'work',
+    location: 'Faisalabad · Remote',
+    metric: '⚡ 42% Query Latency Reduced',
+    isCurrent: true,
+    description: 'Building high-performance REST APIs, Python backend services, and responsive React web applications.',
     highlights: [
-      'Built and shipped Python backend services (Django, DRF, FastAPI) applying OOP design patterns and modular software principles for clean, maintainable codebases.',
-      'Designed optimized SQL schemas, normalization models, and indexing strategies to minimize API response latency by 42% and eliminate redundant database round-trips.',
-      'Engineered secure authentication systems using stateless JWT tokens with auto-rotation/blacklisting and Google OAuth 2.0 Single Sign-On (SSO).',
-      'Built responsive, production-deployed frontends in React.js (Vite, Tailwind CSS, CSS Modules) and cross-platform mobile apps in React Native (Expo), shipping to Vercel and Railway.',
+      'Built modular Django, FastAPI, and Node.js REST APIs with robust validation and clean OOP structure.',
+      'Cut database query latency by 42% through composite indexing and normalized SQL schema design.',
+      'Implemented JWT authentication with token auto-rotation, blacklisting, and Google OAuth SSO.',
     ],
-    techStack: ['Django', 'DRF', 'FastAPI', 'Python', 'React.js', 'React Native', 'PostgreSQL', 'SQL', 'JWT', 'Google OAuth 2.0', 'Supabase', 'Firebase', 'Vercel'],
+    techStack: ['Python', 'Django', 'FastAPI', 'React.js', 'PostgreSQL', 'JWT', 'Tailwind CSS', 'Vercel'],
     color: '#1A73E8',
   },
   {
     id: 2,
-    role: 'Bachelor of Science in Computer Science (BS CS)',
-    company: 'University of Agriculture Faisalabad (UAF)',
-    companyUrl: 'https://uaf.edu.pk',
-    period: 'Sept 2023 — 2027 (Expected)',
-    type: 'Education',
+    role: 'Frontend Engineer (Client Project)',
+    company: 'Bhutta Scents',
+    companyUrl: 'https://bhuttascents.com',
+    period: '2024 — 2025',
+    type: 'Client Project',
+    category: 'client',
     location: 'Faisalabad, Pakistan',
-    description: 'Rigorous academic coursework and deep research focus in Data Structures, Algorithmic Analysis, and Relational Database Optimization.',
+    metric: '⭐ 100% Client Satisfaction · Live at bhuttascents.com',
+    isCurrent: false,
+    description: 'Engineered an end-to-end luxury fragrance e-commerce web application with custom Vanilla CSS and instant cart operations.',
     highlights: [
-      'Core Coursework: Data Structures & Algorithms, Object-Oriented Programming (OOP), Relational Database Management Systems (RDBMS & SQL), Operating Systems, Software Engineering, Web Systems Architecture.',
-      'Academic Focus: Algorithmic Time/Space Complexity (Big-O Analysis), Database Optimization, and Distributed Systems fundamentals.',
+      'Authored custom Vanilla CSS design tokens with aspect-ratio skeleton bounding boxes, eliminating layout shift (0 CLS).',
+      'Built a decoupled React Context cart state engine with debounced local storage persistence.',
+      'Delivered 100% client satisfaction, receiving executive endorsement from CEO Amir Bhutta.',
     ],
-    techStack: ['Data Structures', 'Algorithms', 'OOP', 'RDBMS & SQL', 'Operating Systems', 'Software Engineering', 'C++', 'Python'],
+    techStack: ['React.js', 'Vite', 'Vanilla CSS', 'State Management', 'Web Performance'],
+    projectLink: 'https://bhuttascents.com',
+    color: '#D4AF37',
+  },
+  {
+    id: 3,
+    role: 'BS in Computer Science',
+    company: 'University of Agriculture Faisalabad',
+    companyUrl: 'https://uaf.edu.pk',
+    period: currentAcademicStatus.period,
+    type: 'Education',
+    category: 'education',
+    location: 'UAF, Pakistan',
+    metric: currentAcademicStatus.metric,
+    progress: currentAcademicStatus.progress,
+    progressLabel: currentAcademicStatus.progressLabel,
+    isCurrent: true,
+    description: `Undergraduate computer science student currently in ${currentAcademicStatus.semesterText} (${currentAcademicStatus.yearText}), focusing on algorithms, database architecture, and backend systems.`,
+    highlights: [
+      'Coursework: Data Structures & Algorithms, Object-Oriented Programming (OOP), Relational Databases (SQL), Operating Systems, Software Engineering.',
+      'Applied coursework to engineer semester systems: IoT telemetry (AquaSync) and Sales analytics ML forecasting.',
+      'Core focus on algorithmic time/space complexity analysis (Big-O) and modular code design.',
+    ],
+    techStack: ['Data Structures', 'Algorithms', 'OOP', 'SQL & RDBMS', 'C++', 'Python'],
     color: '#1A73E8',
   },
 ];

@@ -56,12 +56,19 @@
   gap: 1.25rem;
   position: relative;
   width: 100%;
-  margin-top: 1.5rem;
+  max-width: 1160px;
+  margin: 1.5rem auto 0 auto;
 }
 
 @media (min-width: 768px) {
   .logsGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .logsGrid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -474,27 +481,6 @@
   color: #ffffff !important;
   border-color: var(--md-primary, #1a73e8) !important;
   font-weight: 500 !important;
-}
-
-/* Custom layouts to replace Tailwind utility classes */
-.logsGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem; /* gap-5 = 20px */
-  align-items: stretch;
-  margin-top: 2rem; /* mt-8 = 32px */
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  z-index: 5;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .logsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .headerContainer {
