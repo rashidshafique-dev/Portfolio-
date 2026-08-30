@@ -13,7 +13,7 @@ const aboutSchema = {
     'name': 'Muhammad Rashid Shafique',
     'alternateName': ['Rashid Shafique', 'rashidshafique-dev', 'Rashid Khan'],
     'jobTitle': 'Full-Stack Developer & Systems Engineer',
-    'description': 'Muhammad Rashid Shafique (Rashid Shafique) is a Full-Stack Developer & Systems Engineer from Faisalabad, Pakistan specialising in Python, Django, FastAPI, React, and PySpark. BS Computer Science student at the University of Agriculture Faisalabad.',
+    'description': 'Muhammad Rashid Shafique (Rashid Shafique) is a Full-Stack Developer & Systems Engineer from Faisalabad, Pakistan specialising in Python, Django, FastAPI, React, and modern web architectures. BS Computer Science student at the University of Agriculture Faisalabad.',
     'alumniOf': {
       '@type': 'CollegeOrUniversity',
       'name': 'University of Agriculture Faisalabad',
@@ -36,7 +36,7 @@ export default function AboutPage() {
     <>
       <Helmet>
         <title>About Rashid Shafique | Full-Stack Developer & Systems Engineer Pakistan</title>
-        <meta name="description" content="Learn about Muhammad Rashid Shafique (Rashid Shafique) — Full-Stack Developer & Systems Engineer from Faisalabad, Pakistan. BS Computer Science student at UAF specialising in Python backends, distributed systems, PySpark pipelines, and React apps." />
+        <meta name="description" content="Learn about Muhammad Rashid Shafique (Rashid Shafique) — Full-Stack Developer & Systems Engineer from Faisalabad, Pakistan. BS Computer Science student at UAF specialising in Python backends, modern web systems, and React apps." />
         <meta name="keywords" content="Rashid Shafique, Muhammad Rashid Shafique, Rashid Shafique developer, Systems Engineer Faisalabad Pakistan, UAF Computer Science student, Python backend developer, full stack engineer Pakistan bio" />
         <link rel="canonical" href={`${BASE_URL}/about`} />
 

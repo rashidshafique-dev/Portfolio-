@@ -18,9 +18,7 @@ const getProjectSlug = (project) => {
 };
 
 const repoTitleOverrides = {
-  'rashidshafique-dev': 'Sales Data Pipeline',
-  'rashidkhan4067': 'Sales Data Pipeline',
-  'sales-data-analysis-system': 'Sales Data Pipeline',
+  'sales-data-analysis-system': 'Sales Data Analysis System',
   'medicare / hospital management': 'MediCare / Hospital Management',
   'medicare': 'MediCare / Hospital Management',
   'hospital-management-system': 'Hospital Management System',
@@ -60,7 +58,7 @@ const mergeProjects = (rawGithubRepos) => {
       return {
         ...apiProj,
         ...matchedStatic,
-        title: matchedStatic.title === 'Sales-Data-Analysis-System' ? 'Sales Data Pipeline' : formatProjectTitle(matchedStatic.title),
+        title: matchedStatic.title === 'Sales-Data-Analysis-System' ? 'Sales Data Analysis System' : formatProjectTitle(matchedStatic.title),
         techStack: Array.from(new Set([...(matchedStatic.tech || matchedStatic.techStack || []), ...apiProj.techStack]))
       };
     }
@@ -151,7 +149,7 @@ export default function ProjectsSection() {
             const desc = (repo.description || '').toLowerCase();
             const topics = repo.topics || [];
 
-            if (topics.includes('machine-learning') || topics.includes('ai') || desc.includes('face') || desc.includes('opencv') || desc.includes('pyspark') || desc.includes('predictive') || desc.includes('ml')) {
+            if (topics.includes('machine-learning') || topics.includes('ai') || desc.includes('face') || desc.includes('opencv') || desc.includes('predictive') || desc.includes('analysis') || desc.includes('ml')) {
               category = 'AI/ML';
               accentColor = '#1A73E8';
             } else if (topics.includes('mobile') || topics.includes('android') || topics.includes('ios') || desc.includes('mobile') || desc.includes('capacitor')) {
@@ -247,7 +245,7 @@ export default function ProjectsSection() {
           <span className={styles.eyebrow}>TECHNICAL PORTFOLIO</span>
           <h2 className={styles.title}>Featured Projects</h2>
           <p className={styles.subtitle}>
-            Production systems, distributed architectures, and full-stack applications.
+            Web apps, Python backends, and real-world semester projects.
           </p>
         </div>
 

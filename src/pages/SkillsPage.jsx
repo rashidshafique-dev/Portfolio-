@@ -8,16 +8,16 @@ const skillsSchema = {
   '@type': 'WebPage',
   'name': 'Skills & Technologies | Muhammad Rashid Shafique',
   'url': `${BASE_URL}/skills`,
-  'description': 'Full technical skill set of Muhammad Rashid Shafique: Python, Django, FastAPI, React, Node.js, PySpark, TensorFlow, SQL, C++, Supabase, Firebase and more.',
+  'description': 'Full technical skill set of Muhammad Rashid Shafique: Python, Django, FastAPI, React, Node.js, TensorFlow, SQL, C++, Pandas, Supabase, Firebase and more.',
   'author': {
     '@type': 'Person',  
     'name': 'Muhammad Rashid Shafique',
     'knowsAbout': [
       'Python', 'Django', 'FastAPI', 'React', 'Node.js',
-      'PySpark', 'Apache Spark', 'TensorFlow', 'C++', 'C',
+      'TensorFlow', 'C++', 'C', 'Pandas', 'Scikit-Learn',
       'SQL', 'PostgreSQL', 'Supabase', 'Firebase',
       'Tkinter', 'PyQt5', 'Selenium', 'REST API',
-      'Machine Learning', 'Big Data Engineering',
+      'Machine Learning', 'Data Analysis',
     ],
   },
 };
@@ -26,9 +26,9 @@ export default function SkillsPage() {
   return (
     <>
       <Helmet>
-        <title>Skills & Technologies | Muhammad Rashid Shafique — Python, React, PySpark & More</title>
-        <meta name="description" content="Technical skills of Muhammad Rashid Shafique — 25+ technologies across backend (Python, Django, FastAPI, Node.js), frontend (React, Tailwind), data engineering (PySpark, SQL), machine learning (TensorFlow), and cloud/database (Supabase, Firebase, PostgreSQL)." />
-        <meta name="keywords" content="Muhammad Rashid Shafique skills, Python developer skills, React skills, Django developer, FastAPI Python, PySpark big data, TensorFlow machine learning, backend developer technologies, full stack skills Pakistan" />
+        <title>Skills & Technologies | Muhammad Rashid Shafique — Python, React & More</title>
+        <meta name="description" content="Technical skills of Muhammad Rashid Shafique — 25+ technologies across backend (Python, Django, FastAPI, Node.js), frontend (React, Tailwind), data analysis (Pandas, SQL), machine learning (TensorFlow), and cloud/database (Supabase, Firebase, PostgreSQL)." />
+        <meta name="keywords" content="Muhammad Rashid Shafique skills, Python developer skills, React skills, Django developer, FastAPI Python, TensorFlow machine learning, backend developer technologies, full stack skills Pakistan" />
         <link rel="canonical" href={`${BASE_URL}/skills`} />
 
         {/* Open Graph */}

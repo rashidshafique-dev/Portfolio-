@@ -34,8 +34,8 @@ export default function BuildLogsPage() {
     <>
       <Helmet>
         <title>Build Logs | Rashid Shafique — Software Engineering & Systems Notes</title>
-        <meta name="description" content="Engineering logs, system design write-ups, PySpark optimization notes, and full-stack development experiments by Rashid Shafique (Muhammad Rashid Shafique)." />
-        <meta name="keywords" content="Rashid Shafique build logs, software engineering blog, systems design writeups, Python backend insights, PySpark performance, full stack developer notes" />
+        <meta name="description" content="Engineering logs, system design write-ups, data analytics workflows, and full-stack development experiments by Rashid Shafique (Muhammad Rashid Shafique)." />
+        <meta name="keywords" content="Rashid Shafique build logs, software engineering blog, systems design writeups, Python backend insights, data analytics, full stack developer notes" />
         <link rel="canonical" href={`${BASE_URL}/build-logs`} />
 
         {/* Open Graph */}

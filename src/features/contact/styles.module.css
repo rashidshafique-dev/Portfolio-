@@ -484,3 +484,81 @@ a.infoValue:hover {
   background-color: rgba(26, 115, 232, 0.06);
   border-color: var(--md-primary, #1a73e8);
 }
+
+/* =============================================
+   WHAT I'M LOOKING FOR BLOCK
+   ============================================= */
+.lookingFor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lookingForTitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--md-on-surface, #202124);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+[data-theme='dark'] .lookingForTitle {
+  color: #e8eaed;
+}
+
+.lookingForItems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.lookingForItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.lookingForIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background-color: rgba(26, 115, 232, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--md-primary, #1a73e8);
+  margin-top: 1px;
+}
+
+[data-theme='dark'] .lookingForIcon {
+  background-color: rgba(138, 180, 248, 0.12);
+  color: #8ab4f8;
+}
+
+.lookingForLabel {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--md-on-surface-variant, #5f6368);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 2px 0;
+  line-height: 1.2;
+}
+
+[data-theme='dark'] .lookingForLabel {
+  color: #9aa0a6;
+}
+
+.lookingForValue {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--md-on-surface, #202124);
+  margin: 0;
+  line-height: 1.4;
+}
+
+[data-theme='dark'] .lookingForValue {
+  color: #e8eaed;
+}

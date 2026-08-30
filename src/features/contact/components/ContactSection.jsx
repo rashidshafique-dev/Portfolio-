@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Phone, Clock, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, Mail, MapPin, Phone, Clock, CheckCircle2, AlertCircle, Loader2, Briefcase, Monitor, Laptop } from 'lucide-react';
 import { personalInfo } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import styles from '../styles.module.css';
@@ -89,7 +89,7 @@ export default function ContactSection() {
         <span className={styles.eyebrow}>GET IN TOUCH</span>
         <h1 className={styles.title}>Let's Work Together</h1>
         <p className={styles.subtitle}>
-          Whether it's a full-time role, a consulting project, or just a hello — my inbox is open.
+          Available for internships, junior roles, and freelance projects — remote or Faisalabad, Pakistan.
         </p>
       </div>
 
@@ -139,23 +139,31 @@ export default function ContactSection() {
 
           <div className={styles.divider} />
 
-          {/* Quick Stats Grid */}
-          <div className={styles.statsGrid}>
-            <div className={styles.statCard}>
-              <span className={styles.statValue}>Under 24h</span>
-              <span className={styles.statLabel}>Response Time</span>
-            </div>
-            <div className={styles.statCard}>
-              <span className={styles.statValue}>5★</span>
-              <span className={styles.statLabel}>Client Rating</span>
-            </div>
-            <div className={styles.statCard}>
-              <span className={styles.statValue}>3+</span>
-              <span className={styles.statLabel}>Years Experience</span>
-            </div>
-            <div className={styles.statCard}>
-              <span className={styles.statValue}>20+</span>
-              <span className={styles.statLabel}>Projects Done</span>
+          {/* What I'm Looking For */}
+          <div className={styles.lookingFor}>
+            <h4 className={styles.lookingForTitle}>What I'm Looking For</h4>
+            <div className={styles.lookingForItems}>
+              <div className={styles.lookingForItem}>
+                <span className={styles.lookingForIcon}><Briefcase size={14} /></span>
+                <div>
+                  <p className={styles.lookingForLabel}>Open To</p>
+                  <p className={styles.lookingForValue}>Internships · Junior Full-Stack · Backend Roles · Freelance</p>
+                </div>
+              </div>
+              <div className={styles.lookingForItem}>
+                <span className={styles.lookingForIcon}><Monitor size={14} /></span>
+                <div>
+                  <p className={styles.lookingForLabel}>Work Mode</p>
+                  <p className={styles.lookingForValue}>Remote · On-site (Faisalabad, Pakistan)</p>
+                </div>
+              </div>
+              <div className={styles.lookingForItem}>
+                <span className={styles.lookingForIcon}><Laptop size={14} /></span>
+                <div>
+                  <p className={styles.lookingForLabel}>Core Stack</p>
+                  <p className={styles.lookingForValue}>Python · Django · FastAPI · React.js · PostgreSQL</p>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>

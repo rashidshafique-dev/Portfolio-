@@ -99,7 +99,7 @@ export default function ExperienceSection() {
         <span className={styles.eyebrow}>WORK HISTORY</span>
         <h1 className={styles.title}>Professional Experience</h1>
         <p className={styles.subtitle}>
-          3+ years engineering scalable systems, database optimization, and high-throughput data pipelines.
+          Engineering full-stack web apps, Python backends, and data-driven tools since 2023.
         </p>
       </div>
 

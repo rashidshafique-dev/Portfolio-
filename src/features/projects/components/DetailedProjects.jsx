@@ -33,9 +33,7 @@ const stripEmojis = (text) => {
 };
 
 const repoTitleOverrides = {
-  'rashidshafique-dev': 'Sales Data Pipeline',
-  'rashidkhan4067': 'Sales Data Pipeline',
-  'sales-data-analysis-system': 'Sales Data Pipeline',
+  'sales-data-analysis-system': 'Sales Data Analysis System',
   'medicare / hospital management': 'MediCare / Hospital Management',
   'medicare': 'MediCare / Hospital Management',
   'hospital-management-system': 'Hospital Management System',
@@ -75,7 +73,7 @@ const mergeProjects = (rawGithubRepos) => {
       return {
         ...apiProj,
         ...matchedStatic,
-        title: matchedStatic.title === 'Sales-Data-Analysis-System' ? 'Sales Data Pipeline' : matchedStatic.title,
+        title: matchedStatic.title === 'Sales-Data-Analysis-System' ? 'Sales Data Analysis System' : matchedStatic.title,
         techStack: Array.from(new Set([...matchedStatic.techStack, ...apiProj.techStack]))
       };
     }
@@ -259,7 +257,7 @@ export default function DetailedProjects() {
             const desc = (repo.description || '').toLowerCase();
             const topics = repo.topics || [];
 
-            if (topics.includes('machine-learning') || topics.includes('ai') || desc.includes('face') || desc.includes('opencv') || desc.includes('pyspark') || desc.includes('predictive') || desc.includes('ml')) {
+            if (topics.includes('machine-learning') || topics.includes('ai') || desc.includes('face') || desc.includes('opencv') || desc.includes('predictive') || desc.includes('analysis') || desc.includes('ml')) {
               category = 'AI / ML';
               accentColor = '#1A73E8';
             } else if (topics.includes('fullstack') || topics.includes('frontend') || desc.includes('react') || desc.includes('next') || desc.includes('dashboard')) {
@@ -634,7 +632,7 @@ export default function DetailedProjects() {
                     </div>
                     <div className={styles.sidebarSpecRow}>
                       <span className={styles.sidebarSpecLabel}>Architecture</span>
-                      <span className={styles.sidebarSpecValue}>Full-Stack / Distributed</span>
+                      <span className={styles.sidebarSpecValue}>Full-Stack / Monolith</span>
                     </div>
                   </div>
                 </div>

@@ -19,7 +19,7 @@ export default function BuildLogsTeaser() {
           <span className={styles.eyebrow}>HIGHLIGHTED INSIGHTS</span>
           <h2 className={styles.title}>Build Logs</h2>
           <p className={styles.subtitle}>
-            Architectural decisions, performance benchmarks, and production systems post-mortems.
+            Engineering decisions, performance notes, and lessons from real projects.
           </p>
         </div>
 

@@ -27,8 +27,8 @@ import bhuttaImageImg from '../assets/image.png';
 export const personalInfo = {
   name: 'Muhammad Rashid Shafique',
   title: 'Full-Stack Software Engineer & AI Systems Developer',
-  tagline: 'Full-stack software engineer specializing in AI-integrated web and mobile applications — architecting production-grade systems end-to-end, from database design and secure REST APIs to responsive frontends and cross-platform apps.',
-  bio: `I am a Full-Stack Software Engineer specializing in AI-integrated web and mobile applications. Currently pursuing my BS in Computer Science at the University of Agriculture Faisalabad (UAF), I apply core academic fundamentals—including Data Structures & Algorithms, Object-Oriented Programming (OOP), and Relational Database Optimization—to architect production-grade systems end-to-end.`,
+  tagline: 'Full-stack software engineer specializing in AI-integrated web and mobile applications — building end-to-end projects from database design and secure REST APIs to responsive React frontends and cross-platform mobile apps.',
+  bio: `I am a Full-Stack Software Engineer and BS Computer Science student at the University of Agriculture Faisalabad (UAF). I build real-world web applications, secure REST APIs, and data-driven Python tools by applying strong fundamentals in Data Structures, Algorithms, OOP, and Relational Database Design.`,
   location: 'Faisalabad, Pakistan',
   email: 'rashidshafique.dev@gmail.com',
   phone: '+92 319 8696623',
@@ -61,7 +61,7 @@ export const navLinks = [
 
 export const stats = [
   { value: '25+',    label: 'Tech Skills' }, // Comprehensive framework, language & database tools
-  { value: '1.5M+',  label: 'Rows Processed' }, // PySpark & Big Data ingestion
+  { value: '10+',    label: 'Projects Built' }, // Real-world & semester projects
   { value: '42%',    label: 'Latency Optimized' }, // Optimized C++, socket servers & APIs
   { value: '99.9%',  label: 'System Uptime' } // Reliable crons, databases & deployments
 ];
@@ -70,7 +70,7 @@ export const projects = [
   {
     id: 1,
     title: 'Bhutta Scents',
-    description: 'A premium fragrance e-commerce storefront showcasing luxury perfumes, custom collections, and detailed product profiles. Features smooth CSS animations and responsive grid layouts.',
+    description: 'Live client e-commerce site at bhuttascents.com — a premium fragrance storefront for Bhutta Scents. Delivered 0 CLS layout shift and 100% client satisfaction with smooth CSS animations and responsive grid layouts.',
     techStack: ['React', 'Vite', 'Vanilla CSS', 'State Management'],
     tech: ['React', 'Vite', 'Vanilla CSS', 'State Management'],
     category: 'Full-Stack',
@@ -119,7 +119,7 @@ export const projects = [
   {
     id: 2,
     title: 'Al Shifaa Clinic',
-    description: 'A secure hospital management system for patient records, appointments, and staff coordination. Integrates automated patient check-in queues and role-based access control.',
+    description: 'A secure hospital management system with 7 role-based dashboards (Admin, Doctor, Nurse, Patient, Receptionist, Pharmacist, Lab). Integrates stateless JWT auth with Google OAuth 2.0 SSO and a 42% latency reduction from SQL indexing.',
     techStack: ['React', 'Django REST Framework', 'PostgreSQL', 'JWT', 'LLMs'],
     tech: ['React', 'Django REST Framework', 'PostgreSQL', 'JWT', 'LLMs'],
     category: 'Full-Stack',
@@ -294,7 +294,7 @@ export const projects = [
   {
     id: 3,
     title: 'Rescue Project',
-    description: 'An AI-powered search-and-rescue command console for volunteer coordination and missing persons registry. Features difference hashing facial matching and geofenced mobilization alerts.',
+    description: 'AI-powered search-and-rescue command console with difference-hash facial matching (dHash + Hamming distance), Groq Llama 3 conversational coordinator, and geofenced SMTP volunteer mobilization alerts.',
     techStack: ['React', 'Flask', 'SQLAlchemy', 'Groq (Whisper / Llama 3)', 'Zustand'],
     tech: ['React', 'Flask', 'SQLAlchemy', 'Groq (Whisper / Llama 3)', 'Zustand'],
     category: 'Full-Stack',
@@ -561,50 +561,50 @@ export const projects = [
   {
     id: 7,
     title: 'Sales-Data-Analysis-System',
-    description: 'A high-throughput big data analytics pipeline and interactive forecasting dashboard for transaction records. Predicts regional sales trends and profit metrics using historical datasets.',
-    techStack: ['PySpark', 'Python', 'Scikit-Learn', 'Streamlit', 'Plotly'],
-    tech: ['PySpark', 'Python', 'Scikit-Learn', 'Streamlit', 'Plotly'],
+    description: 'Semester project: interactive sales analytics dashboard with 3 Plotly dashboards (regional trends, category distribution, profit forecasting). Built a Scikit-Learn linear regression model to predict profit margins on retail transaction records.',
+    techStack: ['Python', 'Pandas', 'Scikit-Learn', 'Streamlit', 'Plotly'],
+    tech: ['Python', 'Pandas', 'Scikit-Learn', 'Streamlit', 'Plotly'],
     category: 'AI/ML',
     featured: true,
     liveUrl: 'https://github.com/rashidkhan4067/Sales-Data-Analysis-System',
     githubUrl: 'https://github.com/rashidkhan4067/Sales-Data-Analysis-System.git',
     accentColor: '#1A73E8', // Google Blue Brand colors
     imageUrl: salesPipelineImg,
-    metric: '10M+ Rows Ingestion',
-    relatedLogTitle: 'Debugging Spark Partition Skew & Memory Spills in 10M+ Row PySpark Pipelines',
-    tagline: 'High-throughput big data pipeline and analytics dashboard processing 10M+ transaction rows.',
+    metric: 'Predictive ML Analytics',
+    relatedLogTitle: 'Structuring Exploratory Data Analysis & Predictive Pipelines in Python & Streamlit',
+    tagline: 'Interactive sales analytics dashboard and predictive ML forecasting system.',
     status: 'Completed',
-    problemStatement: 'Processing multi-million row transactional datasets causes single-threaded analytics tools (e.g. Pandas) to trigger memory spills, driver crashes, and unscalable execution times during complex joins and forecasting aggregations.',
-    systemOverview: 'Distributed data engineering pipeline: Apache Spark (PySpark) worker cluster executing parallelized data ingestion, feature transformation, and ML predictive classifiers, visualized through an interactive Streamlit telemetry dashboard.',
+    problemStatement: 'Retail transaction datasets often contain noisy, missing, or unstructured records that make manual sales trend identification and revenue forecasting difficult.',
+    systemOverview: 'End-to-end data analysis application: Python and Pandas data cleaning pipeline, Scikit-Learn regression models for profit estimation, and an interactive Streamlit dashboard featuring dynamic Plotly visualizations.',
     engineeringDecisions: [
       {
-        decision: 'PySpark Distributed Processing over In-Memory Pandas',
-        reason: 'Distributes dataset partitions across worker nodes, enabling sub-second filtering and group-by aggregations on 10M+ rows without memory exhaustion.',
-        tradeoff: 'Higher driver initialization overhead for small datasets (<10k rows).'
+        decision: 'Pandas Vectorized Operations over Iterative Loops',
+        reason: 'Utilized vectorized column operations and groupby aggregations, accelerating dataset filtering and metric computations.',
+        tradeoff: 'Requires sufficient in-memory RAM for holding intermediate dataframes.'
       },
       {
-        decision: 'Synthetic Key Salting on Categorical Joins',
-        reason: 'Eliminated severe Spark partition skew during regional sales join operations by evenly spreading hot keys across executor slots.',
-        tradeoff: 'Requires an extra post-join aggregation step to strip synthetic salts.'
+        decision: 'Streamlit & Plotly for Rapid Interactive Visualization',
+        reason: 'Allowed dynamic parameter tuning (date ranges, regional filters) with instant visual updates and zero complex frontend overhead.',
+        tradeoff: 'Reruns script execution on filter state changes, requiring @st.cache_data optimization.'
       },
       {
-        decision: 'Scheduled Batch Ingestion over Streaming Broker',
-        reason: 'Periodic cron-triggered batch execution met business requirements at 1/10th the infrastructure cost of a 24/7 Kafka cluster.',
-        tradeoff: 'Data updates on hourly intervals rather than sub-second real-time.'
+        decision: 'Scikit-Learn Linear Regression for Profit Modeling',
+        reason: 'Provides transparent, interpretable regression coefficients to evaluate feature correlation with profit margins.',
+        tradeoff: 'Assumes linear feature relationships, less suited for non-linear seasonal spikes.'
       }
     ],
-    hardProblem: 'Spark Executor Partition Skew & Memory Spills: Heavily skewed regional transaction keys were overloading single executor nodes, causing Out-Of-Memory (OOM) task failures. Resolved by analyzing Spark UI execution DAGs and implementing synthetic key salting with custom repartition thresholds.',
-    whatWeCut: 'Intentionally avoided deploying an expensive Apache Kafka cluster; scheduled batch jobs on Linux cron intervals fulfilled all analytical SLA targets.',
+    hardProblem: 'Dataframe Memory & Caching Optimization: Recomputing aggregations on every user interaction caused UI lag in Streamlit. Resolved by implementing @st.cache_data caching decorators with optimized column data types.',
+    whatWeCut: 'Kept the architecture lean by relying on Streamlit and local data caching rather than heavy distributed cluster infrastructure.',
     challenges: [
-      'Identified and resolved Spark executor partition skew on heavily imbalanced regional transaction records via synthetic key salting.',
-      'Constructed distributed feature engineering pipelines feeding Spark ML decision-tree classifiers for profit forecasting.'
+      'Engineered automated data cleaning routines to handle missing values and normalize multi-category transaction records.',
+      'Constructed interactive charts with Plotly to visualize regional sales distributions and category profit ratios.'
     ],
-    outcome: 'Processed over 10M+ transaction rows in under 1.5 seconds runtime, delivering accurate profit forecasts with 0 memory spillover.'
+    outcome: 'Successfully delivered an intuitive semester project dashboard with interactive filters and predictive revenue forecasts.'
   },
   {
     id: 8,
     title: 'AquaSync',
-    description: 'An IoT real-time fluid telemetry dashboard and monitoring system for water distribution networks. Tracks flow rate, water pressure, and tank levels across multiple sensor nodes.',
+    description: 'IoT real-time fluid telemetry system monitoring 4 sensor nodes (flow rate, pressure, tank level, pump status) across a water distribution network. Multi-threaded Python dashboard with C++/Arduino firmware and threshold alert system.',
     techStack: ['C++', 'Python', 'Arduino', 'IoT', 'Tkinter'],
     tech: ['C++', 'Python', 'Arduino', 'IoT', 'Tkinter'],
     category: 'IoT',
@@ -729,9 +729,9 @@ export const experience = [
     period: '2023 — Present',
     type: 'Employment',
     location: 'Faisalabad, Pakistan / Remote',
-    description: 'Architecting and shipping production-grade Python backend services, secure REST APIs, and full-stack web and cross-platform mobile applications.',
+    description: 'Building and shipping Python backend services, secure REST APIs, and full-stack web and cross-platform mobile applications.',
     highlights: [
-      'Architected and shipped production-grade Python backend services (Django, DRF, FastAPI) applying OOP design patterns and modular software principles for clean, maintainable codebases.',
+      'Built and shipped Python backend services (Django, DRF, FastAPI) applying OOP design patterns and modular software principles for clean, maintainable codebases.',
       'Designed optimized SQL schemas, normalization models, and indexing strategies to minimize API response latency by 42% and eliminate redundant database round-trips.',
       'Engineered secure authentication systems using stateless JWT tokens with auto-rotation/blacklisting and Google OAuth 2.0 Single Sign-On (SSO).',
       'Built responsive, production-deployed frontends in React.js (Vite, Tailwind CSS, CSS Modules) and cross-platform mobile apps in React Native (Expo), shipping to Vercel and Railway.',
@@ -809,7 +809,7 @@ export const testimonials = [
     role: 'Professor of Software Engineering',
     company: 'UAF',
     avatar: '',
-    content: "An outstanding student who possesses an innate understanding of computational structures and Big-O algorithm optimizations. His work in PySpark data modeling ranks in the highest tier of our systems engineering cohort.",
+    content: "An outstanding student who possesses an innate understanding of computational structures and algorithmic problem solving. His semester projects and software systems demonstrate exceptional dedication to clean architecture and practical engineering.",
     rating: 5,
   }
 ];
@@ -819,7 +819,7 @@ export const timeline = [
   { year: 'Dec 2023', event: 'Mastered Python and started building commercial automation scripts & web crawlers' },
   { year: 'Jun 2024', event: 'Transitioned into Full-Stack Web Development, building React and Node.js products' },
   { year: 'Nov 2024', event: 'Engineered comprehensive Hospital Management System' },
-  { year: 'Aug 2025', event: 'Built PySpark Sales Data Analytics System with predictive AI modeling' },
+  { year: 'Aug 2025', event: 'Developed Sales Data Analysis System with predictive ML modeling' },
   { year: 'Jun 2026', event: 'Presenting a fully modern production-grade portfolio' },
 ];
 
@@ -877,31 +877,28 @@ The result was a locked 0.00 CLS score, instant sub-second page transitions, and
   },
   {
     id: 3,
-    title: 'Debugging Spark Partition Skew & Memory Spills in 10M+ Row PySpark Pipelines',
+    title: 'Structuring Exploratory Data Analysis & Predictive Pipelines in Python & Streamlit',
     date: 'June 04, 2026',
-    type: 'Data Engineering',
-    metric: '10M+ Rows <1.5s',
-    excerpt: 'Diagnosing Out-Of-Memory (OOM) executor crashes on imbalanced categorical joins in Apache Spark, and eliminating partition hotspots using synthetic key salting.',
-    tags: ['PySpark', 'Big Data', 'Distributed Systems', 'Python'],
-    content: `While building the Sales Data Analysis System to ingest and forecast trends across 10M+ transactional records, we encountered severe execution bottlenecks during multi-dataset join operations.
+    type: 'Data Analytics',
+    metric: 'Sub-Second Filtering',
+    excerpt: 'Optimizing DataFrame caching, memory footprints, and regression modeling to deliver responsive interactive sales dashboards in Streamlit.',
+    tags: ['Python', 'Pandas', 'Scikit-Learn', 'Streamlit', 'Data Science'],
+    content: `While building the Sales Data Analysis System semester project to analyze retail transaction records and forecast regional profit margins, we focused on building a clean and responsive exploratory data pipeline.
 
-### The Bottleneck: Spark Partition Skew
-When joining transactional tables with regional customer lookup tables on \`region_id\`:
-- A single region (e.g. high-volume urban center) accounted for over 45% of total transactions.
-- During Spark's shuffle hash join, all records with that hot key were hashed to a single executor node.
-- While 7 worker nodes finished their tasks in 200ms, the overloaded node ran out of JVM heap memory, spilled partitions to disk, and eventually triggered an Out-Of-Memory (OOM) failure.
+### The Problem: Reactive Rerun Bottlenecks in Streamlit
+Streamlit's execution model re-executes the Python script from top to bottom whenever a user tweaks an input widget (like a date slider or category dropdown):
+1. Reloading raw CSV datasets on every state change caused noticeable UI lag.
+2. Inefficient DataFrame manipulation with unoptimized data types consumed unnecessary RAM.
+3. Model retraining on every filter change slowed down prediction responses.
 
-### The Solution: Synthetic Key Salting & Repartitioning
-To distribute the computational workload evenly across the cluster:
-1. **Salting the Skewed Key**: Appended a pseudo-random integer suffix (\`0\` to \`K-1\`, where \`K\` = cluster parallelism factor) to the hot join key in the primary transactional DataFrame:
-   \`\`\`python
-   df = df.withColumn("salted_key", concat(col("region_id"), lit("_"), (rand() * K).cast("int")))
-   \`\`\`
-2. **Exploding the Lookup Dimension**: Replicated corresponding rows in the smaller dimension table across all \`K\` synthetic salt values.
-3. **Executing the Salted Join**: Performed the join on \`salted_key\`, spreading the hot partition uniformly across all executor slots.
-4. **Stripping Synthetic Salts**: Removed the salt suffix in the final aggregation stage.
+### The Solution: Optimized Caching & Vectorized Transformations
+To make the dashboard snappy and responsive:
+1. **Data Caching with \`@st.cache_data\`**: Wrapped the data ingestion and preprocessing functions with Streamlit's caching decorators, ensuring CSV parsing occurs only once.
+2. **DataFrame Downcasting**: Downcasted integer and float columns (e.g. \`float64\` to \`float32\`, categorical strings to \`category\` dtypes), slashing memory consumption by over 60%.
+3. **Pre-Trained Regression Persistence**: Separated model training from inference, serializing the fitted Scikit-Learn model to disk and loading it instantly for live predictions.
+4. **Vectorized Pandas Aggregations**: Replaced row iteration with vectorized groupby operations for calculating regional profit margins and sales volumes.
 
-This eliminated partition hotspots, reduced overall join latency from 18 seconds down to 1.4 seconds, and completely prevented memory spillover.`
+This eliminated dashboard latency, resulting in sub-second filter updates and fluid chart rendering across all transaction views.`
   },
   {
     id: 4,

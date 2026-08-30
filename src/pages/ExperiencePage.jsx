@@ -40,7 +40,7 @@ export default function ExperiencePage() {
     <>
       <Helmet>
         <title>Experience | Muhammad Rashid Shafique — Engineer & BS CS Candidate</title>
-        <meta name="description" content="Work experience and academic timeline of Muhammad Rashid Shafique — open-source contributor, freelance systems engineer, and BS Computer Science candidate at UAF Faisalabad. Experience with Selenium automation, Node.js APIs, hospital management systems, and PySpark data pipelines." />
+        <meta name="description" content="Work experience and academic timeline of Muhammad Rashid Shafique — open-source contributor, freelance systems engineer, and BS Computer Science candidate at UAF Faisalabad. Experience with Selenium automation, Node.js APIs, hospital management systems, and data analytics workflows." />
         <meta name="keywords" content="Muhammad Rashid Shafique experience, software engineer work history, open source contributor Pakistan, BS Computer Science UAF, Selenium automation engineer, Node.js backend experience, Django API experience" />
         <link rel="canonical" href={`${BASE_URL}/experience`} />
 

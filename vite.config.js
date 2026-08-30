@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: 'Muhammad Rashid Shafique — Portfolio',
         short_name: 'Rashid.dev',
-        description: 'Systems Engineer & Full-Stack Developer. Building performant backend APIs, PySpark data pipelines, and responsive React web products.',
+        description: 'Systems Engineer & Full-Stack Developer. Building performant backend APIs, AI-integrated applications, and responsive React web products.',
         start_url: '/',
         scope: '/',
         display: 'standalone',

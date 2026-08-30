@@ -8,7 +8,7 @@ const projectsSchema = {
   '@type': 'CollectionPage',
   'name': 'Projects by Muhammad Rashid Shafique',
   'url': `${BASE_URL}/projects`,
-  'description': '10+ engineering projects by Muhammad Rashid Shafique — AI facial recognition, PySpark data pipelines, Django/FastAPI backends, React web apps, IoT dashboards, and hospital management systems.',
+  'description': '10+ engineering projects by Muhammad Rashid Shafique — AI facial recognition, data analytics dashboards, Django/FastAPI backends, React web apps, IoT dashboards, and hospital management systems.',
   'author': {
     '@type': 'Person',
     'name': 'Muhammad Rashid Shafique',
@@ -43,9 +43,9 @@ export default function ProjectsPage() {
   return (
     <>
       <Helmet>
-        <title>Projects | Muhammad Rashid Shafique — AI, Full-Stack & Big Data Engineering</title>
-        <meta name="description" content="10+ engineering projects by Muhammad Rashid Shafique — AI hospital management system, PySpark data pipelines, Django/FastAPI REST APIs, React web apps, IoT dashboards, and algorithm visualisers. Explore technical case studies and GitHub repositories." />
-        <meta name="keywords" content="Muhammad Rashid Shafique projects, Python projects Pakistan, React projects, AI hospital management system, PySpark project, Django REST API project, full stack web app portfolio, open source engineer Pakistan" />
+        <title>Projects | Muhammad Rashid Shafique — AI, Full-Stack & Systems Engineering</title>
+        <meta name="description" content="10+ engineering projects by Muhammad Rashid Shafique — AI hospital management system, data analytics dashboards, Django/FastAPI REST APIs, React web apps, IoT dashboards, and algorithm visualisers. Explore technical case studies and GitHub repositories." />
+        <meta name="keywords" content="Muhammad Rashid Shafique projects, Python projects Pakistan, React projects, AI hospital management system, data analytics project, Django REST API project, full stack web app portfolio, open source engineer Pakistan" />
         <link rel="canonical" href={`${BASE_URL}/projects`} />
 
         {/* Open Graph */}

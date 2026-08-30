@@ -31,7 +31,7 @@ export default function BuildLogsSection() {
     }
   };
 
-  const categories = ['All', 'Backend', 'Performance', 'Big Data', 'AI', 'IoT', 'Algorithms'];
+  const categories = ['All', 'Backend', 'Performance', 'Data Analysis', 'AI', 'IoT', 'Algorithms'];
 
   const filteredLogs = activeCategory === 'All'
     ? buildLogs
@@ -49,7 +49,7 @@ export default function BuildLogsSection() {
           <span className={styles.eyebrow}>HIGHLIGHTED INSIGHTS</span>
           <h1 className={styles.title}>Build Logs</h1>
           <p className={styles.subtitle}>
-            A structured collection of low-latency optimization logs, system telemetry, and pipeline architectural write-ups.
+            A structured collection of full-stack engineering logs, system architecture, and optimization write-ups.
           </p>
           <div style={{ marginTop: '0.85rem' }}>
             <a

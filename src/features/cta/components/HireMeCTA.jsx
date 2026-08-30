@@ -16,7 +16,7 @@ export default function HireMeCTA() {
         >
           <div className={styles.textBlock}>
             <h2 className={styles.title}>
-              Let’s Build Scalable, Production-Grade Systems
+              Let's Build Something Real Together
             </h2>
             <p className={styles.desc}>
               Available for full-stack software engineering roles, high-performance Python/Django backends, and custom AI-integrated web applications.

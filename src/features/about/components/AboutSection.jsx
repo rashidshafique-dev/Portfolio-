@@ -60,14 +60,14 @@ export default function AboutSection() {
         <motion.div className={styles.aboutRight} variants={itemVariants}>
           <SectionHeading
             eyebrow="About Me"
-            title="Architecting Scalable Backend & AI Systems"
+            title="Building Full-Stack Web & Python Backend Systems"
             subtitle={
               <>
                 <p>
-                  I am a Software Engineer specializing in low-latency systems development, distributed big data pipelines, and high-concurrency automated scripts.
+                  I am a Software Engineer specializing in full-stack web applications, AI integration, and Python backend development.
                 </p>
                 <p>
-                  Currently pursuing my BS in Computer Science at the University of Agriculture Faisalabad (UAF), I apply core academic fundamentals—including advanced Data Structures, Algorithmic Analysis, and Database Optimization—to engineer production-grade enterprise software. I thrive on translating abstract computational complexities into highly scalable, performant systems.
+                  Currently pursuing my BS in Computer Science at the University of Agriculture Faisalabad (UAF), I apply strong academic fundamentals in Data Structures, Algorithms, and Database Design to build real-world web applications, secure REST APIs, and data-driven Python tools.
                 </p>
               </>
             }

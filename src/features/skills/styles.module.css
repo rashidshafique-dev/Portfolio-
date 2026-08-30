@@ -344,6 +344,79 @@
   color: #8ab4f8;
 }
 
+/* Familiar (Academic) Pill */
+.familiarPill {
+  font-size: 0.58rem;
+  font-weight: 600;
+  padding: 0.08rem 0.28rem;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--md-on-surface-variant, #5f6368);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .familiarPill {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+  }
+}
+
+[data-theme='dark'] .familiarPill {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #9aa0a6;
+}
+
+/* Skill Level Legend */
+.levelLegend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--md-on-surface-variant, #5f6368);
+}
+
+[data-theme='dark'] .legendItem {
+  color: #9aa0a6;
+}
+
+.legendDotCore {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--md-primary, #1a73e8);
+  flex-shrink: 0;
+}
+
+.legendDotProficient {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fbbc04;
+  flex-shrink: 0;
+}
+
+.legendDotFamiliar {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #9aa0a6;
+  flex-shrink: 0;
+}
+
 /* Card Description — Cleanly hidden on mobile to eliminate broken truncated text */
 .skillDesc {
   display: none;

@@ -32,7 +32,7 @@ export default function ContactPage() {
     <>
       <Helmet>
         <title>Contact Muhammad Rashid Shafique | Hire Systems Engineer & Full-Stack Developer</title>
-        <meta name="description" content="Hire Muhammad Rashid Shafique — Systems Engineer & Full-Stack Developer from Faisalabad, Pakistan. Available for full-time roles, freelance contracts, and open-source collaboration. Expertise in Python, Django, FastAPI, React, and PySpark." />
+        <meta name="description" content="Hire Muhammad Rashid Shafique — Systems Engineer & Full-Stack Developer from Faisalabad, Pakistan. Available for full-time roles, freelance contracts, and open-source collaboration. Expertise in Python, Django, FastAPI, React, and modern web applications." />
         <meta name="keywords" content="contact Muhammad Rashid Shafique, hire systems engineer Pakistan, hire full stack developer Pakistan, hire Python developer, hire React developer, freelance backend developer Pakistan, software engineer for hire" />
         <link rel="canonical" href={`${BASE_URL}/contact`} />
 

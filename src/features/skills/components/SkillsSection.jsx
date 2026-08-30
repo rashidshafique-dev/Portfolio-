@@ -31,13 +31,13 @@ const SKILLS = [
     filter: "languages",
     items: [
       { name: "Python", desc: "Object-oriented scripting, low-latency backends, and algorithmic workflows.", icon: "FileCode2", currentFocus: true, level: "Expert" },
-      { name: "C++", desc: "High-performance systems programming and algorithm optimization.", icon: "Cpu", level: "Proficient" },
-      { name: "Java", desc: "Enterprise architecture fundamentals and OOP design patterns.", icon: "Coffee", level: "Proficient" },
+      { name: "C++", desc: "Systems programming, OOP, and algorithm design — studied at UAF and used in IoT (AquaSync / Arduino).", icon: "Cpu", level: "Familiar" },
+      { name: "Java", desc: "OOP design patterns and data structures — studied academically at UAF.", icon: "Coffee", level: "Familiar" },
       { name: "HTML5 & CSS3", desc: "Semantic DOM structure and modern responsive styling architectures.", icon: "Globe", level: "Expert" },
     ]
   },
   {
-    category: "Distributed Systems & API Engineering",
+    category: "Backend & API Engineering",
     filter: "backend",
     items: [
       { name: "Django", desc: "Enterprise Python web framework with ORM and secure session management.", icon: "Server", currentFocus: true, level: "Expert" },
@@ -105,7 +105,8 @@ export default function SkillsSection() {
 
   const FILTER_CHIPS = [
     { label: "All", value: "all" },
-    { label: "Current Focus", value: "focus" },
+    { label: "Primary Stack", value: "focus" },
+    { label: "Familiar (Academic)", value: "familiar" },
     { label: "Languages", value: "languages" },
     { label: "Backend", value: "backend" },
     { label: "UI/UX", value: "frontend" },
@@ -121,7 +122,12 @@ export default function SkillsSection() {
           ...cat,
           items: cat.items.filter(item => item.currentFocus)
         })).filter(cat => cat.items.length > 0)
-      : SKILLS.filter(cat => cat.filter === activeFilter);
+      : activeFilter === "familiar"
+        ? SKILLS.map(cat => ({
+            ...cat,
+            items: cat.items.filter(item => item.level === "Familiar")
+          })).filter(cat => cat.items.length > 0)
+        : SKILLS.filter(cat => cat.filter === activeFilter);
 
   return (
     <section className={styles.section} id="skills">
@@ -132,8 +138,15 @@ export default function SkillsSection() {
           <span className={styles.eyebrow}>TECHNICAL STACK</span>
           <h2 className={styles.title}>Skills & Technologies</h2>
           <p className={styles.subtitle}>
-            Production-grade backend architectures, distributed data pipelines, and responsive frontend systems.
+            Python backends, React frontends, and data-driven tools — built and deployed.
           </p>
+        </div>
+
+        {/* Level Legend */}
+        <div className={styles.levelLegend}>
+          <span className={styles.legendItem}><span className={styles.legendDotCore} /> Core Stack</span>
+          <span className={styles.legendItem}><span className={styles.legendDotProficient} /> Proficient</span>
+          <span className={styles.legendItem}><span className={styles.legendDotFamiliar} /> Familiar (Academic)</span>
         </div>
 
         {/* Filter Chips — Subtler borders and cleaner active states */}
@@ -188,6 +201,9 @@ export default function SkillsSection() {
                           </div>
                           {skill.currentFocus && (
                             <span className={styles.focusPill}>Primary</span>
+                          )}
+                          {!skill.currentFocus && skill.level === "Familiar" && (
+                            <span className={styles.familiarPill}>Academic</span>
                           )}
                         </div>
 
