@@ -36,16 +36,11 @@ export default function BuildLogsTeaser() {
               
               {/* Top Row: Category Left, Date Right */}
               <div className={styles.topRow}>
-                <div className={styles.tagList}>
-                  <span className={styles.cardTag}>{log.type}</span>
-                </div>
+                <span className={styles.cardTag}>{log.type}</span>
                 <span className={styles.cardDate}>{log.date}</span>
               </div>
 
-              {/* Divider after top row */}
-              <div className={styles.divider} />
-
-              {/* Card Title */}
+              {/* Card Title & Excerpt */}
               <div className={styles.cardBody}>
                 <h3 className={styles.cardTitle}>
                   <span className={styles.cardTitleLink}>
@@ -55,16 +50,12 @@ export default function BuildLogsTeaser() {
                 <p className={styles.cardDesc}>{log.excerpt}</p>
               </div>
 
-              {/* Bottom Divider */}
-              <div className={styles.bottomDivider} />
-
               {/* Topic chips (bottom) */}
               <div className={styles.topicList}>
-                {log.tags.map((tag) => (
-                  <div key={tag} className={styles.topicChip} onClick={(e) => e.stopPropagation()}>
-                    <Tag size={10} aria-hidden="true" />
-                    <span>{tag}</span>
-                  </div>
+                {log.tags.slice(0, 4).map((tag) => (
+                  <span key={tag} className={styles.topicChip} onClick={(e) => e.stopPropagation()}>
+                    {tag}
+                  </span>
                 ))}
               </div>
 
