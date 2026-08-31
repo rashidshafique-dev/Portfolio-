@@ -39,7 +39,8 @@ const repoTitleOverrides = {
   'sunrise-hotel-plum': 'Sunrise Imperial Resort',
   'sunrise_hotel': 'Sunrise Imperial Resort',
   'shadcn-dashboard-vite': 'Sunrise Imperial Resort',
-  'sunrise-imperial-resort': 'Sunrise Imperial Resort'
+  'sunrise-imperial-resort': 'Sunrise Imperial Resort',
+  'aioverse': 'AioVerse'
 };
 
 const formatProjectTitle = (name) => {

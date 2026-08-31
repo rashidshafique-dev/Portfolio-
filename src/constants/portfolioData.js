@@ -30,6 +30,13 @@ import sunriseCustomizerImg from '../assets/sunrise_hotel/sunrise_customizer.png
 import sunriseBookingsImg from '../assets/sunrise_hotel/sunrise_bookings.png';
 import sunriseReportImg from '../assets/sunrise_hotel/sunrise_report.png';
 import sunriseAppsImg from '../assets/sunrise_hotel/sunrise_apps.png';
+import aioverseMainImg from '../assets/aioverse/aioverse_main.png';
+import aioverseHomeImg from '../assets/aioverse/home.png';
+import aioverseAuthImg from '../assets/aioverse/auth.png';
+import aioverseOnboarding1Img from '../assets/aioverse/onboardingscreen.png';
+import aioverseOnboarding2Img from '../assets/aioverse/onboarding2.png';
+import aioverseSplashImg from '../assets/aioverse/splashsceen.png';
+import aioverseSystemDesignImg from '../assets/aioverse/system-design.png';
 
 
 export const personalInfo = {
@@ -257,8 +264,142 @@ export const projects = [
       }
     ]
   },
-  {
+    {
     id: 2,
+    title: 'AioVerse',
+    description: 'Full-stack cross-platform mobile workspace and multi-utility SaaS application built with React Native, Expo, TypeScript, and Python Django REST Framework. Features 40+ native mobile utilities including Image Processing Studio, PDF Document Workspace, QR Code Studio, Task Organizer, and Guest Session Engine with offline-first persistence.',
+    techStack: ['React Native', 'Expo', 'TypeScript', 'Django', 'Django REST Framework', 'PostgreSQL', 'JWT', 'AsyncStorage'],
+    tech: ['React Native', 'Expo', 'TypeScript', 'Django', 'Django REST Framework', 'PostgreSQL', 'JWT', 'AsyncStorage'],
+    category: 'Mobile / Full-Stack',
+    featured: true,
+    liveUrl: null,
+    githubUrl: 'https://github.com/rashidkhan4067/AioVerse',
+    accentColor: '#6366F1',
+    imageUrl: aioverseMainImg,
+    metric: '40+ Mobile Utilities · 60 FPS Native Performance · Offline-First Sync',
+    relatedLogTitle: 'Architecting Offline-First Local Storage & Native Media Pipelines in React Native & Django',
+    screenshots: [
+      { label: 'Home Workspace Screen', url: aioverseHomeImg },
+      { label: 'Authentication & Security', url: aioverseAuthImg },
+      { label: 'Onboarding Flow', url: aioverseOnboarding1Img },
+      { label: 'Feature Walkthrough', url: aioverseOnboarding2Img },
+      { label: 'Splash & Brand Identity', url: aioverseSplashImg },
+      { label: 'System Design Architecture', url: aioverseSystemDesignImg }
+    ],
+    tagline: 'Cross-platform mobile workspace & all-in-one multi-utility ecosystem.',
+    status: 'In Progress (Active Backend Architecture)',
+    problemStatement: 'Modern mobile users are forced to install dozens of disparate single-purpose utility apps that consume excessive device storage, battery, and background memory. Furthermore, offline mobile utility apps frequently lack unified cloud backup, secure multi-device profile sync, and structured backend API architectures.',
+    systemOverview: 'Full-stack cross-platform mobile architecture: React Native client on Expo with custom TypeScript design system tokens (src/design-system), local-first state persistence via AsyncStorage, and a modular Python Django REST Framework backend providing stateless JWT authentication (/api/v1/auth/token/), user profile endpoints, and pytest validation suites.',
+    engineeringDecisions: [
+      {
+        decision: 'Offline-First Local Storage Engine with Async Buffer Synchronization',
+        reason: 'Enables users to perform image compressions, PDF conversions, and task updates with zero network latency, while automatically queuing cloud synchronization jobs when connectivity is restored.',
+        tradeoff: 'Requires conflict-resolution logic between local AsyncStorage cache and Django PostgreSQL database.'
+      },
+      {
+        decision: 'Stateless Single-Use JWT Refresh Rotation & Guest Mode Token Isolation',
+        reason: 'Guarantees secure mobile authentication with automatic token refresh queues while supporting zero-friction guest sessions that can be seamlessly upgraded to persistent registered accounts.',
+        tradeoff: 'Requires maintaining isolated guest data partitions on both client AsyncStorage and backend API models.'
+      },
+      {
+        decision: 'Decoupled Native Media Bridge Worker Pipelines',
+        reason: 'Offloaded heavy image compression, aspect-ratio cropping, and PDF rendering to native device threads before invoking asynchronous multipart upload streams, preventing JavaScript event loop UI freezing.',
+        tradeoff: 'Requires custom Expo native module configurations across iOS and Android build profiles.'
+      }
+    ],
+    hardProblem: 'Native Thread Blocking on Multi-Megabyte Image & Document Processing: Synchronously reading and manipulating camera photos on the JavaScript thread dropped mobile framerates below 25 FPS during batch operations. Resolved by offloading file I/O to native Expo file system workers with chunked memory buffers and progressive image decoding, restoring locked 60 FPS UI performance.',
+    whatWeCut: 'Avoided bloated third-party component libraries in favor of a bespoke, lightweight design system (src/design-system) with zero-runtime style overhead and strict tokenized themes.',
+    challenges: [
+      'Engineered 40+ native mobile utilities across image compression, PDF manipulation, QR scanning, biometric security, and productivity management.',
+      'Constructed a high-throughput Django REST API backend supporting stateless JWT rotation, password reset flows, and automated pytest test suites.',
+      'Implemented offline-first AsyncStorage state caching with seamless online synchronization.',
+      'Delivered locked 60 FPS native UI transitions across both iOS and Android Expo environments.'
+    ],
+    outcome: 'Shipped a comprehensive, production-grade mobile workspace app integrating 40+ tools into a single lightweight client with sub-80ms processing latency and complete Django API backend synchronization.',
+    milestones: [
+      {
+        title: 'Milestone 1: Core Mobile Design System & Navigation Architecture',
+        status: 'Completed',
+        details: [
+          'Bespoke design system tokens with dark/light themes, typography scales, and haptic feedback triggers.',
+          'Modular bottom-tab and stack navigation with fluid screen transitions across all device sizes.'
+        ]
+      },
+      {
+        title: 'Milestone 2: Media & Image Processing Studio',
+        status: 'Completed',
+        details: [
+          'High-performance image compressor with target-size constraints and format conversion (JPEG, PNG, WebP).',
+          'Aspect-ratio cropper, filters, and batch optimization pipeline offloaded to native threads.'
+        ]
+      },
+      {
+        title: 'Milestone 3: PDF Document Workspace & QR Studio',
+        status: 'Completed',
+        details: [
+          'Multi-page PDF generation, document viewer, and page extraction pipeline.',
+          'Dynamic SVG QR code generator with custom styling and real-time camera barcode scanner.'
+        ]
+      },
+      {
+        title: 'Milestone 4: Productivity Suite & Local Storage Engine',
+        status: 'Completed',
+        details: [
+          'Task organization matrix with priority filtering and persistent AsyncStorage state.',
+          'Workspace notes organizer with Markdown formatting and search indexing.'
+        ]
+      },
+      {
+        title: 'Milestone 5: Django REST API Backend & Authentication Layer',
+        status: 'Completed',
+        details: [
+          'Stateless JWT authentication with token refresh, password recovery, and profile endpoints.',
+          'Comprehensive pytest test suites verifying API security, rate limiting, and database constraints.'
+        ]
+      }
+    ],
+    features: [
+      {
+        title: 'Full-Stack Architecture & Technology Stack',
+        details: [
+          'Frontend Mobile Client: React Native, Expo, TypeScript, custom Design System tokens, and AsyncStorage.',
+          'Backend REST API: Python, Django, Django REST Framework, PostgreSQL, and Pytest validation suites.',
+          'Security & Authentication: Stateless JWT rotation (/api/v1/auth/token/), guest mode isolation, and biometric auth bridges.'
+        ]
+      },
+      {
+        title: 'Image & Media Processing Studio',
+        details: [
+          'Image Compressor: Native image compression with configurable quality ratios and target file-size limits.',
+          'Format Converter: Real-time image format conversion (PNG, JPEG, WebP) with EXIF metadata preservation.',
+          'Aspect-Ratio Cropper: Interactive canvas cropping with preset aspect ratios (1:1, 4:5, 16:9).'
+        ]
+      },
+      {
+        title: 'PDF Document Workspace',
+        details: [
+          'PDF Merger & Splitter: Combine multiple documents or extract specific page ranges with native speed.',
+          'Document Viewer: Pinch-to-zoom interactive document reader with bookmarking.'
+        ]
+      },
+      {
+        title: 'QR Code Studio & Scanner',
+        details: [
+          'QR Generator: Custom color, logo embedding, and error correction for Wi-Fi, URL, and vCard codes.',
+          'Camera Scanner: Real-time barcode and QR detection with automatic clipboard parsing.'
+        ]
+      },
+      {
+        title: 'Productivity & Workspace Hub',
+        details: [
+          'Task Matrix: Priority-based task tracking with completion streaks and reminders.',
+          'Offline Storage Engine: Zero-latency local caching with background cloud sync.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
     title: 'Bhutta Scents',
     description: 'Live luxury fragrance e-commerce platform (bhuttascents.com) featuring 50+ curated SKUs, zero layout shift (0.00 CLS), sub-second cart mutations with Context/LocalStorage, and 100% verified client satisfaction.',
     techStack: ['React', 'Vite', 'Vanilla CSS', 'State Management'],
@@ -307,7 +448,7 @@ export const projects = [
     outcome: 'Delivered a sub-second, 100% stable storefront resulting in 0 CLS layout shift, verified mobile responsiveness, and 100% client satisfaction.'
   },
   {
-    id: 3,
+    id: 4,
     title: 'Al Shifaa Clinic',
     description: 'Full-stack clinic system with 7 role-based portals (Doctor, Patient, Admin, Pharmacist, Lab, Nurse, Receptionist), 15+ secure Django REST APIs, stateless JWT token auto-rotation, and 42% faster query response via PostgreSQL composite indexing.',
     techStack: ['React', 'Django REST Framework', 'PostgreSQL', 'JWT', 'LLMs'],
@@ -482,7 +623,7 @@ export const projects = [
     ]
   },
   {
-    id: 4,
+    id: 5,
     title: 'Rescue Project',
     description: 'AI-powered search-and-rescue command console with difference-hash facial matching (dHash + Hamming distance), Groq Llama 3 conversational coordinator, and geofenced SMTP volunteer mobilization alerts.',
     techStack: ['React', 'Flask', 'SQLAlchemy', 'Groq (Whisper / Llama 3)', 'Zustand'],
@@ -577,7 +718,7 @@ export const projects = [
     ]
   },
   {
-    id: 5,
+    id: 6,
     title: 'Rashid Shafique Portfolio',
     description: 'An interactive browser workstation simulating a mobile operating system inside a virtual smartphone chassis. Includes a live logcat console, local storage database persistence, and technical sandbox micro-demos.',
     techStack: ['React', 'Node.js', 'Express', 'TypeScript', 'Gemini AI'],
@@ -641,7 +782,7 @@ export const projects = [
     ]
   },
   {
-    id: 6,
+    id: 7,
     title: 'VentureTwist',
     description: 'A restaurant management and food ordering application featuring interactive menus and an automated checkout cart system. Includes a secure administrative panel for order tracking and inventory monitoring.',
     techStack: ['Vanilla JS', 'Bootstrap 5', 'HTML5', 'CSS3'],
@@ -722,7 +863,7 @@ export const projects = [
     ]
   },
   {
-    id: 7,
+    id: 8,
     title: 'FoodDash',
     description: 'A web-based food delivery dashboard featuring responsive menu searches and interactive cart management. Includes a secure user verification flow and responsive layout configurations.',
     techStack: ['React', 'Vite', 'CSS Modules', 'State Management'],
@@ -749,7 +890,7 @@ export const projects = [
     outcome: 'Delivered an aesthetic, fast, and responsive user flow for dish selection, checkout verification, and session entry.'
   },
   {
-    id: 8,
+    id: 9,
     title: 'Sales-Data-Analysis-System',
     description: 'Semester project: interactive sales analytics dashboard with 3 Plotly dashboards (regional trends, category distribution, profit forecasting). Built a Scikit-Learn linear regression model to predict profit margins on retail transaction records.',
     techStack: ['Python', 'Pandas', 'Scikit-Learn', 'Streamlit', 'Plotly'],
@@ -792,7 +933,7 @@ export const projects = [
     outcome: 'Successfully delivered an intuitive semester project dashboard with interactive filters and predictive revenue forecasts.'
   },
   {
-    id: 9,
+    id: 10,
     title: 'AquaSync',
     description: 'IoT real-time fluid telemetry system monitoring 4 sensor nodes (flow rate, pressure, tank level, pump status) across a water distribution network. Multi-threaded Python dashboard with C++/Arduino firmware and threshold alert system.',
     techStack: ['C++', 'Python', 'Arduino', 'IoT', 'Tkinter'],
@@ -815,7 +956,7 @@ export const projects = [
     outcome: 'Maintains 99.9% uptime across active device connections, processing 100k+ telemetry packets daily.'
   },
   {
-    id: 10,
+    id: 11,
     title: 'MediCare / Hospital Management',
     description: 'A high-security patient management portal featuring transaction buffering and request validation. Manages patient admissions, registrations, and doctor scheduling.',
     techStack: ['React', 'Node.js', 'Express', 'SQLite', 'Python'],
@@ -838,7 +979,7 @@ export const projects = [
     outcome: 'Used to streamline patient registration and check-in workflows for over 150 daily admissions.'
   },
   {
-    id: 11,
+    id: 12,
     title: 'Algoviz-pro',
     description: 'An algorithmic visualization engine displaying interactive pathfinding and graph structure traversals. Renders node states and searches at high frame rates.',
     techStack: ['React', 'Flask', 'D3.js', 'Python', 'JavaScript'],
@@ -861,7 +1002,7 @@ export const projects = [
     outcome: 'Provides fluid 60fps renders for complex graph visualisations containing up to 10k nodes.'
   },
   {
-    id: 12,
+    id: 13,
     title: 'Face-Recognition-Attendance-System',
     description: 'An AI-powered facial recognition attendance and verification system. Automates real-time student check-ins and processes camera frames.',
     techStack: ['TensorFlow', 'Python', 'OpenCV', 'Keras', 'HTML5'],
@@ -884,7 +1025,7 @@ export const projects = [
     outcome: 'Automates secure real-time student check-ins under 120ms with near-zero false positive errors.'
   },
   {
-    id: 13,
+    id: 14,
     title: 'TaleemPro',
     description: 'A school management portal for administrative queries, student grades, and fee records. Secures private router access using stateless validation tokens.',
     techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
@@ -1122,8 +1263,33 @@ We implemented a two-tiered auto-recovery architecture:
 
 This eliminated production deployment crashes and guaranteed 100% session continuity for hotel receptionists and guest users.`
   },
-  {
+    {
     id: 2,
+    title: 'Architecting Offline-First Local Storage & Native Media Pipelines in React Native & Django',
+    date: 'July 02, 2026',
+    type: 'Mobile & System Architecture',
+    metric: '60 FPS UI · <80ms Processing',
+    excerpt: 'How native thread offloading and asynchronous buffer queues eliminated UI frame drops during multi-megabyte image compression and PDF document generation in AioVerse.',
+    tags: ['React Native', 'Expo', 'Django', 'Mobile', 'TypeScript', 'Performance'],
+    content: `When architecting AioVerse—a multi-utility mobile workspace app integrating 40+ tools (Image Studio, PDF Workspace, QR Studio, Task Manager) on React Native (Expo) and Django REST Framework—we prioritized instant, sub-100ms user interactions even in offline or low-connectivity environments.
+
+### The Bottleneck: UI Thread Freezes During Media Processing
+Mobile utility applications frequently process user-provided binary files (high-resolution camera photos up to 15MB, multi-page PDFs). In early prototypes:
+1. Decoding raw image buffers and calculating aspect-ratio transforms directly on the JavaScript thread caused severe frame drops (dropping from 60 FPS down to 18 FPS).
+2. Users experienced unresponsive touch states while batch processing multiple images.
+3. Synchronous cloud upload attempts in poor network conditions blocked navigation transitions.
+
+### The Solution: Decoupled Native Worker Pipelines & Chunked Buffers
+We redesigned the client architecture into a decoupled pipeline:
+
+1. **Native Thread Delegation**: Offloaded binary file transformations to native Expo FileSystem workers with progressive chunk decoding, ensuring the JavaScript UI thread maintains locked 60 FPS animations.
+2. **Local-First AsyncStorage Cache**: Media transforms and task edits write immediately to local device storage with zero network latency. An asynchronous buffer queue monitors network connectivity state and dispatches background multipart upload jobs to Django REST API endpoints when online.
+3. **Stateless JWT Guest Isolation**: Implemented isolated local guest partitions in AsyncStorage that seamlessly migrate to persistent Django database schemas when a user registers.
+
+The result is a responsive, locked 60 FPS mobile utility workspace with zero perceived processing latency.`
+  },
+  {
+    id: 3,
     title: 'Solving JWT Token-Refresh Race Conditions in React & Django REST Framework',
     date: 'June 20, 2026',
     type: 'Auth & Security',
@@ -1150,7 +1316,7 @@ To resolve this without adding stateful server sessions, we engineered an asynch
 This completely eliminated authentication race conditions, ensuring seamless session continuity across all multi-role dashboards.`
   },
   {
-    id: 3,
+    id: 4,
     title: 'Eliminating Cumulative Layout Shift (CLS) on High-Resolution E-Commerce Grids',
     date: 'June 12, 2026',
     type: 'Frontend Performance',
@@ -1174,7 +1340,7 @@ When browsing the fragrance collection on mobile viewports:
 The result was a locked 0.00 CLS score, instant sub-second page transitions, and a premium, responsive feel on all mobile devices.`
   },
   {
-    id: 4,
+    id: 5,
     title: 'Structuring Exploratory Data Analysis & Predictive Pipelines in Python & Streamlit',
     date: 'June 04, 2026',
     type: 'Data Analytics',
@@ -1199,7 +1365,7 @@ To make the dashboard snappy and responsive:
 This eliminated dashboard latency, resulting in sub-second filter updates and fluid chart rendering across all transaction views.`
   },
   {
-    id: 5,
+    id: 6,
     title: 'Architecting Multi-Threaded Python Scrapers with Rotating Proxy Gateways',
     date: 'May 26, 2026',
     type: 'Backend Systems',
@@ -1215,7 +1381,7 @@ This eliminated dashboard latency, resulting in sub-second filter updates and fl
 4. **Linux Cron Scheduling**: Configured automated background ingestion scripts on scheduled cron intervals, maintaining 99.9% uptime and extracting over 1.2M+ records daily.`
   },
   {
-    id: 6,
+    id: 7,
     title: 'Designing Fault-Tolerant Serial Protocol Buffers for Arduino & Python IoT Networks',
     date: 'May 15, 2026',
     type: 'IoT & Systems',
@@ -1239,7 +1405,7 @@ We designed a lightweight framed packet structure:
 This eliminated sensor packet corruption and maintained 99.9% uptime across active device connections.`
   },
   {
-    id: 7,
+    id: 8,
     title: 'Optimizing OpenCV & Keras Frame Pipelines for Sub-120ms Real-Time AI Inference',
     date: 'May 02, 2026',
     type: 'AI & Computer Vision',
@@ -1260,7 +1426,7 @@ Processing full 1080p camera frames directly through deep neural networks (Keras
 These optimizations reduced end-to-end inference latency to <120ms per face while maintaining locked 30 FPS video playback.`
   },
   {
-    id: 8,
+    id: 9,
     title: 'Preventing Race Conditions in Patient Bed Allocations with Atomic SQLite Transactions',
     date: 'April 18, 2026',
     type: 'Database Systems',
@@ -1277,7 +1443,7 @@ These optimizations reduced end-to-end inference latency to <120ms per face whil
 This guaranteed absolute transactional consistency with zero double-booking occurrences across 150+ daily hospital admissions.`
   },
   {
-    id: 9,
+    id: 10,
     title: 'Achieving Locked 60 FPS in D3 & React Graph Pathfinding Visualizations',
     date: 'April 02, 2026',
     type: 'Algorithms & Frontend',

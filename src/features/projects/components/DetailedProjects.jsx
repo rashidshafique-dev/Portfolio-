@@ -56,7 +56,8 @@ const repoTitleOverrides = {
   'sunrise-hotel-plum': 'Sunrise Imperial Resort',
   'sunrise_hotel': 'Sunrise Imperial Resort',
   'shadcn-dashboard-vite': 'Sunrise Imperial Resort',
-  'sunrise-imperial-resort': 'Sunrise Imperial Resort'
+  'sunrise-imperial-resort': 'Sunrise Imperial Resort',
+  'aioverse': 'AioVerse'
 };
 
 const formatProjectTitle = (name) => {
@@ -336,6 +337,7 @@ export default function DetailedProjects() {
     }
     const slug = getProjectSlug(project);
     setSelectedProject(project);
+    setActiveImg(null);
     window.location.hash = slug;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -343,6 +345,7 @@ export default function DetailedProjects() {
   const handleBack = () => {
     window.history.pushState('', document.title, window.location.pathname);
     setSelectedProject(null);
+    setActiveImg(null);
   };
 
   if (selectedProject) {
@@ -377,7 +380,7 @@ export default function DetailedProjects() {
                 <span className={styles.statusBadge}>
                   <span
                     className={styles.statusDot}
-                    style={{ backgroundColor: (statusText === 'In Development' || statusText === 'In Progress') ? '#FBBC05' : '#34A853' }}
+                    style={{ backgroundColor: (statusText.toLowerCase().includes('in progress') || statusText.toLowerCase().includes('in dev')) ? '#FBBC05' : '#34A853' }}
                   />
                   {statusText}
                 </span>
@@ -433,45 +436,144 @@ export default function DetailedProjects() {
 
             {/* Hero Image / Mockup Container */}
             <div className={styles.heroSectionWrapper}>
-              <div className={styles.articleHero}>
-                <div className={styles.browserHeader}>
-                  <div className={styles.browserDotsGroup}>
-                    <span className={styles.browserDot} style={{ backgroundColor: '#ef4444' }} />
-                    <span className={styles.browserDot} style={{ backgroundColor: '#f59e0b' }} />
-                    <span className={styles.browserDot} style={{ backgroundColor: '#10b981' }} />
+              {(() => {
+                const defaultScreen = (selectedProject.screenshots && selectedProject.screenshots.length > 0)
+                  ? selectedProject.screenshots[0].url
+                  : selectedProject.imageUrl;
+                const currentImgUrl = activeImg || defaultScreen;
+
+                const isMobileProject = 
+                  (selectedProject.category && selectedProject.category.toLowerCase().includes('mobile')) ||
+                  (selectedProject.techStack && selectedProject.techStack.some(t => t.toLowerCase().includes('react native') || t.toLowerCase().includes('expo'))) ||
+                  (selectedProject.title && selectedProject.title.toLowerCase().includes('aioverse'));
+
+                const isDiagram = typeof currentImgUrl === 'string' && (
+                  currentImgUrl.includes('system-design') || 
+                  currentImgUrl.includes('architecture') || 
+                  currentImgUrl.includes('diagram')
+                );
+
+                if (isMobileProject && !isDiagram) {
+                  return (
+                    <div className={styles.mobileHeroStage}>
+                      <div className={styles.phoneFrame}>
+                        <div className={styles.phoneScreenWrapper}>
+                          {hasImage ? (
+                            <img
+                              src={currentImgUrl}
+                              alt={`${selectedProject.title} Mobile Preview`}
+                              className={styles.phoneScreenImg}
+                            />
+                          ) : (
+                            <ProjectVisualPlaceholder project={selectedProject} />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (isDiagram) {
+                  return (
+                    <div className={`${styles.articleHero} ${styles.diagramHero}`}>
+                      <div className={styles.browserHeader}>
+                        <div className={styles.browserDotsGroup}>
+                          <span className={styles.browserDot} style={{ backgroundColor: '#ef4444' }} />
+                          <span className={styles.browserDot} style={{ backgroundColor: '#f59e0b' }} />
+                          <span className={styles.browserDot} style={{ backgroundColor: '#10b981' }} />
+                        </div>
+                        <div className={styles.browserUrlBar}>
+                          architecture.system-design
+                        </div>
+                        <div style={{ width: '40px' }} />
+                      </div>
+                      <div className={styles.browserBody}>
+                        <img
+                          src={currentImgUrl}
+                          alt={`${selectedProject.title} Architecture Diagram`}
+                          className={styles.diagramImage}
+                        />
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div className={styles.desktopHeroStage}>
+                    <div className={styles.desktopMockup}>
+                      {/* Top Bezel with Camera */}
+                      <div className={styles.desktopBezelTop}>
+                        <div className={styles.desktopCamera} />
+                      </div>
+
+                      {/* Display Screen */}
+                      <div className={styles.desktopScreen}>
+                        {/* Browser Bar */}
+                        <div className={styles.desktopBrowserBar}>
+                          <div className={styles.browserDotsGroup}>
+                            <span className={styles.browserDot} style={{ backgroundColor: '#ef4444' }} />
+                            <span className={styles.browserDot} style={{ backgroundColor: '#f59e0b' }} />
+                            <span className={styles.browserDot} style={{ backgroundColor: '#10b981' }} />
+                          </div>
+                          <div className={styles.desktopUrlField}>
+                            <svg className={styles.urlLockIcon} viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" strokeWidth="2.5" fill="none">
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <span className={styles.urlText}>
+                              {selectedProject.liveUrl ? selectedProject.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') : `${getProjectSlug(selectedProject)}.app`}
+                            </span>
+                          </div>
+                          <div className={styles.desktopControlsGroup}>
+                            <span className={styles.desktopControlDot} />
+                          </div>
+                        </div>
+
+                        {/* Viewport */}
+                        <div className={styles.desktopViewport}>
+                          {hasImage ? (
+                            <img
+                              src={currentImgUrl}
+                              alt={`${selectedProject.title} Desktop Preview`}
+                              className={styles.desktopScreenImg}
+                            />
+                          ) : (
+                            <ProjectVisualPlaceholder project={selectedProject} />
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Base Chassis / Notch */}
+                      <div className={styles.desktopBaseChassis}>
+                        <div className={styles.desktopBaseNotch} />
+                      </div>
+                    </div>
                   </div>
-                  <div className={styles.browserUrlBar}>
-                    {selectedProject.liveUrl ? selectedProject.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') : `${getProjectSlug(selectedProject)}.app`}
-                  </div>
-                  <div style={{ width: '40px' }} />
-                </div>
-                <div className={styles.browserBody}>
-                  {hasImage ? (
-                    <img
-                      src={activeImg || selectedProject.imageUrl}
-                      alt={`${selectedProject.title} Preview`}
-                      className={styles.heroImage}
-                    />
-                  ) : (
-                    <ProjectVisualPlaceholder project={selectedProject} />
-                  )}
-                </div>
-              </div>
+                );
+              })()}
 
               {/* Clean Screenshot Gallery Tabs Below Mockup */}
               {selectedProject.screenshots && selectedProject.screenshots.length > 1 && (
                 <div className={styles.screenshotTabsContainer}>
                   <span className={styles.screenshotTabsLabel}>Views:</span>
                   <div className={styles.screenshotTabsScroller}>
-                    {selectedProject.screenshots.map((s) => (
-                      <button
-                        key={s.label}
-                        onClick={() => setActiveImg(s.url)}
-                        className={`${styles.screenshotTabBtn} ${activeImg === s.url ? styles.screenshotTabBtnActive : ''}`}
-                      >
-                        {s.label}
-                      </button>
-                    ))}
+                    {(() => {
+                      const defaultScreen = (selectedProject.screenshots && selectedProject.screenshots.length > 0)
+                        ? selectedProject.screenshots[0].url
+                        : selectedProject.imageUrl;
+                      return selectedProject.screenshots.map((s) => {
+                        const isTabActive = activeImg ? (activeImg === s.url) : (s.url === defaultScreen);
+                        return (
+                          <button
+                            key={s.label}
+                            onClick={() => setActiveImg(s.url)}
+                            className={`${styles.screenshotTabBtn} ${isTabActive ? styles.screenshotTabBtnActive : ''}`}
+                          >
+                            {s.label}
+                          </button>
+                        );
+                      });
+                    })()}
                   </div>
                 </div>
               )}

@@ -289,15 +289,15 @@ def build_pdf(filename="public/resume.pdf"):
 
     # Project 2: AioVerse
     content.extend(project_item(
-        name="AioVerse — Cross-Platform Productivity App",
+        name="AioVerse — Mobile Workspace & Multi-Utility Platform",
         live_url=None,
-        github_url="https://github.com/rashidshafique-dev",
+        github_url="https://github.com/rashidkhan4067/AioVerse",
         bullets=[
-            "Engineering an Android/iOS productivity suite bundling image tools, PDF tools, a QR code generator, and AI text tools (humanizer, translator, plagiarism checker) with English/Urdu support for the Pakistani market.",
-            "Building the app in React Native (Expo), including custom SVG branding assets and native splash screen configuration; authored complete BRS/SRS documentation to formalize requirements and system scope."
+            "Architected a cross-platform mobile workspace app integrating 40+ native utilities (Image Studio, PDF Workspace, QR Studio, Task Manager) in React Native (Expo) and TypeScript.",
+            "Engineered a high-performance Python Django REST Framework backend with stateless JWT token auto-rotation, guest mode isolation, and pytest validation suites.",
+            "Offloaded binary media transformations to native thread workers and implemented offline-first local AsyncStorage caching, achieving locked 60 FPS performance."
         ],
-        util_text="React Native, Expo, JavaScript, AI APIs, Git, GitHub",
-        in_progress=True
+        util_text="React Native, Expo, TypeScript, Python, Django, Django REST Framework, PostgreSQL, JWT, AsyncStorage, Git, GitHub"
     ))
 
     # Project 3: Bhutta Scents

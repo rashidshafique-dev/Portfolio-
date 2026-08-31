@@ -119,26 +119,45 @@ export default function ProjectCard({ project, onClick }) {
 
         {/* Row 5 — action buttons */}
         <div className={styles.cardActions}>
-          <a 
-            href={project.liveUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.liveButton}
-            aria-label={`View live demo of ${project.title}`}
-          >
-            <ExternalLink size={13} aria-hidden="true" style={{ marginRight: '6px' }} />
-            <span>Live Demo</span>
-          </a>
-          <a 
-            href={project.githubUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.githubButton}
-            aria-label={`View GitHub repo for ${project.title}`}
-          >
-            <Github size={13} aria-hidden="true" style={{ marginRight: '6px' }} />
-            <span>GitHub</span>
-          </a>
+          {project.liveUrl && project.liveUrl !== project.githubUrl ? (
+            <a 
+              href={project.liveUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.liveButton}
+              aria-label={`View live demo of ${project.title}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ExternalLink size={13} aria-hidden="true" style={{ marginRight: '6px' }} />
+              <span>Live Demo</span>
+            </a>
+          ) : (
+            <button
+              type="button"
+              className={styles.liveButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (onClick) onClick(e, project);
+              }}
+              aria-label={`Explore Case Study for ${project.title}`}
+            >
+              <ExternalLink size={13} aria-hidden="true" style={{ marginRight: '6px' }} />
+              <span>Case Study</span>
+            </button>
+          )}
+          {project.githubUrl && (
+            <a 
+              href={project.githubUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.githubButton}
+              aria-label={`View GitHub repo for ${project.title}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Github size={13} aria-hidden="true" style={{ marginRight: '6px' }} />
+              <span>GitHub</span>
+            </a>
+          )}
           <button
             type="button"
             className={styles.shareButton}
