@@ -312,16 +312,17 @@ def build_pdf(filename="public/resume.pdf"):
         util_text="React.js, Vite, Tailwind CSS, Vanilla CSS Modules, JavaScript, Git, GitHub"
     ))
 
-    # Project 4: Hotel Management System
+    # Project 4: Sunrise Imperial Resort
     content.extend(project_item(
-        name="Hotel Management System",
-        live_url=None,
-        github_url="https://github.com/rashidshafique-dev",
+        name="Sunrise Imperial Resort — Hotel PMS &amp; Guest SaaS Platform",
+        live_url="https://sunrise-hotel-plum.vercel.app",
+        github_url="https://github.com/rashidkhan4067/Sunrise-Hotel.git",
         bullets=[
-            "Architecting a full-stack hotel management platform across an 8-milestone development plan, covering bookings, rooms, and staff operations."
+            "Architected a full-stack luxury Hotel Property Management System (PMS) and guest reservation portal with React 19, TypeScript, Tailwind CSS v4, and Radix UI.",
+            "Built real-time hospitality modules: visual calendar reservation matrix, housekeeping inspection workflows, itemized POS folio invoicing, and ADR/RevPAR analytics.",
+            "Optimized web vitals (INP &lt; 10ms) via requestAnimationFrame CSS token batching and engineered automated dynamic chunk retry listeners for 100% deployment reliability."
         ],
-        util_text="Django REST Framework, React, TypeScript, Tailwind CSS, shadcn/ui, Git, GitHub",
-        in_progress=True
+        util_text="React 19, TypeScript, Vite 7, Tailwind CSS v4, Radix UI, Zustand 5, TanStack Query, Recharts, Clerk Auth, Git, GitHub"
     ))
 
     # Project 5: Rescue Project

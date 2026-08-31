@@ -92,12 +92,9 @@ const ICON_MAP = {
   Database,
   KeyRound,
   ShieldCheck,
-  MemoryStick,
   Triangle,
-  Train,
   GitBranch,
-  Container,
-  Sparkles
+  Container
 };
 
 export default function SkillsSection() {
@@ -120,7 +117,7 @@ export default function SkillsSection() {
   return (
     <section className={styles.section} id="skills">
       <div className="container">
-        
+
         {/* Section Header */}
         <div className={styles.headerContainer}>
           <span className={styles.eyebrow}>TECHNICAL STACK</span>
@@ -155,19 +152,19 @@ export default function SkillsSection() {
                   {categoryGroup.category}
                 </h3>
               )}
-              
+
               <div className={styles.grid}>
                 <AnimatePresence mode="popLayout">
                   {categoryGroup.items.map((skill) => {
                     const IconComponent = ICON_MAP[skill.icon] || Globe;
                     return (
-                      <motion.div 
+                      <motion.div
                         layout
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.98 }}
                         transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
-                        key={skill.name} 
+                        key={skill.name}
                         className={styles.skillCard}
                       >
                         {/* Header: Clean Icon + Technology name */}

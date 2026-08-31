@@ -5,7 +5,8 @@ import {
   ChevronUp,
   ExternalLink,
   ArrowLeft,
-  BookOpen
+  BookOpen,
+  Share2
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { GithubIcon as Github } from '../../../components/SocialIcons';
@@ -13,14 +14,20 @@ import { projects } from '../../../constants/portfolioData';
 import styles from '../detailed-styles.module.css';
 import SectionHeading from '../../../components/SectionHeading';
 import ProjectCard from './ProjectCard';
+import ProjectShareModal from './ProjectShareModal';
 
-const getProjectSlug = (project) => {
-  if (project.repoName) return project.repoName.toLowerCase();
-  if (project.githubUrl) {
-    const parts = project.githubUrl.split('/');
-    return parts[parts.length - 1].toLowerCase();
+export const getProjectSlug = (project) => {
+  if (!project) return '';
+  if (project.repoName) {
+    return project.repoName.toLowerCase().replace(/\.git$/i, '').trim();
   }
-  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  if (project.githubUrl) {
+    const cleanUrl = project.githubUrl.replace(/\/$/, '').replace(/\.git$/i, '');
+    const parts = cleanUrl.split('/');
+    const lastPart = parts[parts.length - 1].toLowerCase().trim();
+    if (lastPart) return lastPart;
+  }
+  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 };
 
 const stripEmojis = (text) => {
@@ -44,7 +51,12 @@ const repoTitleOverrides = {
   'rescue_project-': 'Rescue Project',
   'foody-app': 'FoodDash',
   'fooddash': 'FoodDash',
-  'ai-hms': 'Al Shifaa Clinic'
+  'ai-hms': 'Al Shifaa Clinic',
+  'sunrise-hotel': 'Sunrise Imperial Resort',
+  'sunrise-hotel-plum': 'Sunrise Imperial Resort',
+  'sunrise_hotel': 'Sunrise Imperial Resort',
+  'shadcn-dashboard-vite': 'Sunrise Imperial Resort',
+  'sunrise-imperial-resort': 'Sunrise Imperial Resort'
 };
 
 const formatProjectTitle = (name) => {
@@ -192,6 +204,7 @@ export default function DetailedProjects() {
   const location = useLocation();
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeImg, setActiveImg] = useState(null);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
   // Reset activeImg when selectedProject changes
   useEffect(() => {
@@ -208,9 +221,19 @@ export default function DetailedProjects() {
 
   // Sync state with URL hash and router location
   useEffect(() => {
-    const rawHash = (location.hash || window.location.hash || '').replace(/^#/, '').toLowerCase();
+    const rawHash = (location.hash || window.location.hash || '').replace(/^#/, '').toLowerCase().trim();
     if (rawHash && projectList && projectList.length > 0) {
-      const found = projectList.find(p => getProjectSlug(p) === rawHash);
+      const found = projectList.find(p => {
+        const slug = getProjectSlug(p);
+        const titleSlug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        return (
+          slug === rawHash ||
+          titleSlug === rawHash ||
+          (p.repoName && p.repoName.toLowerCase().replace(/\.git$/i, '').trim() === rawHash) ||
+          (slug && rawHash.includes(slug)) ||
+          (titleSlug && rawHash.includes(titleSlug))
+        );
+      });
       if (found) {
         setSelectedProject(found);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -395,6 +418,16 @@ export default function DetailedProjects() {
                     <span>Read Build Log</span>
                   </Link>
                 )}
+                <button
+                  type="button"
+                  onClick={() => setIsShareOpen(true)}
+                  className={styles.articleSecondaryAction}
+                  aria-label="Share this project on social media"
+                  title="Share this project"
+                >
+                  <Share2 size={14} aria-hidden="true" />
+                  <span>Share Project</span>
+                </button>
               </div>
             </header>
 
@@ -628,6 +661,13 @@ export default function DetailedProjects() {
               </aside>
 
             </div>
+
+            {/* Social Media Share Modal with Live Preview Card */}
+            <ProjectShareModal
+              project={selectedProject}
+              isOpen={isShareOpen}
+              onClose={() => setIsShareOpen(false)}
+            />
           </article>
         </div>
       </section>

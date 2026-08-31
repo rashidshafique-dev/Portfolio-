@@ -13,7 +13,7 @@ export default function BuildLogsTeaser() {
   return (
     <section className={styles.section} id="build-logs-teaser">
       <div className="container">
-        
+
         {/* Section Header */}
         <div className={styles.headerContainer}>
           <span className={styles.eyebrow}>HIGHLIGHTED INSIGHTS</span>
@@ -28,38 +28,38 @@ export default function BuildLogsTeaser() {
           {latestLogs.map((log) => {
             const slug = log.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
             return (
-              <article 
-                key={log.id} 
+              <article
+                key={log.id}
                 className={styles.card}
                 onClick={() => navigate(`/build-logs#${slug}`)}
               >
-              
-              {/* Top Row: Category Left, Date Right */}
-              <div className={styles.topRow}>
-                <span className={styles.cardTag}>{log.type}</span>
-                <span className={styles.cardDate}>{log.date}</span>
-              </div>
 
-              {/* Card Title & Excerpt */}
-              <div className={styles.cardBody}>
-                <h3 className={styles.cardTitle}>
-                  <span className={styles.cardTitleLink}>
-                    {log.title}
-                  </span>
-                </h3>
-                <p className={styles.cardDesc}>{log.excerpt}</p>
-              </div>
+                {/* Top Row: Category Left, Date Right */}
+                <div className={styles.topRow}>
+                  <span className={styles.cardTag}>{log.type}</span>
+                  <span className={styles.cardDate}>{log.date}</span>
+                </div>
 
-              {/* Topic chips (bottom) */}
-              <div className={styles.topicList}>
-                {log.tags.slice(0, 4).map((tag) => (
-                  <span key={tag} className={styles.topicChip} onClick={(e) => e.stopPropagation()}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
+                {/* Card Title & Excerpt */}
+                <div className={styles.cardBody}>
+                  <h3 className={styles.cardTitle}>
+                    <span className={styles.cardTitleLink}>
+                      {log.title}
+                    </span>
+                  </h3>
+                  <p className={styles.cardDesc}>{log.excerpt}</p>
+                </div>
 
-            </article>
+                {/* Topic chips (bottom) */}
+                <div className={styles.topicList}>
+                  {log.tags.slice(0, 4).map((tag) => (
+                    <span key={tag} className={styles.topicChip} onClick={(e) => e.stopPropagation()}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+              </article>
             );
           })}
         </div>

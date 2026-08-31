@@ -1,1 +1,1 @@
-export { GithubIcon, LinkedinIcon, TwitterIcon, DrbbbleIcon } from './SocialIcons.jsx';
+export { GithubIcon, LinkedinIcon, TwitterIcon, DrbbbleIcon, WhatsappIcon, FacebookIcon, RedditIcon } from './SocialIcons.jsx';

@@ -1,5 +1,59 @@
-import React from 'react';
+import { useState } from 'react';
+import { Copy, Check } from 'lucide-react';
 import styles from '../styles.module.css';
+
+function CodeBlock({ lang, code }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(code);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.warn('Copy failed:', err);
+    }
+  };
+
+  return (
+    <div className={styles.codeBlockWrapper}>
+      <div className={styles.codeBlockHeader}>
+        <span className={styles.codeBlockLang}>{lang || 'code'}</span>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className={styles.copyCodeBtn}
+          aria-label="Copy code block"
+          title="Copy code"
+        >
+          {copied ? (
+            <>
+              <Check size={13} />
+              <span>Copied</span>
+            </>
+          ) : (
+            <>
+              <Copy size={13} />
+              <span>Copy</span>
+            </>
+          )}
+        </button>
+      </div>
+      <pre className={styles.codeBlock}>
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
 
 /**
  * High-performance Markdown parser for Build Log modal write-ups.
@@ -69,12 +123,11 @@ export default function LogContentRenderer({ content }) {
       if (inCodeBlock) {
         // Closing code block
         elements.push(
-          <div key={`code-${elements.length}`} className={styles.codeBlockWrapper}>
-            {codeBlockLang && <span className={styles.codeBlockLang}>{codeBlockLang}</span>}
-            <pre className={styles.codeBlock}>
-              <code>{codeBlockLines.join('\n')}</code>
-            </pre>
-          </div>
+          <CodeBlock
+            key={`code-${elements.length}`}
+            lang={codeBlockLang}
+            code={codeBlockLines.join('\n')}
+          />
         );
         inCodeBlock = false;
         codeBlockLang = '';

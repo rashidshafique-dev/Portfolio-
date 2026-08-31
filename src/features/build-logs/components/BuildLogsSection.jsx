@@ -1,20 +1,37 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Tag, ExternalLink } from 'lucide-react';
-import { buildLogs } from '../../../constants/portfolioData';
+import { ArrowRight, Calendar, Clock, Copy, Check, ExternalLink, Zap } from 'lucide-react';
+import { buildLogs, projects } from '../../../constants/portfolioData';
 import styles from '../styles.module.css';
 import Modal from '../../../components/Modal';
 import LogContentRenderer from './LogContentRenderer';
 
+const getProjectSlug = (project) => {
+  if (!project) return '';
+  if (project.repoName) {
+    return project.repoName.toLowerCase().replace(/\.git$/i, '').trim();
+  }
+  if (project.githubUrl) {
+    const cleanUrl = project.githubUrl.replace(/\/$/, '').replace(/\.git$/i, '');
+    const parts = cleanUrl.split('/');
+    const lastPart = parts[parts.length - 1].toLowerCase().trim();
+    if (lastPart) return lastPart;
+  }
+  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+};
+
 export default function BuildLogsSection() {
   const [selectedLog, setSelectedLog] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All');
+  const [copied, setCopied] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const hash = window.location.hash.substring(1);
     if (hash) {
-      const found = buildLogs.find(log => log.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === hash);
+      const found = buildLogs.find(
+        (log) => log.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === hash
+      );
       if (found) {
         setSelectedLog(found);
       }
@@ -23,23 +40,65 @@ export default function BuildLogsSection() {
 
   const openLog = (log) => {
     setSelectedLog(log);
+    const slug = log.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    window.history.replaceState(null, '', `#${slug}`);
   };
 
   const closeLog = () => {
     setSelectedLog(null);
     if (window.location.hash) {
-      window.location.hash = '';
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  };
+
+  const handleCopyLogLink = async () => {
+    if (!selectedLog) return;
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    const slug = selectedLog.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const url = `${origin}/build-logs#${slug}`;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const input = document.createElement('input');
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.warn('Copy link failed:', err);
     }
   };
 
   const categories = ['All', 'Backend', 'Performance', 'Data Analysis', 'AI', 'IoT', 'Algorithms'];
 
-  const filteredLogs = activeCategory === 'All'
-    ? buildLogs
-    : buildLogs.filter(log => 
-        log.tags.some(tag => tag.toLowerCase().includes(activeCategory.toLowerCase())) ||
-        log.type.toLowerCase().includes(activeCategory.toLowerCase())
-      );
+  const filteredLogs =
+    activeCategory === 'All'
+      ? buildLogs
+      : buildLogs.filter(
+          (log) =>
+            log.tags.some((tag) => tag.toLowerCase().includes(activeCategory.toLowerCase())) ||
+            log.type.toLowerCase().includes(activeCategory.toLowerCase())
+        );
+
+  // Find related project for selected log
+  const relatedProject = selectedLog
+    ? projects.find(
+        (p) =>
+          p.relatedLogTitle === selectedLog.title ||
+          selectedLog.title.toLowerCase().includes(p.title.toLowerCase()) ||
+          selectedLog.content.toLowerCase().includes(p.title.toLowerCase())
+      )
+    : null;
+
+  // Calculate reading time
+  const readingTime = selectedLog
+    ? `${Math.max(2, Math.ceil(selectedLog.content.split(/\s+/).length / 180))} min read`
+    : '3 min read';
 
   return (
     <section className={styles.section} id="build-logs-section">
@@ -73,7 +132,7 @@ export default function BuildLogsSection() {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`${styles.filterBtn} ${activeCategory === cat ? styles.filterBtnActive : ''} flex-shrink-0`}
-                aria-pressed={activeCategory === cat ? "true" : "false"}
+                aria-pressed={activeCategory === cat ? 'true' : 'false'}
               >
                 {cat}
               </button>
@@ -100,6 +159,7 @@ export default function BuildLogsSection() {
               <div className={styles.cardBody}>
                 <h3 className={styles.cardTitle}>
                   <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       openLog(log);
@@ -125,17 +185,61 @@ export default function BuildLogsSection() {
           ))}
         </div>
 
-        {/* Selected Log Content Modal */}
+        {/* Selected Log Content Modal — Google MD3 Engineering Log */}
         <Modal
           isOpen={!!selectedLog}
           onClose={closeLog}
-          title={selectedLog?.title || ''}
           size="lg"
+          title={
+            selectedLog ? (
+              <div className={styles.modalHeaderTitleBlock}>
+                <span className={styles.modalCategoryBadge}>{selectedLog.type}</span>
+                <h2 className={styles.modalTitle}>{selectedLog.title}</h2>
+              </div>
+            ) : ''
+          }
+          headerExtra={
+            <button
+              type="button"
+              onClick={handleCopyLogLink}
+              className={styles.copyLogLinkBtn}
+              title="Copy link to this build log"
+            >
+              {copied ? (
+                <>
+                  <Check size={14} style={{ color: 'var(--accent-success, #10b981)' }} />
+                  <span>Copied</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={14} />
+                  <span>Copy link</span>
+                </>
+              )}
+            </button>
+          }
         >
           {selectedLog && (
             <div>
+              {/* Article Meta Bar (Date, Reading Time, Impact Metric, Tags) */}
               <div className={styles.modalMeta}>
-                <span className={styles.modalDate}>{selectedLog.date}</span>
+                <div className={styles.modalMetaItem}>
+                  <Calendar size={13} aria-hidden="true" />
+                  <span>{selectedLog.date}</span>
+                </div>
+                
+                <div className={styles.modalMetaItem}>
+                  <Clock size={13} aria-hidden="true" />
+                  <span>{readingTime}</span>
+                </div>
+
+                {selectedLog.metric && (
+                  <div className={styles.modalMetricBadge}>
+                    <Zap size={12} aria-hidden="true" />
+                    <span>{selectedLog.metric}</span>
+                  </div>
+                )}
+
                 <div className={styles.modalTags}>
                   {selectedLog.tags.map((tag) => (
                     <span key={tag} className={styles.modalTag}>
@@ -144,9 +248,36 @@ export default function BuildLogsSection() {
                   ))}
                 </div>
               </div>
+
+              {/* Rendered Markdown Article Body */}
               <div className={styles.modalBody}>
                 <LogContentRenderer content={selectedLog.content} />
               </div>
+
+              {/* Footer Bar: Related Project Link */}
+              <div className={styles.modalFooter}>
+                {relatedProject ? (
+                  <Link
+                    to={`/projects#${getProjectSlug(relatedProject)}`}
+                    className={styles.relatedProjectBtn}
+                    onClick={closeLog}
+                  >
+                    <span>Explore {relatedProject.title} Case Study</span>
+                    <ArrowRight size={14} aria-hidden="true" />
+                  </Link>
+                ) : (
+                  <div />
+                )}
+
+                <button
+                  type="button"
+                  onClick={closeLog}
+                  className={styles.copyLogLinkBtn}
+                >
+                  <span>Close Log</span>
+                </button>
+              </div>
+
             </div>
           )}
         </Modal>
@@ -155,4 +286,3 @@ export default function BuildLogsSection() {
     </section>
   );
 }
-

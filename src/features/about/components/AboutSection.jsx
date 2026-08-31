@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import { MapPin, Calendar, Briefcase, Download, Award } from 'lucide-react';
+import { MapPin, Briefcase, Download } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../../../components/SocialIcons';
 import { personalInfo, timeline, credentials } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import SectionHeading from '../../../components/SectionHeading';
 import Button from '../../../components/Button';
 import styles from '../styles.module.css';
-import profileImg from '../../../assets/profile.webp';
+import profileImg from '../../../assets/profile/profile.webp';
 
 export default function AboutSection() {
   return (

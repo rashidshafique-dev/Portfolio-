@@ -2,27 +2,35 @@
 // Optimized specifically to target Google Engineering specifications and recruiter screening parameters
 // Employs the official Google X-Y-Z achievement formula: "Accomplished [X], as measured by [Y], by doing [Z]"
 
-import salesPipelineImg from '../assets/sales_pipeline.webp';
-import aquasyncImg from '../assets/aquasync.webp';
-import medicareImg from '../assets/medicare.webp';
-import algovizImg from '../assets/algoviz.webp';
-import faceAttendanceImg from '../assets/face_attendance.webp';
-import taleemproImg from '../assets/taleempro.webp';
-import venturetwistImg from '../assets/venturetwist.png';
-import rescueDashboardImg from '../assets/rescue_dashboard.png';
-import rescueLandingImg from '../assets/rescue_landing.png';
-import rescueMapImg from '../assets/rescue_map.png';
-import fooddashLandingImg from '../assets/fooddash_landing.png';
-import fooddashLoginImg from '../assets/fooddash_login.png';
-import aiHmsImg from '../assets/ai_hms.webp';
-import portfolioDarkOrangeImg from '../assets/portfolio_dark_orange.png';
-import portfolioDarkRoseImg from '../assets/portfolio_dark_rose.png';
-import portfolioLightOrangeImg from '../assets/portfolio_light_orange.png';
-import bhuttaScientsImg from '../assets/bhuttaScients.png';
-import bhuttaCollectionImg from '../assets/collection.png';
-import bhuttaHomepageImg from '../assets/homepage.jpg';
-import bhuttaProductdetailsImg from '../assets/productdetails.png';
-import bhuttaImageImg from '../assets/image.png';
+import salesPipelineImg from '../assets/sales_pipeline/sales_pipeline.webp';
+import aquasyncImg from '../assets/aquasync/aquasync.webp';
+import medicareImg from '../assets/medicare/medicare.webp';
+import algovizImg from '../assets/algoviz/algoviz.webp';
+import faceAttendanceImg from '../assets/face_attendance/face_attendance.webp';
+import taleemproImg from '../assets/taleempro/taleempro.webp';
+import venturetwistImg from '../assets/venturetwist/venturetwist.png';
+import rescueDashboardImg from '../assets/rescue_project/rescue_dashboard.png';
+import rescueLandingImg from '../assets/rescue_project/rescue_landing.png';
+import rescueMapImg from '../assets/rescue_project/rescue_map.png';
+import fooddashLandingImg from '../assets/fooddash/fooddash_landing.png';
+import fooddashLoginImg from '../assets/fooddash/fooddash_login.png';
+import aiHmsImg from '../assets/shifaa_hms/ai_hms.webp';
+import portfolioDarkOrangeImg from '../assets/portfolio_showcase/portfolio_dark_orange.png';
+import portfolioDarkRoseImg from '../assets/portfolio_showcase/portfolio_dark_rose.png';
+import portfolioLightOrangeImg from '../assets/portfolio_showcase/portfolio_light_orange.png';
+import bhuttaScientsImg from '../assets/bhutta_scents/bhuttaScients.png';
+import bhuttaCollectionImg from '../assets/bhutta_scents/collection.png';
+import bhuttaHomepageImg from '../assets/bhutta_scents/homepage.jpg';
+import bhuttaProductdetailsImg from '../assets/bhutta_scents/productdetails.png';
+import bhuttaImageImg from '../assets/bhutta_scents/image.png';
+import sunriseMainImg from '../assets/sunrise_hotel/sunrise_main.png';
+import sunriseDashboardDarkImg from '../assets/sunrise_hotel/sunrise_dashboard_dark.png';
+import sunriseDashboardLightImg from '../assets/sunrise_hotel/sunrise_dashboard_light.png';
+import sunriseCustomizerImg from '../assets/sunrise_hotel/sunrise_customizer.png';
+import sunriseBookingsImg from '../assets/sunrise_hotel/sunrise_bookings.png';
+import sunriseReportImg from '../assets/sunrise_hotel/sunrise_report.png';
+import sunriseAppsImg from '../assets/sunrise_hotel/sunrise_apps.png';
+
 
 export const personalInfo = {
   name: 'Muhammad Rashid Shafique',
@@ -97,6 +105,160 @@ export const stats = [
 export const projects = [
   {
     id: 1,
+    title: 'Sunrise Imperial Resort',
+    description: 'Enterprise 5-star Hotel Property Management System (PMS) and Guest Booking SaaS built with React 19, TypeScript, Tailwind CSS v4, and Radix UI. Features dynamic rate calculation, interactive room scheduling, ADR/RevPAR analytics, POS folio invoicing, housekeeping workflows, security audit trails, and a 50+ theme engine with INP < 10ms.',
+    techStack: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'Radix UI', 'Zustand 5', 'TanStack Query v5', 'TanStack Table v8', 'Recharts 3.6', 'Clerk Auth', 'dnd-kit', 'cmdk', 'Zod 4', 'React Hook Form', 'date-fns', 'Sonner'],
+    tech: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'Radix UI', 'Zustand 5', 'TanStack Query v5', 'TanStack Table v8', 'Recharts 3.6', 'Clerk Auth', 'dnd-kit', 'cmdk', 'Zod 4', 'React Hook Form', 'date-fns', 'Sonner'],
+    category: 'Full-Stack',
+    featured: true,
+    liveUrl: 'https://sunrise-hotel-plum.vercel.app',
+    githubUrl: 'https://github.com/rashidkhan4067/Sunrise-Hotel.git',
+    accentColor: '#D97706', // Luxury Gold / Amber
+    imageUrl: sunriseMainImg,
+    metric: 'INP < 10ms · React 19 · 50+ Themes',
+    relatedLogTitle: 'Optimizing INP (<10ms) & Auto-Recovering Dynamic Import Chunks in React 19 Hotel PMS',
+    screenshots: [
+      { label: 'Guest Portal & Rate Engine', url: sunriseMainImg },
+      { label: 'Executive Dashboard (Dark)', url: sunriseDashboardDarkImg },
+      { label: 'Executive Dashboard (Light)', url: sunriseDashboardLightImg },
+      { label: '50+ Dynamic Theme Engine', url: sunriseCustomizerImg },
+      { label: 'Front-Desk Booking Matrix', url: sunriseBookingsImg },
+      { label: 'Financial Reports & Audit Trail', url: sunriseReportImg },
+      { label: 'Operational Module Launcher', url: sunriseAppsImg }
+    ],
+    tagline: 'Enterprise luxury Hotel Property Management System (PMS) & guest SaaS platform.',
+    status: 'Completed',
+    problemStatement: 'Enterprise hotel management systems are traditionally fragmented between legacy desktop front-desk software and disconnected public guest booking engines. Furthermore, feature-dense dashboard interfaces often suffer from sluggish theme transitions, stale deployment chunk crashes, and fragile authentication dependencies during offline demonstrations.',
+    systemOverview: 'Decoupled, high-performance architecture built on React 19 and Vite 7: Radix UI component primitives styled with Tailwind CSS v4, Zustand 5 & TanStack Query v5 state orchestration, dual-mode authentication (Clerk RBAC + Zero-Config interactive demo engine), Recharts 3.6 hospitality data analytics with automated CSV/PDF export, dnd-kit calendar scheduling, and cmdk command search.',
+    engineeringDecisions: [
+      {
+        decision: 'Frame-Deferred CSS Variable Mutation Engine over Synchronous Document Injection',
+        reason: 'Applying 50+ CSS tokens synchronously inside dropdown selectors blocked main thread rendering for >220ms. Decoupling selector dismissal with requestAnimationFrame and flattening Radix viewports cut INP below 10ms.',
+        tradeoff: 'Requires managing animation frame handles to prevent rapid theme toggle tearing.'
+      },
+      {
+        decision: 'Automated Dynamic Chunk Retry & Vite Preload Error Interception',
+        reason: 'New production deployments on Vercel frequently invalidated cached chunk hashes, causing "Failed to fetch dynamically imported module" errors. Custom lazyWithRetry wrapper and window "vite:preloadError" invalidation automatically recovers sessions on the first reload.',
+        tradeoff: 'Adds a minor retry delay on true network dropouts before showing fallback boundary.'
+      },
+      {
+        decision: 'Dual-Mode State: Enterprise Clerk RBAC with Zero-Config Fallback Layer',
+        reason: 'Provides strict production Role-Based Access Control (org:admin, receptionist, guest) while guaranteeing 100% feature functionality in offline or credential-free portfolio reviews through simulated latency mock controllers.',
+        tradeoff: 'Requires maintaining mock data schemas alongside production Clerk user types.'
+      },
+      {
+        decision: 'Headless Radix UI + CVA + Tailwind CSS v4 Component Foundation',
+        reason: 'Provides 100% WAI-ARIA accessible primitives (Dialog, Select, Popover, Tabs, Accordion) with zero-runtime utility styling and tokenized class variance authority.',
+        tradeoff: 'Requires authoring composition glue code compared to off-the-shelf styled component kits.'
+      }
+    ],
+    hardProblem: 'Interaction to Next Paint (INP) Bottlenecks on Real-Time Theme Swapping: Applying 50+ document-level CSS color variables inside Radix Select trigger handlers caused extensive layout reflows and blocked the main thread for over 220ms. Resolved by decoupling dropdown dismissal from DOM style mutation using requestAnimationFrame frame deferral and attaching menus directly to Radix root viewports, slashing INP to <10ms (Good/Green rating).',
+    whatWeCut: 'Intentionally avoided server-side rendering (SSR) overhead for internal back-office management routes; leveraged an optimized client-side SPA with TanStack Query caching and localized Zustand stores to achieve instant transitions.',
+    challenges: [
+      'Engineered a real-time hospitality financial analytics suite calculating ADR (Average Daily Rate), RevPAR (Revenue Per Available Room), and forward 30-day forecasting with multi-format CSV and PDF audit exports.',
+      'Constructed a visual front-desk Gantt reservation matrix and real-time housekeeping workflow synchronizing room states (AVAILABLE, OCCUPIED, CLEANING, MAINTENANCE) with one-click check-in/out transitions.',
+      'Integrated an accessible drag-and-drop room scheduler using @dnd-kit and global keyboard-first Command Palette (⌘K) using cmdk.',
+      'Optimized Core Web Vitals to achieve INP < 10ms and 100% build reliability via custom chunk retry listeners.'
+    ],
+    outcome: 'Delivered an enterprise-grade luxury Hotel PMS and guest reservation platform featuring 50+ themes, Forbes 5-star aesthetics, sub-10ms UI responsiveness, and complete operational workflows.',
+    milestones: [
+      {
+        title: 'Milestone 1: Luxury Guest Landing Page & Reservation Engine',
+        status: 'Completed',
+        details: [
+          'Forbes 5-star aesthetics with curated Google Fonts (Plus Jakarta Sans & Playfair Display) and dark luxury styling.',
+          'Dynamic date-range rate calculator projecting real-time suite pricing and guest occupancy constraints.',
+          'Interactive suite showcase with amenity tags and instant booking modal triggers.'
+        ]
+      },
+      {
+        title: 'Milestone 2: Executive Dashboard & Hospitality Financial Analytics',
+        status: 'Completed',
+        details: [
+          'Live hospitality KPIs: ADR (Average Daily Rate), RevPAR, ALOS (Average Length of Stay), and 30-day revenue projections.',
+          'Interactive Recharts visualizations (Area, Bar, Line, Radial) for occupancy patterns and booking volume.',
+          'Security and compliance audit trail logging staff transactions with IP attribution and multi-format CSV/PDF export.'
+        ]
+      },
+      {
+        title: 'Milestone 3: Front-Desk Receptionist Hub & Housekeeping Matrix',
+        status: 'Completed',
+        details: [
+          'Multi-view visual calendar timeline for conflict-free room scheduling and allocation powered by dnd-kit.',
+          'One-click Check-In / Check-Out guest lifecycle transitions with automatic room synchronization.',
+          'Housekeeping inspection matrix tracking clean/inspected status across all property floors.'
+        ]
+      },
+      {
+        title: 'Milestone 4: POS Billing & Folio Management',
+        status: 'Completed',
+        details: [
+          'Itemized folio invoicing breaking down room rates, amenities, dining charges, and GST/VAT taxes.',
+          'Multi-method POS settlement supporting Credit Card, Bank Transfer, and Cash with printable receipts.'
+        ]
+      },
+      {
+        title: 'Milestone 5: Real-Time Dynamic Theme Engine & Performance Optimization',
+        status: 'Completed',
+        details: [
+          '50+ pre-configured luxury themes with circular reveal transitions using CSS View Transitions API.',
+          'Engineered requestAnimationFrame token batching to reduce INP from 220ms to <10ms.',
+          'Implemented lazyWithRetry and vite:preloadError auto-recovery handlers for 100% deployment reliability.'
+        ]
+      }
+    ],
+    features: [
+      {
+        title: 'External Libraries & Technology Architecture Stack',
+        details: [
+          'Core Framework & Bundler: React 19 (19.2.3), TypeScript 5.9, Vite 7.3, and React Router DOM v7 (resilient code-split routing).',
+          'UI & Design System: Tailwind CSS v4, Radix UI suite (Dialog, Select, Popover, Tabs, Accordion, Dropdown, HoverCard, Tooltip, Switch, Progress), CVA, clsx, and next-themes.',
+          'State & Server Data: Zustand 5 for client state & theme tokens; TanStack React Query v5 for asynchronous caching and optimistic updates.',
+          'Data Visualization & Tables: Recharts 3.6 for ADR/RevPAR charts; TanStack Table v8 for high-density sortable/searchable audit logs.',
+          'Interactive Components: @dnd-kit (Core, Sortable, Modifiers) for calendar room drag-and-drop; cmdk for Command Palette (⌘K); vaul for mobile drawers; react-resizable-panels.',
+          'Forms, Dates & Validation: React Hook Form 7, Zod 4 runtime schema validation, date-fns date arithmetic, and react-day-picker.',
+          'Security, Auth & Notifications: Clerk Auth React 6 (RBAC & SSO), Sonner stackable toasts, and Lucide React icons.'
+        ]
+      },
+      {
+        title: 'Public Luxury Guest Portal',
+        details: [
+          'Dynamic Rate Engine: Calculates nightly rates, taxes, and add-on amenities instantly across selected date ranges.',
+          'Suite Category Explorer: High-definition room previews with occupancy badges, pricing tiers, and direct booking flows.'
+        ]
+      },
+      {
+        title: 'Front-Desk Reception & Calendar Matrix',
+        details: [
+          'Visual Gantt Scheduler: Real-time room allocation matrix powered by dnd-kit showing booking spans and preventing double-allocations.',
+          'Guest Lifecycle Controller: One-click check-in, room key issuance, and express checkout with automated billing sync.'
+        ]
+      },
+      {
+        title: 'Housekeeping & Maintenance Operations',
+        details: [
+          'Room State Controller: Live status management across AVAILABLE, OCCUPIED, CLEANING, and MAINTENANCE states.',
+          'Inspection Checklist: Supervisor sign-off workflows ensuring Forbes standard quality before room release.'
+        ]
+      },
+      {
+        title: 'POS Billing & Folio Settlement',
+        details: [
+          'Itemized Invoicing: Real-time charge ledger with automated tax calculations and discount rule engines.',
+          'Export Suite: One-click CSV and PDF receipt exports for accounting compliance.'
+        ]
+      },
+      {
+        title: 'Dynamic Theme & Style Customizer',
+        details: [
+          '50+ Luxury Presets: Live switching across Sunrise Noir Gold, Imperial Navy, Emerald Luxe, and Shadcn palettes.',
+          'Circular Reveal Animation: CSS View Transitions API ripple effect for seamless light/dark toggling.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
     title: 'Bhutta Scents',
     description: 'Live luxury fragrance e-commerce platform (bhuttascents.com) featuring 50+ curated SKUs, zero layout shift (0.00 CLS), sub-second cart mutations with Context/LocalStorage, and 100% verified client satisfaction.',
     techStack: ['React', 'Vite', 'Vanilla CSS', 'State Management'],
@@ -145,7 +307,7 @@ export const projects = [
     outcome: 'Delivered a sub-second, 100% stable storefront resulting in 0 CLS layout shift, verified mobile responsiveness, and 100% client satisfaction.'
   },
   {
-    id: 2,
+    id: 3,
     title: 'Al Shifaa Clinic',
     description: 'Full-stack clinic system with 7 role-based portals (Doctor, Patient, Admin, Pharmacist, Lab, Nurse, Receptionist), 15+ secure Django REST APIs, stateless JWT token auto-rotation, and 42% faster query response via PostgreSQL composite indexing.',
     techStack: ['React', 'Django REST Framework', 'PostgreSQL', 'JWT', 'LLMs'],
@@ -320,7 +482,7 @@ export const projects = [
     ]
   },
   {
-    id: 3,
+    id: 4,
     title: 'Rescue Project',
     description: 'AI-powered search-and-rescue command console with difference-hash facial matching (dHash + Hamming distance), Groq Llama 3 conversational coordinator, and geofenced SMTP volunteer mobilization alerts.',
     techStack: ['React', 'Flask', 'SQLAlchemy', 'Groq (Whisper / Llama 3)', 'Zustand'],
@@ -415,7 +577,7 @@ export const projects = [
     ]
   },
   {
-    id: 4,
+    id: 5,
     title: 'Rashid Shafique Portfolio',
     description: 'An interactive browser workstation simulating a mobile operating system inside a virtual smartphone chassis. Includes a live logcat console, local storage database persistence, and technical sandbox micro-demos.',
     techStack: ['React', 'Node.js', 'Express', 'TypeScript', 'Gemini AI'],
@@ -479,7 +641,7 @@ export const projects = [
     ]
   },
   {
-    id: 5,
+    id: 6,
     title: 'VentureTwist',
     description: 'A restaurant management and food ordering application featuring interactive menus and an automated checkout cart system. Includes a secure administrative panel for order tracking and inventory monitoring.',
     techStack: ['Vanilla JS', 'Bootstrap 5', 'HTML5', 'CSS3'],
@@ -560,7 +722,7 @@ export const projects = [
     ]
   },
   {
-    id: 6,
+    id: 7,
     title: 'FoodDash',
     description: 'A web-based food delivery dashboard featuring responsive menu searches and interactive cart management. Includes a secure user verification flow and responsive layout configurations.',
     techStack: ['React', 'Vite', 'CSS Modules', 'State Management'],
@@ -587,7 +749,7 @@ export const projects = [
     outcome: 'Delivered an aesthetic, fast, and responsive user flow for dish selection, checkout verification, and session entry.'
   },
   {
-    id: 7,
+    id: 8,
     title: 'Sales-Data-Analysis-System',
     description: 'Semester project: interactive sales analytics dashboard with 3 Plotly dashboards (regional trends, category distribution, profit forecasting). Built a Scikit-Learn linear regression model to predict profit margins on retail transaction records.',
     techStack: ['Python', 'Pandas', 'Scikit-Learn', 'Streamlit', 'Plotly'],
@@ -630,7 +792,7 @@ export const projects = [
     outcome: 'Successfully delivered an intuitive semester project dashboard with interactive filters and predictive revenue forecasts.'
   },
   {
-    id: 8,
+    id: 9,
     title: 'AquaSync',
     description: 'IoT real-time fluid telemetry system monitoring 4 sensor nodes (flow rate, pressure, tank level, pump status) across a water distribution network. Multi-threaded Python dashboard with C++/Arduino firmware and threshold alert system.',
     techStack: ['C++', 'Python', 'Arduino', 'IoT', 'Tkinter'],
@@ -653,7 +815,7 @@ export const projects = [
     outcome: 'Maintains 99.9% uptime across active device connections, processing 100k+ telemetry packets daily.'
   },
   {
-    id: 9,
+    id: 10,
     title: 'MediCare / Hospital Management',
     description: 'A high-security patient management portal featuring transaction buffering and request validation. Manages patient admissions, registrations, and doctor scheduling.',
     techStack: ['React', 'Node.js', 'Express', 'SQLite', 'Python'],
@@ -676,7 +838,7 @@ export const projects = [
     outcome: 'Used to streamline patient registration and check-in workflows for over 150 daily admissions.'
   },
   {
-    id: 10,
+    id: 11,
     title: 'Algoviz-pro',
     description: 'An algorithmic visualization engine displaying interactive pathfinding and graph structure traversals. Renders node states and searches at high frame rates.',
     techStack: ['React', 'Flask', 'D3.js', 'Python', 'JavaScript'],
@@ -699,7 +861,7 @@ export const projects = [
     outcome: 'Provides fluid 60fps renders for complex graph visualisations containing up to 10k nodes.'
   },
   {
-    id: 11,
+    id: 12,
     title: 'Face-Recognition-Attendance-System',
     description: 'An AI-powered facial recognition attendance and verification system. Automates real-time student check-ins and processes camera frames.',
     techStack: ['TensorFlow', 'Python', 'OpenCV', 'Keras', 'HTML5'],
@@ -722,7 +884,7 @@ export const projects = [
     outcome: 'Automates secure real-time student check-ins under 120ms with near-zero false positive errors.'
   },
   {
-    id: 12,
+    id: 13,
     title: 'TaleemPro',
     description: 'A school management portal for administrative queries, student grades, and fee records. Secures private router access using stateless validation tokens.',
     techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
@@ -924,11 +1086,44 @@ export const timeline = [
   { year: 'Nov 2024', event: 'Engineered comprehensive Hospital Management System' },
   { year: 'Aug 2025', event: 'Developed Sales Data Analysis System with predictive ML modeling' },
   { year: 'Jun 2026', event: 'Presenting a fully modern production-grade portfolio' },
+  { year: 'Jul 2026', event: 'Architected Sunrise Imperial Resort — Enterprise Hotel PMS & Guest Experience SaaS' },
 ];
 
 export const buildLogs = [
   {
     id: 1,
+    title: 'Optimizing INP (<10ms) & Auto-Recovering Dynamic Import Chunks in React 19 Hotel PMS',
+    date: 'July 15, 2026',
+    type: 'Frontend Performance & Architecture',
+    metric: 'INP < 10ms · 100% Chunk Recovery',
+    excerpt: 'How frame-deferred CSS variable batching cut theme switching INP from >220ms to <10ms, and how vite:preloadError listeners solved stale dynamic chunk 404s on Vercel deployments.',
+    tags: ['React 19', 'Performance', 'Web Vitals', 'Tailwind CSS', 'Architecture'],
+    content: `When architecting the Sunrise Imperial Resort Hotel Property Management System (PMS), we combined mission-critical hospitality operations with a real-time dynamic theme customizer supporting 50+ luxury presets. However, stress testing revealed two critical frontend bottlenecks: high Interaction to Next Paint (INP) latency during theme switching and stale chunk loading failures on continuous Vercel deployments.
+
+### Bottleneck 1: High Interaction to Next Paint (INP > 220ms) on Theme Selection
+The theme engine allows users to switch between 50+ curated luxury palettes (such as *Sunrise Noir Gold* and *Emerald Luxe*) and modify radius/typography tokens on the fly:
+1. When selecting a theme inside a Radix UI \`Select\` component, the \`onValueChange\` callback synchronously applied over 50 CSS custom properties (\`--primary\`, \`--background\`, \`--card\`, etc.) directly to \`document.documentElement.style\`.
+2. Simultaneously, Radix UI attempted to unmount the dropdown popover and recalculate layout boundaries.
+3. This synchronous DOM thrashing blocked the main thread for over 220ms, producing a poor "Needs Improvement" Core Web Vitals rating for INP.
+
+### The Solution: Frame Deferral with \`requestAnimationFrame\`
+We decoupled dropdown UI state dismissal from document style injection:
+- **Batched Token Application**: Wrapped CSS variable mutations inside a \`requestAnimationFrame\` / \`setTimeout\` frame deferral so the browser completes the dropdown close transition before calculating style changes.
+- **Viewport Layout Flattening**: Removed deeply nested wrapper divs and attached the Radix Popover Viewport directly to the portal root, minimizing reflow depth.
+- **Result**: Interaction to Next Paint (INP) dropped to under 10ms, achieving a perfect "Good" (Green) rating.
+
+### Bottleneck 2: Stale Dynamic Import Chunks on Production Deployments
+With Vite code splitting across admin sub-routes (Reports, Housekeeping, POS Invoicing, Calendar), users with active browser sessions experienced \`TypeError: Failed to fetch dynamically imported module\` whenever a new commit was deployed to Vercel (since old hashed chunk files were purged from the edge cache).
+
+### The Solution: Resilient Chunk Recovery with \`lazyWithRetry\`
+We implemented a two-tiered auto-recovery architecture:
+1. **\`lazyWithRetry\` Wrapper**: A higher-order component around \`React.lazy\` that catches dynamic \`import()\` rejections, checks if a page reload has occurred within the current session, and performs a silent single reload to fetch the latest assets from the edge CDN.
+2. **Global \`vite:preloadError\` Listener**: Registered a window event listener that intercepts Vite module preload errors and triggers cache invalidation before the error boundary unmounts the workspace.
+
+This eliminated production deployment crashes and guaranteed 100% session continuity for hotel receptionists and guest users.`
+  },
+  {
+    id: 2,
     title: 'Solving JWT Token-Refresh Race Conditions in React & Django REST Framework',
     date: 'June 20, 2026',
     type: 'Auth & Security',
@@ -955,7 +1150,7 @@ To resolve this without adding stateful server sessions, we engineered an asynch
 This completely eliminated authentication race conditions, ensuring seamless session continuity across all multi-role dashboards.`
   },
   {
-    id: 2,
+    id: 3,
     title: 'Eliminating Cumulative Layout Shift (CLS) on High-Resolution E-Commerce Grids',
     date: 'June 12, 2026',
     type: 'Frontend Performance',
@@ -979,7 +1174,7 @@ When browsing the fragrance collection on mobile viewports:
 The result was a locked 0.00 CLS score, instant sub-second page transitions, and a premium, responsive feel on all mobile devices.`
   },
   {
-    id: 3,
+    id: 4,
     title: 'Structuring Exploratory Data Analysis & Predictive Pipelines in Python & Streamlit',
     date: 'June 04, 2026',
     type: 'Data Analytics',
@@ -1004,7 +1199,7 @@ To make the dashboard snappy and responsive:
 This eliminated dashboard latency, resulting in sub-second filter updates and fluid chart rendering across all transaction views.`
   },
   {
-    id: 4,
+    id: 5,
     title: 'Architecting Multi-Threaded Python Scrapers with Rotating Proxy Gateways',
     date: 'May 26, 2026',
     type: 'Backend Systems',
@@ -1020,7 +1215,7 @@ This eliminated dashboard latency, resulting in sub-second filter updates and fl
 4. **Linux Cron Scheduling**: Configured automated background ingestion scripts on scheduled cron intervals, maintaining 99.9% uptime and extracting over 1.2M+ records daily.`
   },
   {
-    id: 5,
+    id: 6,
     title: 'Designing Fault-Tolerant Serial Protocol Buffers for Arduino & Python IoT Networks',
     date: 'May 15, 2026',
     type: 'IoT & Systems',
@@ -1044,7 +1239,7 @@ We designed a lightweight framed packet structure:
 This eliminated sensor packet corruption and maintained 99.9% uptime across active device connections.`
   },
   {
-    id: 6,
+    id: 7,
     title: 'Optimizing OpenCV & Keras Frame Pipelines for Sub-120ms Real-Time AI Inference',
     date: 'May 02, 2026',
     type: 'AI & Computer Vision',
@@ -1065,7 +1260,7 @@ Processing full 1080p camera frames directly through deep neural networks (Keras
 These optimizations reduced end-to-end inference latency to <120ms per face while maintaining locked 30 FPS video playback.`
   },
   {
-    id: 7,
+    id: 8,
     title: 'Preventing Race Conditions in Patient Bed Allocations with Atomic SQLite Transactions',
     date: 'April 18, 2026',
     type: 'Database Systems',
@@ -1082,7 +1277,7 @@ These optimizations reduced end-to-end inference latency to <120ms per face whil
 This guaranteed absolute transactional consistency with zero double-booking occurrences across 150+ daily hospital admissions.`
   },
   {
-    id: 8,
+    id: 9,
     title: 'Achieving Locked 60 FPS in D3 & React Graph Pathfinding Visualizations',
     date: 'April 02, 2026',
     type: 'Algorithms & Frontend',

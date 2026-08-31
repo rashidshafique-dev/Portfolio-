@@ -1,15 +1,22 @@
-import { ExternalLink, Folder, BookOpen } from 'lucide-react';
+import { useState } from 'react';
+import { ExternalLink, Folder, BookOpen, Share2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { GithubIcon as Github } from '../../../components/SocialIcons';
 import styles from '../styles.module.css';
+import ProjectShareModal from './ProjectShareModal';
 
 const getProjectSlug = (project) => {
-  if (project.repoName) return project.repoName.toLowerCase();
-  if (project.githubUrl) {
-    const parts = project.githubUrl.split('/');
-    return parts[parts.length - 1].toLowerCase();
+  if (!project) return '';
+  if (project.repoName) {
+    return project.repoName.toLowerCase().replace(/\.git$/i, '').trim();
   }
-  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  if (project.githubUrl) {
+    const cleanUrl = project.githubUrl.replace(/\/$/, '').replace(/\.git$/i, '');
+    const parts = cleanUrl.split('/');
+    const lastPart = parts[parts.length - 1].toLowerCase().trim();
+    if (lastPart) return lastPart;
+  }
+  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 };
 
 const stripEmojis = (text) => {
@@ -22,6 +29,7 @@ const stripEmojis = (text) => {
 };
 
 export default function ProjectCard({ project, onClick }) {
+  const [isShareOpen, setIsShareOpen] = useState(false);
   const slug = getProjectSlug(project);
   
   // Enforce maximum of 5 tech stack chips per card
@@ -131,8 +139,28 @@ export default function ProjectCard({ project, onClick }) {
             <Github size={13} aria-hidden="true" style={{ marginRight: '6px' }} />
             <span>GitHub</span>
           </a>
+          <button
+            type="button"
+            className={styles.shareButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              setIsShareOpen(true);
+            }}
+            aria-label={`Share ${project.title} on social media`}
+            title="Share Project"
+          >
+            <Share2 size={14} aria-hidden="true" />
+          </button>
         </div>
       </div>
+
+      {/* Social Media Share Modal with Live Preview */}
+      <ProjectShareModal
+        project={project}
+        isOpen={isShareOpen}
+        onClose={() => setIsShareOpen(false)}
+      />
     </article>
   );
 }

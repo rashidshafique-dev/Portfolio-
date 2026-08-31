@@ -9,12 +9,17 @@ import { useNavigate } from 'react-router-dom';
 import ProjectCard from './ProjectCard';
 
 const getProjectSlug = (project) => {
-  if (project.repoName) return project.repoName.toLowerCase();
-  if (project.githubUrl) {
-    const parts = project.githubUrl.split('/');
-    return parts[parts.length - 1].toLowerCase();
+  if (!project) return '';
+  if (project.repoName) {
+    return project.repoName.toLowerCase().replace(/\.git$/i, '').trim();
   }
-  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  if (project.githubUrl) {
+    const cleanUrl = project.githubUrl.replace(/\/$/, '').replace(/\.git$/i, '');
+    const parts = cleanUrl.split('/');
+    const lastPart = parts[parts.length - 1].toLowerCase().trim();
+    if (lastPart) return lastPart;
+  }
+  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 };
 
 const repoTitleOverrides = {
@@ -29,7 +34,12 @@ const repoTitleOverrides = {
   'rescue_project-': 'Rescue Project',
   'foody-app': 'FoodDash',
   'fooddash': 'FoodDash',
-  'ai-hms': 'Al Shifaa Clinic'
+  'ai-hms': 'Al Shifaa Clinic',
+  'sunrise-hotel': 'Sunrise Imperial Resort',
+  'sunrise-hotel-plum': 'Sunrise Imperial Resort',
+  'sunrise_hotel': 'Sunrise Imperial Resort',
+  'shadcn-dashboard-vite': 'Sunrise Imperial Resort',
+  'sunrise-imperial-resort': 'Sunrise Imperial Resort'
 };
 
 const formatProjectTitle = (name) => {
@@ -65,8 +75,8 @@ const mergeProjects = (rawGithubRepos) => {
     return apiProj;
   });
 
-  const unmatchedStatic = projects.filter(staticProj => 
-    !rawGithubRepos.some(apiProj => 
+  const unmatchedStatic = projects.filter(staticProj =>
+    !rawGithubRepos.some(apiProj =>
       staticProj.title.toLowerCase() === apiProj.repoName.toLowerCase() ||
       (staticProj.githubUrl && staticProj.githubUrl.toLowerCase().includes(apiProj.repoName.toLowerCase()))
     )

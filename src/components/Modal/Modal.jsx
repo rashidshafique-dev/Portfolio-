@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import styles from './Modal.module.css';
@@ -10,7 +11,14 @@ export default function Modal({
   children,
   size = 'md',
   showCloseButton = true,
+  headerExtra = null,
 }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Trap escape key
   useEffect(() => {
     const handleKey = (e) => {
@@ -27,8 +35,12 @@ export default function Modal({
     } else {
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
+
+  if (!mounted) return null;
 
   const sizeClass = {
     sm: styles.sm,
@@ -38,7 +50,7 @@ export default function Modal({
     full: styles.full,
   }[size] || styles.md;
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -46,31 +58,46 @@ export default function Modal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+          transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) onClose();
+          }}
           role="dialog"
           aria-modal="true"
-          aria-label={title}
+          aria-label={typeof title === 'string' ? title : 'Dialog'}
         >
           <motion.div
             className={`${styles.modal} ${sizeClass}`}
-            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.94, y: 20 }}
-            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+            exit={{ opacity: 0, scale: 0.96, y: 8 }}
+            transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+            onClick={(e) => e.stopPropagation()}
           >
-            {(title || showCloseButton) && (
+            {(title || showCloseButton || headerExtra) && (
               <div className={styles.header}>
-                {title && <h3 className={styles.title}>{title}</h3>}
-                {showCloseButton && (
-                  <button
-                    className={styles.closeBtn}
-                    onClick={onClose}
-                    aria-label="Close modal"
-                  >
-                    <X size={18} />
-                  </button>
-                )}
+                <div className={styles.headerLeft}>
+                  {title && (
+                    typeof title === 'string' ? (
+                      <h3 className={styles.title}>{title}</h3>
+                    ) : (
+                      title
+                    )
+                  )}
+                </div>
+                <div className={styles.headerRight}>
+                  {headerExtra}
+                  {showCloseButton && (
+                    <button
+                      type="button"
+                      className={styles.closeBtn}
+                      onClick={onClose}
+                      aria-label="Close modal"
+                    >
+                      <X size={18} />
+                    </button>
+                  )}
+                </div>
               </div>
             )}
             <div className={styles.body}>{children}</div>
@@ -79,4 +106,6 @@ export default function Modal({
       )}
     </AnimatePresence>
   );
+
+  return createPortal(modalContent, document.body);
 }
