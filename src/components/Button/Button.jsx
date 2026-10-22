@@ -6,7 +6,6 @@ const variants = {
   secondary: styles.secondary,
   ghost: styles.ghost,
   danger: styles.danger,
-  gradient: styles.gradient,
 };
 
 const sizes = {

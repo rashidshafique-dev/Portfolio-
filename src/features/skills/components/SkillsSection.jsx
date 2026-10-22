@@ -16,12 +16,9 @@ import {
   Database,
   KeyRound,
   ShieldCheck,
-  MemoryStick,
   Triangle,
-  Train,
   GitBranch,
-  Container,
-  Sparkles
+  Container
 } from 'lucide-react';
 import styles from '../styles.module.css';
 

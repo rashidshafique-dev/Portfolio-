@@ -66,7 +66,7 @@
   justify-content: center;
   height: 30px;
   padding: 0 14px;
-  border-radius: 9999px; /* Pill */
+  border-radius: var(--chip-radius); /* Pill */
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: transparent;
   color: var(--md-on-surface-variant, #5f6368);
@@ -101,6 +101,13 @@
   font-weight: 500 !important;
 }
 
+[data-theme='dark'] .activeChip {
+  background: #8ab4f8 !important;
+  color: #041e49 !important;
+  border-color: #8ab4f8 !important;
+  font-weight: 600 !important;
+}
+
 /* Projects Grid */
 .projectsGrid {
   display: grid;
@@ -127,7 +134,7 @@
 /* Neutral Restrained Project Card */
 .projectCard {
   background: #f8f9fa;
-  border-radius: 16px;
+  border-radius: var(--card-radius);
   border: 1px solid #e1e4e8;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
   overflow: hidden;
@@ -135,25 +142,28 @@
   flex-direction: column;
   height: 100%;
   position: relative;
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 180ms ease,
+              background-color 180ms ease;
 }
 
 [data-theme='dark'] .projectCard {
-  background: #14171c;
-  border-color: rgba(255, 255, 255, 0.08);
+  background: #181b22;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .projectCard:hover {
   transform: translateY(-3px);
   border-color: rgba(26, 115, 232, 0.4);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.08);
   background: #ffffff;
 }
 
 [data-theme='dark'] .projectCard:hover {
-  border-color: rgba(26, 115, 232, 0.5);
-  background: #181c22;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  border-color: rgba(138, 180, 248, 0.45);
+  background: #20242c;
+  box-shadow: 0 14px 32px -4px rgba(0, 0, 0, 0.5);
 }
 
 /* 16:9 Image container - Inset & Rounded */
@@ -369,10 +379,30 @@
   border: 1px solid var(--md-primary, #1a73e8);
 }
 
+.liveButton svg {
+  transition: transform 180ms ease;
+}
+
 .liveButton:hover {
   background: #1557b0;
   border-color: #1557b0;
   transform: translateY(-1px);
+}
+
+.liveButton:hover svg {
+  transform: translate(2px, -2px);
+}
+
+[data-theme='dark'] .liveButton {
+  background: #8ab4f8;
+  color: #041e49;
+  border-color: #8ab4f8;
+}
+
+[data-theme='dark'] .liveButton:hover {
+  background: #a8c7fa;
+  color: #041e49;
+  border-color: #a8c7fa;
 }
 
 .githubButton {
@@ -405,7 +435,7 @@
   color: var(--md-on-surface, #202124);
   width: 34px;
   height: 34px;
-  border-radius: 9999px;
+  border-radius: var(--btn-radius);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -445,7 +475,7 @@
   gap: 0.5rem;
   padding: 0 20px;
   height: 38px;
-  border-radius: 9999px;
+  border-radius: var(--btn-radius);
   background-color: transparent;
   color: var(--md-primary, #1a73e8);
   border: 1px solid rgba(26, 115, 232, 0.3);
@@ -472,4 +502,52 @@
 
 .toggleIcon {
   color: inherit;
+}
+
+/* Skeleton Loading States */
+.skeletonCard {
+  pointer-events: none;
+  min-height: 380px;
+}
+
+.skeletonImage {
+  width: 100%;
+  height: 190px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.skeletonBadge {
+  width: 80px;
+  height: 20px;
+  border-radius: var(--badge-radius);
+  margin-bottom: 0.75rem;
+}
+
+.skeletonTitle {
+  width: 65%;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.75rem;
+}
+
+.skeletonDescLine1 {
+  width: 95%;
+  height: 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.4rem;
+}
+
+.skeletonDescLine2 {
+  width: 70%;
+  height: 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.75rem;
+}
+
+.skeletonTech {
+  width: 50px;
+  height: 22px;
+  border-radius: var(--chip-radius);
+  display: inline-block;
+  margin-right: 0.5rem;
 }

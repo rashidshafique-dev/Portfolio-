@@ -18,17 +18,17 @@
 
 .container {
   width: 100%;
-  max-width: 1100px;
+  max-width: var(--container-max-width-narrow);
   margin: 0 auto;
-  padding: 0 1.25rem;
+  padding: 0 var(--container-padding-x);
   box-sizing: border-box;
 }
 
 /* Card Container */
 .card {
-  background: #f8f9fa;
-  border: 1px solid #e1e4e8;
-  border-radius: 16px;
+  background: var(--card-bg);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
   padding: 2.25rem 2rem;
   display: flex;
   flex-direction: column;
@@ -42,8 +42,8 @@
 }
 
 [data-theme='dark'] .card {
-  background: #14171c;
-  border-color: rgba(255, 255, 255, 0.08);
+  background: #181b22;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 @media (min-width: 768px) {
@@ -129,7 +129,7 @@
   border: 1px solid var(--md-primary, #1a73e8);
   font-size: 0.88rem;
   font-weight: 600;
-  border-radius: 9999px;
+  border-radius: var(--btn-radius);
   cursor: pointer;
   text-decoration: none;
   transition: all 150ms ease;
@@ -140,6 +140,18 @@
   background-color: #1557b0;
   border-color: #1557b0;
   transform: translateY(-1px);
+}
+
+[data-theme='dark'] .primaryCtaBtn {
+  background-color: #8ab4f8;
+  color: #041e49;
+  border-color: #8ab4f8;
+}
+
+[data-theme='dark'] .primaryCtaBtn:hover {
+  background-color: #a8c7fa;
+  color: #041e49;
+  border-color: #a8c7fa;
 }
 
 /* Secondary Outlined Fiverr Button */

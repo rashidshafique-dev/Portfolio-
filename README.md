@@ -60,19 +60,29 @@ Built entirely with **Vanilla CSS Modules**, utilizing viewport snapping grids (
 
 A modular, feature-based architecture ensures code scalability and maintainability:
 
-```text
 src/
+├── app/            # Application root & theme provider setup
 ├── assets/         # Static assets and media
-├── components/     # Reusable UI primitives (Buttons, Headings)
-├── constants/      # Static configuration and fallback data
+├── components/     # Reusable UI primitives (Buttons, Modals, Headings)
+├── constants/      # Static configuration, project case studies & data
 ├── features/       # Isolated feature modules (Domain-driven)
 │   ├── about/
+│   ├── build-logs/
 │   ├── contact/
+│   ├── cta/
+│   ├── experience/
 │   ├── hero/
 │   ├── projects/
 │   ├── skills/
 │   └── testimonials/
-├── App.jsx         # Root layout and component assembly
+├── hooks/          # Custom utility React hooks
+├── layouts/        # Page layouts (Navbar, Footer, MainLayout)
+├── pages/          # Lazy-loaded route views
+├── routes/         # Application router configuration
+├── services/       # Data layer & API abstractions
+├── store/          # Zustand global state (Theme, UI, Project filters)
+├── styles/         # MD3 global tokens & resets
+├── utils/          # Pure helper utilities
 └── main.jsx        # Application entry point
 ```
 

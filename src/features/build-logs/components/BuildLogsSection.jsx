@@ -1,29 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Calendar, Clock, Copy, Check, ExternalLink, Zap } from 'lucide-react';
-import { buildLogs, projects } from '../../../constants/portfolioData';
+import { useLocation } from 'react-router-dom';
+import { ExternalLink } from 'lucide-react';
+import { buildLogs } from '../../../constants/portfolioData';
 import styles from '../styles.module.css';
-import Modal from '../../../components/Modal';
-import LogContentRenderer from './LogContentRenderer';
-
-const getProjectSlug = (project) => {
-  if (!project) return '';
-  if (project.repoName) {
-    return project.repoName.toLowerCase().replace(/\.git$/i, '').trim();
-  }
-  if (project.githubUrl) {
-    const cleanUrl = project.githubUrl.replace(/\/$/, '').replace(/\.git$/i, '');
-    const parts = cleanUrl.split('/');
-    const lastPart = parts[parts.length - 1].toLowerCase().trim();
-    if (lastPart) return lastPart;
-  }
-  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-};
+import BuildLogModal from './BuildLogModal';
 
 export default function BuildLogsSection() {
   const [selectedLog, setSelectedLog] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All');
-  const [copied, setCopied] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -34,6 +18,8 @@ export default function BuildLogsSection() {
       );
       if (found) {
         setSelectedLog(found);
+        // Scroll overlay back to top when opening via hash
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
     }
   }, [location]);
@@ -51,29 +37,6 @@ export default function BuildLogsSection() {
     }
   };
 
-  const handleCopyLogLink = async () => {
-    if (!selectedLog) return;
-    const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    const slug = selectedLog.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const url = `${origin}/build-logs#${slug}`;
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(url);
-      } else {
-        const input = document.createElement('input');
-        input.value = url;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-      }
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.warn('Copy link failed:', err);
-    }
-  };
-
   const categories = ['All', 'Backend', 'Performance', 'Data Analysis', 'AI', 'IoT', 'Algorithms'];
 
   const filteredLogs =
@@ -85,25 +48,10 @@ export default function BuildLogsSection() {
             log.type.toLowerCase().includes(activeCategory.toLowerCase())
         );
 
-  // Find related project for selected log
-  const relatedProject = selectedLog
-    ? projects.find(
-        (p) =>
-          p.relatedLogTitle === selectedLog.title ||
-          selectedLog.title.toLowerCase().includes(p.title.toLowerCase()) ||
-          selectedLog.content.toLowerCase().includes(p.title.toLowerCase())
-      )
-    : null;
-
-  // Calculate reading time
-  const readingTime = selectedLog
-    ? `${Math.max(2, Math.ceil(selectedLog.content.split(/\s+/).length / 180))} min read`
-    : '3 min read';
-
   return (
     <section className={styles.section} id="build-logs-section">
       <div className="container">
-        
+
         {/* Section Header */}
         <div className={styles.headerContainer}>
           <span className={styles.eyebrow}>HIGHLIGHTED INSIGHTS</span>
@@ -124,14 +72,14 @@ export default function BuildLogsSection() {
           </div>
         </div>
 
-        {/* Category Filter Selector pills */}
+        {/* Category Filter Pills */}
         <nav className={styles.filterContainer} aria-label="Filter build logs by technology">
           <div className={styles.filterScroller}>
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`${styles.filterBtn} ${activeCategory === cat ? styles.filterBtnActive : ''} flex-shrink-0`}
+                className={`${styles.filterBtn} ${activeCategory === cat ? styles.filterBtnActive : ''}`}
                 aria-pressed={activeCategory === cat ? 'true' : 'false'}
               >
                 {cat}
@@ -140,15 +88,15 @@ export default function BuildLogsSection() {
           </div>
         </nav>
 
-        {/* Responsive Grid Layout identical to Projects */}
+        {/* Log Cards Grid */}
         <div className={styles.logsGrid}>
           {filteredLogs.map((log) => (
-            <article 
-              key={log.id} 
+            <article
+              key={log.id}
               className={styles.card}
               onClick={() => openLog(log)}
+              style={{ scrollMarginTop: '80px' }}
             >
-              
               {/* Top Row: Category Left, Date Right */}
               <div className={styles.topRow}>
                 <span className={styles.cardTag}>{log.type}</span>
@@ -172,7 +120,7 @@ export default function BuildLogsSection() {
                 <p className={styles.cardDesc}>{log.excerpt}</p>
               </div>
 
-              {/* Topic chips (bottom) */}
+              {/* Topic chips */}
               <div className={styles.topicList}>
                 {log.tags.slice(0, 4).map((tag) => (
                   <span key={tag} className={styles.topicChip} onClick={(e) => e.stopPropagation()}>
@@ -180,107 +128,12 @@ export default function BuildLogsSection() {
                   </span>
                 ))}
               </div>
-
             </article>
           ))}
         </div>
 
-        {/* Selected Log Content Modal — Google MD3 Engineering Log */}
-        <Modal
-          isOpen={!!selectedLog}
-          onClose={closeLog}
-          size="lg"
-          title={
-            selectedLog ? (
-              <div className={styles.modalHeaderTitleBlock}>
-                <span className={styles.modalCategoryBadge}>{selectedLog.type}</span>
-                <h2 className={styles.modalTitle}>{selectedLog.title}</h2>
-              </div>
-            ) : ''
-          }
-          headerExtra={
-            <button
-              type="button"
-              onClick={handleCopyLogLink}
-              className={styles.copyLogLinkBtn}
-              title="Copy link to this build log"
-            >
-              {copied ? (
-                <>
-                  <Check size={14} style={{ color: 'var(--accent-success, #10b981)' }} />
-                  <span>Copied</span>
-                </>
-              ) : (
-                <>
-                  <Copy size={14} />
-                  <span>Copy link</span>
-                </>
-              )}
-            </button>
-          }
-        >
-          {selectedLog && (
-            <div>
-              {/* Article Meta Bar (Date, Reading Time, Impact Metric, Tags) */}
-              <div className={styles.modalMeta}>
-                <div className={styles.modalMetaItem}>
-                  <Calendar size={13} aria-hidden="true" />
-                  <span>{selectedLog.date}</span>
-                </div>
-                
-                <div className={styles.modalMetaItem}>
-                  <Clock size={13} aria-hidden="true" />
-                  <span>{readingTime}</span>
-                </div>
-
-                {selectedLog.metric && (
-                  <div className={styles.modalMetricBadge}>
-                    <Zap size={12} aria-hidden="true" />
-                    <span>{selectedLog.metric}</span>
-                  </div>
-                )}
-
-                <div className={styles.modalTags}>
-                  {selectedLog.tags.map((tag) => (
-                    <span key={tag} className={styles.modalTag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Rendered Markdown Article Body */}
-              <div className={styles.modalBody}>
-                <LogContentRenderer content={selectedLog.content} />
-              </div>
-
-              {/* Footer Bar: Related Project Link */}
-              <div className={styles.modalFooter}>
-                {relatedProject ? (
-                  <Link
-                    to={`/projects#${getProjectSlug(relatedProject)}`}
-                    className={styles.relatedProjectBtn}
-                    onClick={closeLog}
-                  >
-                    <span>Explore {relatedProject.title} Case Study</span>
-                    <ArrowRight size={14} aria-hidden="true" />
-                  </Link>
-                ) : (
-                  <div />
-                )}
-
-                <button
-                  type="button"
-                  onClick={closeLog}
-                  className={styles.copyLogLinkBtn}
-                >
-                  <span>Close Log</span>
-                </button>
-              </div>
-
-            </div>
-          )}
-        </Modal>
+        {/* ── Build Log Article Modal ── */}
+        <BuildLogModal log={selectedLog} onClose={closeLog} />
 
       </div>
     </section>

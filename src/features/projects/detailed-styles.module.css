@@ -60,7 +60,7 @@
   border: 1px solid rgba(0, 0, 0, 0.12);
   color: var(--md-on-surface-variant, #5f6368);
   padding: 6px 14px;
-  border-radius: 9999px;
+  border-radius: var(--btn-radius);
   font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
@@ -664,6 +664,12 @@
   font-weight: 600;
 }
 
+[data-theme='dark'] .screenshotTabBtnActive {
+  background-color: #8ab4f8 !important;
+  border-color: #8ab4f8 !important;
+  color: #041e49 !important;
+}
+
 /* Content Layout Columns */
 .articleContent {
   display: grid;
@@ -1124,6 +1130,18 @@
   background-color: #1557b0;
   border-color: #1557b0;
   transform: translateY(-1px);
+}
+
+[data-theme='dark'] .articlePrimaryAction {
+  background-color: #8ab4f8;
+  color: #041e49 !important;
+  border-color: #8ab4f8;
+}
+
+[data-theme='dark'] .articlePrimaryAction:hover {
+  background-color: #a8c7fa;
+  color: #041e49 !important;
+  border-color: #a8c7fa;
 }
 
 .articleSecondaryAction {

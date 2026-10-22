@@ -1,113 +1,25 @@
 import { useState, useEffect } from 'react';
 import {
-  Code2,
-  ChevronDown,
-  ChevronUp,
   ExternalLink,
   ArrowLeft,
   BookOpen,
   Share2
 } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { GithubIcon as Github } from '../../../components/SocialIcons';
-import { projects } from '../../../constants/portfolioData';
 import styles from '../detailed-styles.module.css';
+import baseStyles from '../styles.module.css';
+import { useGithubProjects } from '../hooks/useGithubProjects';
 import SectionHeading from '../../../components/SectionHeading';
 import ProjectCard from './ProjectCard';
 import ProjectShareModal from './ProjectShareModal';
-
-export const getProjectSlug = (project) => {
-  if (!project) return '';
-  if (project.repoName) {
-    return project.repoName.toLowerCase().replace(/\.git$/i, '').trim();
-  }
-  if (project.githubUrl) {
-    const cleanUrl = project.githubUrl.replace(/\/$/, '').replace(/\.git$/i, '');
-    const parts = cleanUrl.split('/');
-    const lastPart = parts[parts.length - 1].toLowerCase().trim();
-    if (lastPart) return lastPart;
-  }
-  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-};
-
-const stripEmojis = (text) => {
-  if (!text) return '';
-  return text
-    .replace(/[\uD83C-\uDBFF\uDC00-\uDFFF]/gu, '') // Strips high-surrogate emojis
-    .replace(/[\u2600-\u27BF]/g, '')             // Strips standard symbols/emojis
-    .replace(/\s+/g, ' ')                        // Normalize whitespace
-    .trim();
-};
-
-const repoTitleOverrides = {
-  'sales-data-analysis-system': 'Sales Data Analysis System',
-  'medicare / hospital management': 'MediCare / Hospital Management',
-  'medicare': 'MediCare / Hospital Management',
-  'hospital-management-system': 'Hospital Management System',
-  'algoviz-pro': 'AlgoViz Pro',
-  'face-recognition-attendance-system': 'Face Recognition Attendance System',
-  'taleempro': 'TaleemPro',
-  'venturetwist': 'VentureTwist',
-  'rescue_project-': 'Rescue Project',
-  'foody-app': 'FoodDash',
-  'fooddash': 'FoodDash',
-  'ai-hms': 'Al Shifaa Clinic',
-  'sunrise-hotel': 'Sunrise Imperial Resort',
-  'sunrise-hotel-plum': 'Sunrise Imperial Resort',
-  'sunrise_hotel': 'Sunrise Imperial Resort',
-  'shadcn-dashboard-vite': 'Sunrise Imperial Resort',
-  'sunrise-imperial-resort': 'Sunrise Imperial Resort',
-  'aioverse': 'AioVerse'
-};
-
-const formatProjectTitle = (name) => {
-  if (!name) return '';
-  const key = name.toLowerCase().trim();
-  if (repoTitleOverrides[key]) {
-    return repoTitleOverrides[key];
-  }
-  return name
-    .replace(/[-_]+/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase())
-    .trim();
-};
-
-const CACHE_KEY = 'github_repos_raw_cache_v13';
-const CACHE_TIME_KEY = 'github_repos_raw_cache_time_v13';
-const ONE_HOUR = 60 * 60 * 1000;
-
-const mergeProjects = (rawGithubRepos) => {
-  const mergedProjects = rawGithubRepos.map(apiProj => {
-    const matchedStatic = projects.find(p =>
-      p.title.toLowerCase() === apiProj.repoName.toLowerCase() ||
-      (p.githubUrl && p.githubUrl.toLowerCase().includes(apiProj.repoName.toLowerCase()))
-    );
-    if (matchedStatic) {
-      return {
-        ...apiProj,
-        ...matchedStatic,
-        title: matchedStatic.title === 'Sales-Data-Analysis-System' ? 'Sales Data Analysis System' : matchedStatic.title,
-        techStack: Array.from(new Set([...matchedStatic.techStack, ...apiProj.techStack]))
-      };
-    }
-    return apiProj;
-  });
-
-  const unmatchedStatic = projects.filter(staticProj => 
-    !rawGithubRepos.some(apiProj => 
-      staticProj.title.toLowerCase() === apiProj.repoName.toLowerCase() ||
-      (staticProj.githubUrl && staticProj.githubUrl.toLowerCase().includes(apiProj.repoName.toLowerCase()))
-    )
-  );
-
-  const allProjects = [...mergedProjects, ...unmatchedStatic];
-
-  return [...allProjects].sort((a, b) => {
-    const idA = a.id !== undefined ? a.id : 999;
-    const idB = b.id !== undefined ? b.id : 999;
-    return idA - idB;
-  });
-};
+import { useProjectStore } from '../../../store';
+import {
+  getProjectSlug,
+  stripEmojis,
+  PROJECT_CATEGORIES,
+  matchesCategory,
+} from '../../../utils/projectUtils';
 
 function ProjectVisualPlaceholder({ project }) {
   const isML = project.category === 'AI / ML';
@@ -186,23 +98,30 @@ function ProjectVisualPlaceholder({ project }) {
 }
 
 export default function DetailedProjects() {
-  const [showAll, setShowAll] = useState(false);
-  const [projectList, setProjectList] = useState(() => {
-    try {
-      const cachedData = sessionStorage.getItem(CACHE_KEY);
-      const cachedTime = sessionStorage.getItem(CACHE_TIME_KEY);
-      if (cachedData && cachedTime && (Date.now() - Number(cachedTime) < ONE_HOUR)) {
-        const rawRepos = JSON.parse(cachedData);
-        return mergeProjects(rawRepos);
-      }
-    } catch (e) {
-      console.warn('Failed to parse detailed projects cache on init:', e);
-    }
-    return [...projects].sort((a, b) => a.id - b.id);
-  });
-  const [loading, setLoading] = useState(false);
+  const { projectList, loading } = useGithubProjects({ sortByFeatured: false });
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { setFilter } = useProjectStore();
   const location = useLocation();
+
+  const urlCategory = searchParams.get('category') || searchParams.get('filter') || 'All';
+  const activeCategory = PROJECT_CATEGORIES.find(
+    (c) => c.toLowerCase() === urlCategory.toLowerCase()
+  ) || 'All';
+
+  const handleFilterSelect = (cat) => {
+    setFilter(cat);
+    const params = new URLSearchParams(searchParams);
+    if (cat === 'All') {
+      params.delete('category');
+      params.delete('filter');
+    } else {
+      params.set('category', cat);
+      params.delete('filter');
+    }
+    setSearchParams(params, { replace: true });
+  };
+
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeImg, setActiveImg] = useState(null);
   const [isShareOpen, setIsShareOpen] = useState(false);
@@ -246,90 +165,6 @@ export default function DetailedProjects() {
     }
   }, [location, projectList, loading]);
 
-  useEffect(() => {
-    async function fetchGithubRepos() {
-      try {
-        const cachedData = sessionStorage.getItem(CACHE_KEY);
-        const cachedTime = sessionStorage.getItem(CACHE_TIME_KEY);
-
-        if (cachedData && cachedTime && (Date.now() - Number(cachedTime) < ONE_HOUR)) {
-          setLoading(false);
-          return;
-        }
-
-        const response = await fetch('https://api.github.com/users/rashidshafique-dev/repos?sort=updated&per_page=30');
-        if (!response.ok) throw new Error('API fetch failed');
-        const repos = await response.json();
-
-        const mappedProjects = repos
-          .filter(repo => !repo.fork && repo.name.toLowerCase() !== 'rashidshafique-dev' && repo.name.toLowerCase() !== 'rashidkhan4067' && repo.name.toLowerCase() !== 'portfolio-' && repo.name.toLowerCase() !== 'foody-app')
-          .map((repo, index) => {
-            let category = 'Open Source';
-            let accentColor = '#7C3AED';
-
-            const desc = (repo.description || '').toLowerCase();
-            const topics = repo.topics || [];
-
-            if (topics.includes('machine-learning') || topics.includes('ai') || desc.includes('face') || desc.includes('opencv') || desc.includes('predictive') || desc.includes('analysis') || desc.includes('ml')) {
-              category = 'AI / ML';
-              accentColor = '#1A73E8';
-            } else if (topics.includes('fullstack') || topics.includes('frontend') || desc.includes('react') || desc.includes('next') || desc.includes('dashboard')) {
-              category = 'Full-Stack';
-              accentColor = '#34A853';
-            } else if (topics.includes('backend') || desc.includes('api') || desc.includes('backend') || desc.includes('django') || desc.includes('fastapi')) {
-              category = 'Backend';
-              accentColor = '#EA4335';
-            }
-
-            const techStack = [];
-            if (repo.language) techStack.push(repo.language);
-            topics.slice(0, 3).forEach(t => {
-              const formattedTopic = t.charAt(0).toUpperCase() + t.slice(1);
-              if (!techStack.includes(formattedTopic)) {
-                techStack.push(formattedTopic);
-              }
-            });
-            if (techStack.length === 0) techStack.push('Software');
-
-            return {
-              id: repo.id || index,
-              repoName: repo.name,
-              title: formatProjectTitle(repo.name),
-              description: repo.description || 'A highly performant, automated software repository deployed with modern engineering workflows.',
-              techStack: techStack,
-              category: category,
-              liveUrl: repo.homepage || repo.html_url,
-              githubUrl: repo.html_url,
-              accentColor: accentColor
-            };
-          });
-
-        const merged = mergeProjects(mappedProjects);
-        setProjectList(merged);
-        try {
-          sessionStorage.setItem(CACHE_KEY, JSON.stringify(mappedProjects));
-          sessionStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
-        } catch (storageErr) {
-          console.warn('SessionStorage quota exceeded, skipping caching:', storageErr);
-        }
-      } catch (error) {
-        console.warn('GitHub API rate limit or error, falling back to cached static data:', error);
-        const expiredCache = sessionStorage.getItem(CACHE_KEY);
-        if (expiredCache) {
-          setProjectList(mergeProjects(JSON.parse(expiredCache)));
-        } else {
-          setProjectList([...projects].sort((a, b) => {
-            const idA = a.id !== undefined ? a.id : 999;
-            const idB = b.id !== undefined ? b.id : 999;
-            return idA - idB;
-          }));
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchGithubRepos();
-  }, []);
 
   const handleCardClick = (e, project) => {
     if (e.target.closest('a') || e.target.closest('button')) {
@@ -776,7 +611,10 @@ export default function DetailedProjects() {
     );
   }
 
-  const displayedProjects = projectList.filter(p => !!p.imageUrl); // Filter out projects without images
+  const displayedProjects = projectList
+    .filter((p) => !!p.imageUrl)
+    .filter((p) => matchesCategory(p.category, activeCategory));
+
   const skeletonCards = Array.from({ length: 6 });
 
   return (
@@ -790,12 +628,26 @@ export default function DetailedProjects() {
           centered={true}
         />
 
+        {/* Filter Chips Row */}
+        <div className={baseStyles.filterChipsRow} role="navigation" aria-label="Project category filtering">
+          {PROJECT_CATEGORIES.map((chip) => (
+            <button
+              key={chip}
+              onClick={() => handleFilterSelect(chip)}
+              className={`${baseStyles.filterChip} ${activeCategory.toLowerCase() === chip.toLowerCase() ? baseStyles.activeChip : ''}`}
+              aria-pressed={activeCategory.toLowerCase() === chip.toLowerCase() ? 'true' : 'false'}
+            >
+              {chip}
+            </button>
+          ))}
+        </div>
+
         <div className={styles.projectsGrid}>
           {loading ? (
             skeletonCards.map((_, index) => (
               <article
                 key={`project-skeleton-${index}`}
-                className={`${styles.projectCard} ${styles.skeletonCard}`}
+                className={`${baseStyles.projectCard} ${styles.skeletonCard}`}
                 style={{ pointerEvents: 'none' }}
               >
                 <div className={`${styles.visualSide} skeleton`} style={{ height: '220px' }} />

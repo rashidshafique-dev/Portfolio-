@@ -1,10 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Tag, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import { buildLogs } from '../../../constants/portfolioData';
 import styles from '../styles.module.css';
+import BuildLogModal from './BuildLogModal';
 
 export default function BuildLogsTeaser() {
-  const navigate = useNavigate();
+  const [selectedLog, setSelectedLog] = useState(null);
   // Extract the top 3 most relevant build logs for recruiters
   const latestLogs = buildLogs && buildLogs.length > 0 ? buildLogs.slice(0, 3) : [];
 
@@ -25,43 +27,40 @@ export default function BuildLogsTeaser() {
 
         {/* CSS Grid layout for Home page teaser */}
         <div className={`${styles.logsGrid} ${styles.teaserGrid}`}>
-          {latestLogs.map((log) => {
-            const slug = log.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-            return (
-              <article
-                key={log.id}
-                className={styles.card}
-                onClick={() => navigate(`/build-logs#${slug}`)}
-              >
+          {latestLogs.map((log) => (
+            <article
+              key={log.id}
+              className={styles.card}
+              onClick={() => setSelectedLog(log)}
+            >
 
-                {/* Top Row: Category Left, Date Right */}
-                <div className={styles.topRow}>
-                  <span className={styles.cardTag}>{log.type}</span>
-                  <span className={styles.cardDate}>{log.date}</span>
-                </div>
+              {/* Top Row: Category Left, Date Right */}
+              <div className={styles.topRow}>
+                <span className={styles.cardTag}>{log.type}</span>
+                <span className={styles.cardDate}>{log.date}</span>
+              </div>
 
-                {/* Card Title & Excerpt */}
-                <div className={styles.cardBody}>
-                  <h3 className={styles.cardTitle}>
-                    <span className={styles.cardTitleLink}>
-                      {log.title}
-                    </span>
-                  </h3>
-                  <p className={styles.cardDesc}>{log.excerpt}</p>
-                </div>
+              {/* Card Title & Excerpt */}
+              <div className={styles.cardBody}>
+                <h3 className={styles.cardTitle}>
+                  <span className={styles.cardTitleLink}>
+                    {log.title}
+                  </span>
+                </h3>
+                <p className={styles.cardDesc}>{log.excerpt}</p>
+              </div>
 
-                {/* Topic chips (bottom) */}
-                <div className={styles.topicList}>
-                  {log.tags.slice(0, 4).map((tag) => (
-                    <span key={tag} className={styles.topicChip} onClick={(e) => e.stopPropagation()}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              {/* Topic chips (bottom) */}
+              <div className={styles.topicList}>
+                {log.tags.slice(0, 4).map((tag) => (
+                  <span key={tag} className={styles.topicChip} onClick={(e) => e.stopPropagation()}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-              </article>
-            );
-          })}
+            </article>
+          ))}
         </div>
 
         {/* Section CTAs */}
@@ -81,8 +80,10 @@ export default function BuildLogsTeaser() {
           </a>
         </div>
 
+        {/* Open Modal directly on Home page without navigating away */}
+        <BuildLogModal log={selectedLog} onClose={() => setSelectedLog(null)} />
+
       </div>
     </section>
   );
 }
-

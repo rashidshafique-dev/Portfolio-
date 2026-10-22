@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import ContactSection from '../features/contact';
-
-const BASE_URL = 'https://rashid-shafique-portfolio.vercel.app';
+import { SITE_URL as BASE_URL } from '../constants/portfolioData';
 
 const contactSchema = {
   '@context': 'https://schema.org',

@@ -5,18 +5,12 @@ import {
   GraduationCap, 
   ShoppingBag, 
   Calendar, 
-  MapPin, 
   ExternalLink, 
   CheckCircle2, 
-  Milestone, 
-  FileText, 
-  ArrowRight,
-  Sparkles
+  Milestone
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { experience, timeline, personalInfo } from '../../../constants/portfolioData';
+import { experience, timeline } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
-import HireMeCTA from '../../cta/components/HireMeCTA';
 import styles from '../styles.module.css';
 
 function getRoleIcon(category) {

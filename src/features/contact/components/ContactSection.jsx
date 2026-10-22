@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Phone, Clock, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, Mail, MapPin, Phone, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../../../components/SocialIcons';
 import { personalInfo } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';

@@ -17,12 +17,8 @@
   font-weight: 900;
   letter-spacing: -0.06em;
   line-height: 1;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--md-primary);
   margin-bottom: var(--space-4);
-  filter: drop-shadow(0 0 40px rgba(99, 102, 241, 0.25));
 }
 
 .title {

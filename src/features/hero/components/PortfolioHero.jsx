@@ -13,54 +13,16 @@ import { GithubIcon, LinkedinIcon, TwitterIcon } from '../../../components/Socia
 export default function HeroSection() {
   return (
     <section className={styles.hero} id="hero">
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        .object-top {
-          object-position: top center !important;
-        }
-        .items-center {
-          align-items: center !important;
-        }
-        /* dot pulse */
-        @keyframes dotPulse {
-          0% { transform: scale(0.85); opacity: 0.6; }
-          50% { transform: scale(1.2); opacity: 1; }
-          100% { transform: scale(0.85); opacity: 0.6; }
-        }
-        [class*="statusDot"] {
-          display: inline-block;
-          animation: dotPulse 2s ease-in-out infinite;
-          border-radius: 50%;
-        }
-        /* arrow nudge on hover */
-        [class*="primaryButton"] svg {
-          transition: transform 200ms cubic-bezier(0.2, 0, 0, 1);
-        }
-        [class*="primaryButton"]:hover svg {
-          transform: translateX(4px);
-        }
-        [class*="primaryButton"],
-        [class*="secondaryButton"] {
-          transition: transform 150ms cubic-bezier(0.2, 0, 0, 1),
-                      background-color var(--transition-fast),
-                      border-color var(--transition-fast);
-        }
-        [class*="primaryButton"]:active,
-        [class*="secondaryButton"]:active {
-          transform: scale(0.98);
-        }
-      `}} />
       <div className="container">
-        <div className={`${styles.gridContainer} items-center`}>
+        <div className={styles.gridContainer}>
 
-          {/* ── Group B: Right Column (Large profile photo with ambient aura) ── */}
+          {/* ── Group B: Right Column (Large profile photo) ── */}
           <div className={styles.rightColumn}>
-            <div className={styles.ambientAura} aria-hidden="true" />
             <div className={styles.profileCard}>
               <img
                 src={profileLargeImg}
                 alt="Muhammad Rashid Shafique — Backend-Focused Full-Stack Engineer"
-                className={`${styles.profileImageLarge} object-top`}
+                className={styles.profileImageLarge}
                 loading="eager"
                 width="340"
                 height="425"

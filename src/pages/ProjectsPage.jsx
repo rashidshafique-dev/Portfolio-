@@ -1,8 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { DetailedProjects } from '../features/projects';
 import HireMeCTA from '../features/cta';
-
-const BASE_URL = 'https://rashid-shafique-portfolio.vercel.app';
+import { SITE_URL as BASE_URL } from '../constants/portfolioData';
 
 const projectsSchema = {
   '@context': 'https://schema.org',

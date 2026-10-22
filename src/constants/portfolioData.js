@@ -8,39 +8,40 @@ import medicareImg from '../assets/medicare/medicare.webp';
 import algovizImg from '../assets/algoviz/algoviz.webp';
 import faceAttendanceImg from '../assets/face_attendance/face_attendance.webp';
 import taleemproImg from '../assets/taleempro/taleempro.webp';
-import venturetwistImg from '../assets/venturetwist/venturetwist.png';
-import rescueDashboardImg from '../assets/rescue_project/rescue_dashboard.png';
-import rescueLandingImg from '../assets/rescue_project/rescue_landing.png';
-import rescueMapImg from '../assets/rescue_project/rescue_map.png';
-import fooddashLandingImg from '../assets/fooddash/fooddash_landing.png';
-import fooddashLoginImg from '../assets/fooddash/fooddash_login.png';
+import venturetwistImg from '../assets/venturetwist/venturetwist.webp';
+import rescueDashboardImg from '../assets/rescue_project/rescue_dashboard.webp';
+import rescueLandingImg from '../assets/rescue_project/rescue_landing.webp';
+import rescueMapImg from '../assets/rescue_project/rescue_map.webp';
+import fooddashLandingImg from '../assets/fooddash/fooddash_landing.webp';
+import fooddashLoginImg from '../assets/fooddash/fooddash_login.webp';
 import aiHmsImg from '../assets/shifaa_hms/ai_hms.webp';
-import portfolioDarkOrangeImg from '../assets/portfolio_showcase/portfolio_dark_orange.png';
-import portfolioDarkRoseImg from '../assets/portfolio_showcase/portfolio_dark_rose.png';
-import portfolioLightOrangeImg from '../assets/portfolio_showcase/portfolio_light_orange.png';
-import bhuttaScientsImg from '../assets/bhutta_scents/bhuttaScients.png';
-import bhuttaCollectionImg from '../assets/bhutta_scents/collection.png';
-import bhuttaHomepageImg from '../assets/bhutta_scents/homepage.jpg';
-import bhuttaProductdetailsImg from '../assets/bhutta_scents/productdetails.png';
-import bhuttaImageImg from '../assets/bhutta_scents/image.png';
-import sunriseMainImg from '../assets/sunrise_hotel/sunrise_main.png';
-import sunriseDashboardDarkImg from '../assets/sunrise_hotel/sunrise_dashboard_dark.png';
-import sunriseDashboardLightImg from '../assets/sunrise_hotel/sunrise_dashboard_light.png';
-import sunriseCustomizerImg from '../assets/sunrise_hotel/sunrise_customizer.png';
-import sunriseBookingsImg from '../assets/sunrise_hotel/sunrise_bookings.png';
-import sunriseReportImg from '../assets/sunrise_hotel/sunrise_report.png';
-import sunriseAppsImg from '../assets/sunrise_hotel/sunrise_apps.png';
-import aioverseMainImg from '../assets/aioverse/aioverse_main.png';
-import aioverseHomeImg from '../assets/aioverse/home.png';
-import aioverseAuthImg from '../assets/aioverse/auth.png';
-import aioverseOnboarding1Img from '../assets/aioverse/onboardingscreen.png';
-import aioverseOnboarding2Img from '../assets/aioverse/onboarding2.png';
-import aioverseSplashImg from '../assets/aioverse/splashsceen.png';
-import aioverseSystemDesignImg from '../assets/aioverse/system-design.png';
+import portfolioDarkOrangeImg from '../assets/portfolio_showcase/portfolio_dark_orange.webp';
+import portfolioDarkRoseImg from '../assets/portfolio_showcase/portfolio_dark_rose.webp';
+import bhuttaScientsImg from '../assets/bhutta_scents/bhuttaScients.webp';
+import bhuttaCollectionImg from '../assets/bhutta_scents/collection.webp';
+import bhuttaProductdetailsImg from '../assets/bhutta_scents/productdetails.webp';
+import bhuttaImageImg from '../assets/bhutta_scents/image.webp';
+import sunriseMainImg from '../assets/sunrise_hotel/sunrise_main.webp';
+import sunriseDashboardDarkImg from '../assets/sunrise_hotel/sunrise_dashboard_dark.webp';
+import sunriseDashboardLightImg from '../assets/sunrise_hotel/sunrise_dashboard_light.webp';
+import sunriseCustomizerImg from '../assets/sunrise_hotel/sunrise_customizer.webp';
+import sunriseBookingsImg from '../assets/sunrise_hotel/sunrise_bookings.webp';
+import sunriseReportImg from '../assets/sunrise_hotel/sunrise_report.webp';
+import sunriseAppsImg from '../assets/sunrise_hotel/sunrise_apps.webp';
+import aioverseMainImg from '../assets/aioverse/aioverse_main.webp';
+import aioverseHomeImg from '../assets/aioverse/home.webp';
+import aioverseAuthImg from '../assets/aioverse/auth.webp';
+import aioverseOnboarding1Img from '../assets/aioverse/onboardingscreen.webp';
+import aioverseOnboarding2Img from '../assets/aioverse/onboarding2.webp';
+import aioverseSplashImg from '../assets/aioverse/splashsceen.webp';
+import aioverseSystemDesignImg from '../assets/aioverse/system-design.webp';
 
+
+export const SITE_URL = 'https://rashid-shafique-portfolio.vercel.app';
 
 export const personalInfo = {
   name: 'Muhammad Rashid Shafique',
+  websiteUrl: SITE_URL,
   title: 'Full-Stack Software Engineer · Python · Django · React',
   tagline: 'Building scalable web applications, secure Python REST APIs, and high-performance backend systems.',
   bio: 'Software Engineer specializing in Python backends (Django, FastAPI), relational database architecture (PostgreSQL), and modern React frontends. Strong foundation in Data Structures, Algorithms, and System Design with a proven track record of shipping production client solutions.',
@@ -1060,7 +1061,7 @@ export const getCurrentSemesterInfo = () => {
   const year = now.getFullYear();
   const month = now.getMonth(); // 0-indexed: 0 = Jan, 7 = Aug, 11 = Dec
 
-  let semester = 1;
+  let semester;
   const yearDiff = year - 2023;
 
   if (yearDiff <= 0) {

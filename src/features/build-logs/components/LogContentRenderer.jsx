@@ -1,26 +1,16 @@
 import { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 import styles from '../styles.module.css';
+import { copyToClipboard } from '../../../utils';
 
 function CodeBlock({ lang, code }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(code);
-      } else {
-        const textarea = document.createElement('textarea');
-        textarea.value = code;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-      }
+    const success = await copyToClipboard(code);
+    if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.warn('Copy failed:', err);
     }
   };
 
@@ -173,7 +163,7 @@ export default function LogContentRenderer({ content }) {
     }
 
     // Numbered list item: e.g. "1. " or "1) "
-    const orderedMatch = trimmed.match(/^(\d+)[\.\)]\s+(.*)/);
+    const orderedMatch = trimmed.match(/^(\d+)[.)]\s+(.*)/);
     if (orderedMatch) {
       if (!currentList || currentList.type !== 'ol') {
         flushList();

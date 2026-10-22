@@ -5,8 +5,7 @@ import ProjectsSection from '../features/projects';
 import BuildLogsTeaser from '../features/build-logs/components/BuildLogsTeaser';
 import TestimonialsSection from '../features/testimonials';
 import HireMeCTA from '../features/cta';
-
-const BASE_URL = 'https://rashid-shafique-portfolio.vercel.app';
+import { SITE_URL as BASE_URL } from '../constants/portfolioData';
 
 const homeSchema = {
   '@context': 'https://schema.org',

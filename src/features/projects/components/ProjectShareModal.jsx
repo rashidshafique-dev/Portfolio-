@@ -15,25 +15,9 @@ import {
   RedditIcon
 } from '../../../components/SocialIcons';
 import styles from './project-share.module.css';
-
-const getProjectSlug = (project) => {
-  if (!project) return '';
-  if (project.repoName) return project.repoName.toLowerCase();
-  if (project.githubUrl) {
-    const parts = project.githubUrl.split('/');
-    return parts[parts.length - 1].toLowerCase();
-  }
-  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-};
-
-const cleanText = (text) => {
-  if (!text) return '';
-  return text
-    .replace(/[\uD83C-\uDBFF\uDC00-\uDFFF]/gu, '')
-    .replace(/[\u2600-\u27BF]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-};
+import { SITE_URL } from '../../../constants/portfolioData';
+import { copyToClipboard } from '../../../utils';
+import { getProjectSlug, stripEmojis } from '../../../utils/projectUtils';
 
 export default function ProjectShareModal({ project, isOpen, onClose }) {
   const [shareTarget, setShareTarget] = useState('portfolio'); // 'portfolio' | 'live'
@@ -72,32 +56,20 @@ export default function ProjectShareModal({ project, isOpen, onClose }) {
   if (!mounted || !project) return null;
 
   const slug = getProjectSlug(project);
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://rashid-shafique-portfolio.vercel.app';
+  const origin = typeof window !== 'undefined' ? window.location.origin : SITE_URL;
   const portfolioUrl = `${origin}/projects#${slug}`;
   const liveUrl = project.liveUrl || portfolioUrl;
 
   const activeUrl = shareTarget === 'live' && project.liveUrl ? liveUrl : portfolioUrl;
   const activeDomain = activeUrl.replace(/^https?:\/\//, '').split('/')[0];
 
-  const shareTitle = `${project.title} — ${project.tagline || cleanText(project.description).slice(0, 90)}`;
-  const shareText = `Explore "${project.title}" by Muhammad Rashid Shafique — ${cleanText(project.description).slice(0, 140)}...`;
+  const shareText = `Explore "${project.title}" by Muhammad Rashid Shafique — ${stripEmojis(project.description).slice(0, 140)}...`;
 
   const handleCopy = async () => {
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(activeUrl);
-      } else {
-        const input = document.createElement('input');
-        input.value = activeUrl;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-      }
+    const success = await copyToClipboard(activeUrl);
+    if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2200);
-    } catch (err) {
-      console.warn('Clipboard copy failed:', err);
     }
   };
 

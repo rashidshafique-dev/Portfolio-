@@ -1,25 +1,11 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Sun, Moon, Menu, X, Code2,
-  Home, User2, FolderGit2, Sparkles, Briefcase, Mail, FileText, BookOpen
-} from 'lucide-react';
+import { Sun, Moon, Menu, X, Code2, FileText } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../../components/SocialIcons';
 import { useThemeStore, useUIStore } from '../../store';
 import { navLinks, personalInfo } from '../../constants/portfolioData';
 import styles from './Navbar.module.css';
-
-// Map nav paths to clean icons
-const iconMap = {
-  '/': Home,
-  '/about': User2,
-  '/projects': FolderGit2,
-  '/skills': Sparkles,
-  '/experience': Briefcase,
-  '/contact': Mail,
-  '/build-logs': BookOpen
-};
 
 export default function Navbar() {
   const { theme, toggleTheme } = useThemeStore();
@@ -30,7 +16,7 @@ export default function Navbar() {
 
   // Handle scrolled navbar consistency on scroll and route changes
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 12);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);

@@ -4,29 +4,7 @@ import { Link } from 'react-router-dom';
 import { GithubIcon as Github } from '../../../components/SocialIcons';
 import styles from '../styles.module.css';
 import ProjectShareModal from './ProjectShareModal';
-
-const getProjectSlug = (project) => {
-  if (!project) return '';
-  if (project.repoName) {
-    return project.repoName.toLowerCase().replace(/\.git$/i, '').trim();
-  }
-  if (project.githubUrl) {
-    const cleanUrl = project.githubUrl.replace(/\/$/, '').replace(/\.git$/i, '');
-    const parts = cleanUrl.split('/');
-    const lastPart = parts[parts.length - 1].toLowerCase().trim();
-    if (lastPart) return lastPart;
-  }
-  return project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-};
-
-const stripEmojis = (text) => {
-  if (!text) return '';
-  return text
-    .replace(/[\uD83C-\uDBFF\uDC00-\uDFFF]/gu, '') // Strips high-surrogate emojis
-    .replace(/[\u2600-\u27BF]/g, '')             // Strips standard symbols/emojis
-    .replace(/\s+/g, ' ')                        // Normalize whitespace
-    .trim();
-};
+import { getProjectSlug, stripEmojis } from '../../../utils/projectUtils';
 
 export default function ProjectCard({ project, onClick }) {
   const [isShareOpen, setIsShareOpen] = useState(false);

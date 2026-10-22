@@ -17,9 +17,9 @@
 }
 
 .container {
-  max-width: 64rem;
+  max-width: var(--container-max-width-narrow);
   margin: 0 auto;
-  padding: 0 1.25rem;
+  padding: 0 var(--container-padding-x);
   width: 100%;
   box-sizing: border-box;
 }
@@ -341,7 +341,7 @@ a.infoValue:hover {
 .textarea {
   background-color: #ffffff;
   border: 1px solid #e1e4e8;
-  border-radius: 8px;
+  border-radius: var(--input-radius);
   padding: 10px 14px;
   font-size: 0.88rem;
   color: var(--md-on-surface, #202124);
@@ -422,7 +422,7 @@ a.infoValue:hover {
 .submitButton {
   width: 100%;
   height: 42px;
-  border-radius: 9999px;
+  border-radius: var(--btn-radius);
   background-color: var(--md-primary, #1a73e8);
   color: #ffffff;
   border: 1px solid var(--md-primary, #1a73e8);
