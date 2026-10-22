@@ -1,44 +1,48 @@
+import Logo from '../Logo';
 import styles from './PageLoader.module.css';
 
+/**
+ * PageLoader - Executive, Linear/Vercel-inspired loading state
+ *
+ * Characteristics:
+ * - Single focal point: Unified Rashid.dev brand mark with breathing pulse
+ * - Precision hairline indeterminate progress bar (160px wide, 2px high)
+ * - Zero gimmicks: No bouncing balls, no spinning rings, no sci-fi corner brackets
+ * - Native dark/light mode surface tokens with smooth ease transitions
+ */
 export default function PageLoader() {
   return (
-    <div className={styles.overlay} aria-label="Loading" role="status" aria-live="polite">
-
-      {/* Corner accent decorators */}
-      <span className={styles.cornerTL} aria-hidden="true" />
-      <span className={styles.cornerBR} aria-hidden="true" />
-
-      {/* Centre content */}
+    <div
+      className={styles.overlay}
+      role="status"
+      aria-live="polite"
+      aria-label="Loading page"
+    >
       <div className={styles.centre}>
-
-        {/* Logo mark */}
-        <div className={styles.logoWrap} aria-hidden="true">
-          <div className={styles.logoBox}>
-            <span className={styles.logoInitials}>RS</span>
-          </div>
-          <span className={styles.logoRing} />
+        {/* Brand Mark with Subtle Breathing Halo */}
+        <div className={styles.markWrapper}>
+          <div className={styles.markGlow} aria-hidden="true" />
+          <Logo size="lg" showText={false} />
         </div>
 
-        {/* Name + role */}
-        <div className={styles.textBlock}>
-          <p className={styles.name}>Muhammad Rashid Shafique</p>
-          <p className={styles.tagline}>Full-Stack Software Engineer</p>
+        {/* Brand Wordmark & Engineering Identity */}
+        <div className={styles.identity}>
+          <h2 className={styles.title}>
+            Rashid<span className={styles.dot}>.dev</span>
+          </h2>
+          <p className={styles.subtitle}>Systems &amp; Full-Stack Engineering</p>
         </div>
 
-        {/* Animated dots */}
-        <div className={styles.dots} aria-hidden="true">
-          <span className={styles.dot} />
-          <span className={styles.dot} />
-          <span className={styles.dot} />
+        {/* Precision Indeterminate Progress Indicator */}
+        <div className={styles.progressContainer} aria-hidden="true">
+          <div className={styles.progressBar} />
         </div>
 
+        {/* Ambient Status Indicator */}
+        <span className={styles.statusText} aria-hidden="true">
+          INITIALIZING...
+        </span>
       </div>
-
-      {/* Bottom progress sweep */}
-      <div className={styles.progressTrack} aria-hidden="true">
-        <div className={styles.progressBar} />
-      </div>
-
     </div>
   );
 }

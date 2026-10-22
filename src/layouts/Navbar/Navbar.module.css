@@ -39,6 +39,7 @@
 }
 
 /* ── Logo ── */
+.navLogo,
 .logo {
   display: flex;
   align-items: center;

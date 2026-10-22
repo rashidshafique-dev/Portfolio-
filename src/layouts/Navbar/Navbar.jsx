@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sun, Moon, Menu, X, Code2, FileText } from 'lucide-react';
+import { Sun, Moon, Menu, X, FileText } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../../components/SocialIcons';
+import Logo from '../../components/Logo';
 import { useThemeStore, useUIStore } from '../../store';
 import { navLinks, personalInfo } from '../../constants/portfolioData';
 import styles from './Navbar.module.css';
@@ -41,14 +42,7 @@ export default function Navbar() {
     >
       <div className={`container ${styles.inner}`}>
         {/* Logo */}
-        <NavLink to="/" className={styles.logo} aria-label="Home">
-          <span className={styles.logoIcon}>
-            <Code2 size={18} aria-hidden="true" />
-          </span>
-          <span className={styles.logoText}>
-            Rashid<span className={styles.logoDot}>.dev</span>
-          </span>
-        </NavLink>
+        <Logo withLink size="md" className={styles.navLogo} />
 
         {/* Desktop Links */}
         <ul className={styles.links} role="list">
@@ -147,15 +141,12 @@ export default function Navbar() {
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.mobileMenuHeader}>
-              <div className={styles.mobileBrand}>
-                <span className={styles.mobileBrandIcon}>
-                  <Code2 size={18} aria-hidden="true" />
-                </span>
-                <div className={styles.mobileBrandText}>
-                  <span className={styles.mobileBrandName}>Rashid<span className={styles.logoDot}>.dev</span></span>
-                  <span className={styles.mobileBrandSub}>Software Engineer</span>
-                </div>
-              </div>
+              <Logo
+                withLink
+                size="md"
+                subtitle="Systems & Full-Stack"
+                onClick={() => setMobileMenuOpen(false)}
+              />
               <button
                 className={styles.menuCloseBtn}
                 onClick={() => setMobileMenuOpen(false)}

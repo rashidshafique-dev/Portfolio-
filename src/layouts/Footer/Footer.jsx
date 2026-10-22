@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import { Code2, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../../components/SocialIcons';
+import Logo from '../../components/Logo';
 import { personalInfo, navLinks } from '../../constants/portfolioData';
 import styles from './Footer.module.css';
 
@@ -9,8 +10,8 @@ import styles from './Footer.module.css';
  * concluding a Google Material 3 (Enterprise) light-mode design system.
  */
 export default function PortfolioFooter() {
-  // Navigation Directory Links matching Column 2 specifications (Home, About, Projects, Skills, Experience, Contact)
-  const sitemapLinks = navLinks;
+  // Filter out Home from footer sitemap (already handled by the brand logo)
+  const sitemapLinks = navLinks.filter((link) => link.href !== '/');
 
   return (
     <footer className={styles.footer} id="portfolio-footer">
@@ -18,14 +19,7 @@ export default function PortfolioFooter() {
         
         {/* Column 1: Brand / Identity (35% width) */}
         <div className={styles.brandCol}>
-          <div className={styles.logo}>
-            <span className={styles.logoIcon}>
-              <Code2 size={16} aria-hidden="true" />
-            </span>
-            <span className={styles.logoText}>
-              Rashid<span className={styles.logoDot}>.dev</span>
-            </span>
-          </div>
+          <Logo withLink size="md" />
           <p className={styles.closingStatement}>
             Building scalable backend architectures, automated data systems, and premium user experiences.
           </p>
@@ -73,17 +67,6 @@ export default function PortfolioFooter() {
               >
                 <LinkedinIcon size={14} className={styles.connectIcon} aria-hidden="true" />
                 <span>LinkedIn</span>
-              </a>
-            </li>
-            <li>
-              <a 
-                href={personalInfo.socials.newsletter} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className={styles.connectLink}
-              >
-                <LinkedinIcon size={14} className={styles.connectIcon} aria-hidden="true" />
-                <span>Newsletter</span>
               </a>
             </li>
             <li>

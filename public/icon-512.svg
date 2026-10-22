@@ -1,24 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <!-- Background -->
-  <rect width="512" height="512" rx="96" fill="#1A73E8"/>
-  <!-- Highlight overlay -->
-  <rect width="512" height="512" rx="96" fill="url(#shine)" opacity="0.12"/>
+  <rect width="512" height="512" rx="128" fill="#1A73E8"/>
+  <rect width="512" height="512" rx="128" fill="url(#shine)" opacity="0.12"/>
   <defs>
     <linearGradient id="shine" x1="0" y1="0" x2="0" y2="512" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
       <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
   </defs>
-  <!-- RS text — large bold monogram -->
-  <text
-    x="50"
-    y="368"
-    font-family="Inter, system-ui, sans-serif"
-    font-size="320"
-    font-weight="800"
-    fill="white"
-    letter-spacing="-20"
-  >RS</text>
-  <!-- Accent dot -->
-  <circle cx="442" cy="424" r="32" fill="white" opacity="0.45"/>
+  <!-- Architectural Monogram 'R' + Terminal Prompt -->
+  <path
+    d="M152 120V392M152 120H264C316.8 120 352 152 352 200C352 248 316.8 280 264 280H152M240 280L360 392"
+    stroke="#ffffff"
+    stroke-width="38.4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Execution Dot -->
+  <circle cx="368" cy="128" r="35.2" fill="#ffffff"/>
 </svg>

@@ -1,0 +1,184 @@
+/* ============================================================
+   PROPRIETARY LOGO STYLES — Rashid.dev
+   Precision engineered brand mark for light & dark themes.
+   ============================================================ */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  user-select: none;
+  vertical-align: middle;
+  transition: opacity var(--transition-fast, 0.2s ease);
+}
+
+.isLink {
+  cursor: pointer;
+}
+
+.isLink:hover .iconBox {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.18);
+}
+
+[data-theme='dark'] .isLink:hover .iconBox {
+  box-shadow: 0 4px 16px rgba(138, 180, 248, 0.20);
+}
+
+.isLink:hover .dotGlyph {
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.25); opacity: 0.85; }
+}
+
+.isLink:focus-visible {
+  outline: 2px solid var(--md-primary, #1a73e8);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* ── Icon Box & Vector Glyph ── */
+.iconBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  transition: transform var(--transition-fast, 0.2s ease), box-shadow var(--transition-fast, 0.2s ease);
+}
+
+.glyphSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ── Light Mode Token Mappings ── */
+.tileBg {
+  fill: rgba(26, 115, 232, 0.08);
+  stroke: rgba(26, 115, 232, 0.16);
+  stroke-width: 1;
+  transition: fill var(--transition-fast, 0.2s ease), stroke var(--transition-fast, 0.2s ease);
+}
+
+.glyphStroke {
+  stroke: var(--md-primary, #1a73e8);
+  transition: stroke var(--transition-fast, 0.2s ease);
+}
+
+.dotGlyph {
+  fill: var(--md-primary, #1a73e8);
+  transform-origin: 23px 8px;
+  transition: fill var(--transition-fast, 0.2s ease);
+}
+
+.brandName {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-weight: 700;
+  color: var(--md-on-surface, #202124);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  display: flex;
+  align-items: baseline;
+  transition: color var(--transition-fast, 0.2s ease);
+}
+
+.brandDot {
+  color: var(--md-primary, #1a73e8);
+  font-weight: 700;
+  transition: color var(--transition-fast, 0.2s ease);
+}
+
+.brandSub {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--md-on-surface-variant, #5f6368);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.textWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+/* ── Dark Mode Token Mappings ── */
+[data-theme='dark'] .tileBg {
+  fill: rgba(138, 180, 248, 0.12);
+  stroke: rgba(138, 180, 248, 0.22);
+}
+
+[data-theme='dark'] .glyphStroke {
+  stroke: #8ab4f8;
+}
+
+[data-theme='dark'] .dotGlyph {
+  fill: #8ab4f8;
+}
+
+[data-theme='dark'] .brandName {
+  color: #f1f2f6;
+}
+
+[data-theme='dark'] .brandDot {
+  color: #8ab4f8;
+}
+
+[data-theme='dark'] .brandSub {
+  color: #9aa0a6;
+}
+
+/* ── Size Variants ── */
+/* Small (Footer / Minimal) */
+.sm .iconBox {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+}
+.sm .brandName {
+  font-size: 0.9375rem;
+}
+
+/* Medium (Standard Navbar — Default) */
+.md .iconBox {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+.md .brandName {
+  font-size: 1.0625rem;
+}
+
+/* Large (Hero / Section Brand) */
+.lg .iconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+.lg .brandName {
+  font-size: 1.4rem;
+}
+.lg .brandSub {
+  font-size: 0.75rem;
+}
+
+/* Extra Large (Loading Splash / Display) */
+.xl .iconBox {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+}
+.xl .brandName {
+  font-size: 1.75rem;
+}
+.xl .brandSub {
+  font-size: 0.8125rem;
+}
