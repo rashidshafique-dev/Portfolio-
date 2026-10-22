@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, ArrowRight, Mail, FileText } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { personalInfo } from '../../../constants/portfolioData';
 import styles from '../styles.module.css';
@@ -30,23 +30,11 @@ export default function HireMeCTA() {
               <ArrowRight size={15} aria-hidden="true" />
             </Link>
             <a 
-              href={personalInfo.resumeUrl}
-              target="_blank" 
-              rel="noopener noreferrer" 
-              download="Muhammad_Rashid_Resume.pdf"
+              href={`mailto:${personalInfo.email}`} 
               className={styles.fiverrBtn}
+              aria-label="Send email directly"
             >
-              <FileText size={15} aria-hidden="true" />
-              <span>Resume PDF</span>
-            </a>
-            <a 
-              href="https://www.fiverr.com/s/rEYj067" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className={styles.fiverrBtn}
-            >
-              <span>Fiverr Services</span>
-              <ExternalLink size={14} aria-hidden="true" />
+              <span>Email Directly</span>
             </a>
           </div>
         </motion.div>

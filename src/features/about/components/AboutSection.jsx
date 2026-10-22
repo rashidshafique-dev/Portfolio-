@@ -1,10 +1,9 @@
 import { motion } from 'framer-motion';
-import { MapPin, Briefcase, Download } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '../../../components/SocialIcons';
-import { personalInfo, timeline, credentials } from '../../../constants/portfolioData';
+import { Link } from 'react-router-dom';
+import { MapPin, Briefcase, ArrowRight } from 'lucide-react';
+import { personalInfo, credentials } from '../../../constants/portfolioData';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import SectionHeading from '../../../components/SectionHeading';
-import Button from '../../../components/Button';
 import styles from '../styles.module.css';
 import profileImg from '../../../assets/profile/profile.webp';
 
@@ -34,28 +33,14 @@ export default function AboutSection() {
               </div>
             </div>
             <div className={styles.avatarActions}>
-              <Button
-                variant="primary"
-                size="sm"
-                href={personalInfo.resumeUrl}
-                target="_blank"
-                download="Muhammad_Rashid_Resume.pdf"
-                icon={<Download size={14} />}
-                className={styles.resumeButton}
-              >
-                Resume
-              </Button>
-              <a href={personalInfo.socials.github} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="GitHub">
-                <GithubIcon size={16} />
-              </a>
-              <a href={personalInfo.socials.linkedin} target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="LinkedIn">
-                <LinkedinIcon size={16} />
-              </a>
+              <Link to="/contact" className={styles.resumeButton} style={{ width: '100%', textAlign: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                Get in Touch
+              </Link>
             </div>
           </div>
         </motion.div>
 
-        {/* Right — Bio, Credentials & Timeline */}
+        {/* Right — Bio, Credentials & Experience Link */}
         <motion.div className={styles.aboutRight} variants={itemVariants}>
           <SectionHeading
             eyebrow="About Me"
@@ -93,26 +78,18 @@ export default function AboutSection() {
             </div>
           )}
 
-          <h4 className={styles.timelineTitle}>Engineering Milestones</h4>
-          <div className={styles.timeline}>
-            {timeline.map((item, i) => (
-              <motion.div
-                key={i}
-                className={styles.timelineItem}
-                variants={itemVariants}
-              >
-                <div className={styles.timelineYearCol}>
-                  <span className={styles.timelineYear}>{item.year}</span>
-                </div>
-                <div className={styles.timelineLine}>
-                  <div className={styles.timelineDot} />
-                  {i < timeline.length - 1 && <div className={styles.timelineConnector} />}
-                </div>
-                <div className={styles.timelineContent}>
-                  <p>{item.event}</p>
-                </div>
-              </motion.div>
-            ))}
+          {/* Experience Gateway — Replaces duplicate timeline */}
+          <div className={styles.experienceCallout}>
+            <div>
+              <h4 className={styles.timelineTitle} style={{ margin: 0, padding: 0 }}>Career History & Experience</h4>
+              <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.875rem', color: 'var(--md-on-surface-variant)' }}>
+                Detailed breakdown of client systems, open-source work, and academic milestones.
+              </p>
+            </div>
+            <Link to="/experience" className={styles.experienceCalloutBtn}>
+              <span>View Experience</span>
+              <ArrowRight size={14} aria-hidden="true" />
+            </Link>
           </div>
         </motion.div>
       </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { buildLogs } from '../../../constants/portfolioData';
 import styles from '../styles.module.css';
 import BuildLogModal from './BuildLogModal';
@@ -63,21 +63,12 @@ export default function BuildLogsTeaser() {
           ))}
         </div>
 
-        {/* Section CTAs */}
+        {/* Section CTA */}
         <div className={styles.ctaWrapper}>
           <Link to="/build-logs" className={styles.teaserCtaBtn}>
-            <span>Open Journal</span>
+            <span>View All Engineering Logs</span>
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
-          <a
-            href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7495340020820512769"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.newsletterCtaBtn}
-          >
-            <span>Subscribe on LinkedIn</span>
-            <ExternalLink size={13} aria-hidden="true" />
-          </a>
         </div>
 
         {/* Open Modal directly on Home page without navigating away */}

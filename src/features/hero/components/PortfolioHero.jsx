@@ -1,9 +1,7 @@
-import { ArrowRight, FileText } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import styles from '../styles.module.css';
 import profileLargeImg from '../../../assets/profile/profile1.webp';
-import { personalInfo } from '../../../constants/portfolioData';
-import { GithubIcon, LinkedinIcon, TwitterIcon } from '../../../components/SocialIcons';
 
 /**
  * PortfolioHero - Redesigned by Google UI standards.
@@ -68,53 +66,15 @@ export default function HeroSection() {
                 <ArrowRight size={16} className={styles.ctaIcon} aria-hidden="true" />
               </Link>
 
-              <a
-                href={personalInfo.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                download="Muhammad_Rashid_Resume.pdf"
+              <Link
+                to="/contact"
                 className={styles.secondaryButton}
-                aria-label="Download Resume"
+                aria-label="Get in Touch with Muhammad Rashid Shafique"
               >
-                <FileText size={15} aria-hidden="true" />
-                <span>Resume</span>
-              </a>
+                <Mail size={15} aria-hidden="true" />
+                <span>Get in Touch</span>
+              </Link>
             </div>
-
-            {/* ── delay6: Social Links ── */}
-            <div className={`${styles.socialRow} ${styles.animItem} ${styles.delay6}`}>
-              <a
-                href={personalInfo.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.socialLink}
-                aria-label="GitHub Profile"
-              >
-                <GithubIcon size={16} />
-                <span>GitHub</span>
-              </a>
-              <a
-                href={personalInfo.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.socialLink}
-                aria-label="LinkedIn Profile"
-              >
-                <LinkedinIcon size={16} />
-                <span>LinkedIn</span>
-              </a>
-              <a
-                href={personalInfo.socials.twitter || 'https://twitter.com'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.socialLink}
-                aria-label="Twitter Profile"
-              >
-                <TwitterIcon size={16} />
-                <span>Twitter</span>
-              </a>
-            </div>
-
           </div>
 
         </div>

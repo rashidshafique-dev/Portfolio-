@@ -404,3 +404,60 @@
     padding-bottom: 1.25rem;
   }
 }
+
+/* ── Experience Gateway Callout ── */
+.experienceCallout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--card-radius);
+  background-color: #f8f9fa;
+  border: 1px solid #e1e4e8;
+  margin-top: 2rem;
+  box-sizing: border-box;
+}
+
+[data-theme='dark'] .experienceCallout {
+  background-color: #181b22;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.experienceCalloutBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: var(--btn-radius);
+  background-color: var(--md-primary, #1a73e8);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: all 150ms ease;
+}
+
+.experienceCalloutBtn:hover {
+  background-color: #1557b0;
+  transform: translateY(-1px);
+}
+
+[data-theme='dark'] .experienceCalloutBtn {
+  background-color: #8ab4f8;
+  color: #041e49;
+}
+
+[data-theme='dark'] .experienceCalloutBtn:hover {
+  background-color: #a8c7fa;
+}
+
+@media (max-width: 640px) {
+  .experienceCallout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
