@@ -84,25 +84,25 @@
   width: 100%;
 }
 
-/* Google/Linear/Vercel-level refined profile card */
+/* Google/Linear/Vercel-level refined profile card (Zero shadow, 8px radius per aim-ui) */
 .profileCard {
   position: relative;
   width: 100%;
   max-width: 330px;
-  border-radius: var(--card-radius-lg);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  border: 1px solid var(--md-outline-variant, #e1e4e8);
+  box-shadow: none;
   overflow: hidden;
   background-color: var(--md-surface-container-low);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1), box-shadow 300ms cubic-bezier(0.2, 0, 0, 1);
+  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1), border-color 200ms ease;
 }
 
 [data-theme='dark'] .profileCard {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  border-color: var(--md-outline-variant, #2e3138);
+  box-shadow: none;
 }
 
 .profileImageLarge {
@@ -112,7 +112,7 @@
   object-fit: cover;
   object-position: top center;
   display: block;
-  border-radius: var(--card-radius-lg);
+  border-radius: 8px;
 }
 
 .detailsBlock {
@@ -164,7 +164,7 @@
   transform: translateY(-4px);
   transition: opacity var(--transition-fast) ease, transform var(--transition-fast) ease, visibility var(--transition-fast) ease;
   z-index: 20;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
   pointer-events: none;
   border: 1px solid var(--md-outline-variant);
 }
@@ -417,14 +417,14 @@
   color: #ffffff;
   border-color: var(--md-primary, #1a73e8);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.25);
+  box-shadow: none;
 }
 
 [data-theme='dark'] .resumeHeroButton:hover {
   background-color: #8ab4f8;
   color: #101216;
   border-color: #8ab4f8;
-  box-shadow: 0 4px 14px rgba(138, 180, 248, 0.3);
+  box-shadow: none;
 }
 
 /* MD3 Filled button — pill shape */
@@ -454,7 +454,7 @@
   background-color: #1557b0;
   border-color: #1557b0;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.25);
+  box-shadow: none;
 }
 
 [data-theme='dark'] .primaryButton {
@@ -467,7 +467,7 @@
   background-color: #a8c7fa;
   color: #041e49;
   border-color: #a8c7fa;
-  box-shadow: 0 4px 14px rgba(138, 180, 248, 0.3);
+  box-shadow: none;
 }
 
 .primaryButton .ctaIcon {
@@ -514,13 +514,13 @@
   border-color: var(--md-primary, #1a73e8);
   background-color: rgba(26, 115, 232, 0.06);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
 }
 
 [data-theme='dark'] .secondaryButton:hover {
   border-color: #8ab4f8;
   background-color: rgba(138, 180, 248, 0.1);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
 }
 
 .secondaryButton:active {
@@ -615,54 +615,63 @@
   }
 
   .profileCard {
-    width: 96px;
-    height: 96px;
-    max-width: 96px;
-    border-radius: var(--card-radius-lg);
-    border: none;
-    background: transparent;
-    box-shadow: none;
+    width: 104px;
+    height: 104px;
+    max-width: 104px;
+    border-radius: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
     overflow: hidden;
   }
 
   [data-theme='dark'] .profileCard {
-    border: none;
-    box-shadow: none;
-    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    background: #20242d;
   }
 
   .profileImageLarge {
-    width: 96px;
-    height: 96px;
+    width: 100%;
+    height: 100%;
     aspect-ratio: 1/1;
-    border-radius: var(--card-radius-lg);
+    border-radius: 17px;
     object-fit: cover;
   }
 
   .avatarStatusRow {
-    margin-bottom: 12px; /* mb-3 gap: badge -> eyebrow */
+    margin-bottom: 12px;
   }
 
   .statusBadge {
     display: inline-flex;
     align-items: center;
-    gap: 8px; /* gap-2 */
+    gap: 7px;
     width: fit-content;
-    background-color: transparent !important;
-    border: 1px solid var(--md-outline-variant);
-    border-radius: var(--chip-radius);
-    padding: 6px 12px; /* px-3 py-1.5 */
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 9999px;
+    padding: 5px 12px;
     height: auto;
     font-size: 12px;
     font-weight: 500;
-    color: var(--md-on-surface-variant);
+    color: var(--md-on-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  [data-theme='dark'] .statusBadge {
+    background-color: #20242d !important;
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #f1f2f6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
   }
 
   .statusDot {
-    width: 6px; /* w-1.5 */
-    height: 6px; /* h-1.5 */
-    background-color: #10B981 !important; /* bg-emerald-500 */
+    width: 7px;
+    height: 7px;
+    background-color: #10B981 !important;
     border-radius: 50%;
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
   }
 
   .eyebrow {
@@ -714,11 +723,11 @@
     flex: 1 1 0;
     min-width: 0;
     white-space: nowrap;
-    height: 42px;
+    height: 44px;
     border-radius: var(--btn-radius);
     font-size: 13.5px;
-    font-weight: 500;
-    padding: 0 12px;
+    font-weight: 600;
+    padding: 0 14px;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -732,17 +741,28 @@
     background-color: var(--md-primary, #1a73e8);
     color: #ffffff;
     border: 1px solid var(--md-primary, #1a73e8);
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.22);
+  }
+
+  [data-theme='dark'] .primaryButton {
+    background-color: #8ab4f8;
+    color: #041e49;
+    border-color: #8ab4f8;
+    box-shadow: 0 2px 10px rgba(138, 180, 248, 0.25);
   }
 
   .secondaryButton {
-    background-color: transparent;
-    border: 1px solid rgba(26, 115, 232, 0.35);
-    color: var(--md-primary, #1a73e8);
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    color: var(--md-on-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   }
 
   [data-theme='dark'] .secondaryButton {
-    border-color: rgba(138, 180, 248, 0.35);
-    color: #8ab4f8;
+    background-color: #20242d;
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #f1f2f6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   }
 
   .ctaIcon {

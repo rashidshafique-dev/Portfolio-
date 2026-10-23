@@ -4,19 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import styles from './Modal.module.css';
 
-function useIsMobile() {
-  const [mobile, setMobile] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 640 : false
-  );
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 639px)');
-    const handler = (e) => setMobile(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
-  return mobile;
-}
-
 export default function Modal({
   isOpen,
   onClose,
@@ -28,7 +15,6 @@ export default function Modal({
 }) {
   const [mounted, setMounted] = useState(false);
   const bodyRef = useRef(null);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     setMounted(true);

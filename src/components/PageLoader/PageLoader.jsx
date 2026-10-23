@@ -1,16 +1,22 @@
-import Logo from '../Logo';
+import { useState, useEffect } from 'react';
 import styles from './PageLoader.module.css';
 
-/**
- * PageLoader - Executive, Linear/Vercel-inspired loading state
- *
- * Characteristics:
- * - Single focal point: Unified Rashid.dev brand mark with breathing pulse
- * - Precision hairline indeterminate progress bar (160px wide, 2px high)
- * - Zero gimmicks: No bouncing balls, no spinning rings, no sci-fi corner brackets
- * - Native dark/light mode surface tokens with smooth ease transitions
- */
+const STATUS_STEPS = [
+  'INITIALIZING RUNTIME',
+  'COMPOSING SYSTEM VIEW',
+  'STANDBY',
+];
+
 export default function PageLoader() {
+  const [statusIndex, setStatusIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStatusIndex((prev) => (prev + 1) % STATUS_STEPS.length);
+    }, 1200);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div
       className={styles.overlay}
@@ -19,10 +25,37 @@ export default function PageLoader() {
       aria-label="Loading page"
     >
       <div className={styles.centre}>
-        {/* Brand Mark with Subtle Breathing Halo */}
+        {/* Animated Brand Monogram */}
         <div className={styles.markWrapper}>
-          <div className={styles.markGlow} aria-hidden="true" />
-          <Logo size="lg" showText={false} />
+          <div className={styles.monogramBox}>
+            <svg
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className={styles.monogramSvg}
+              aria-hidden="true"
+            >
+              {/* Squircle Tile Base */}
+              <rect
+                x="0.75"
+                y="0.75"
+                width="30.5"
+                height="30.5"
+                rx="8.5"
+                className={styles.tileBg}
+              />
+              {/* Precision Stroke Draw: R Monogram & Terminal Prompt */}
+              <path
+                d="M9.5 7.5V24.5M9.5 7.5H16.5C19.8 7.5 22 9.5 22 12.5C22 15.5 19.8 17.5 16.5 17.5H9.5M15 17.5L22.5 24.5"
+                className={styles.strokePath}
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              {/* Active Terminal Execution Dot with Radar Ping */}
+              <circle cx="23" cy="8" r="2.2" className={styles.radarDot} />
+            </svg>
+          </div>
         </div>
 
         {/* Brand Wordmark & Engineering Identity */}
@@ -38,10 +71,13 @@ export default function PageLoader() {
           <div className={styles.progressBar} />
         </div>
 
-        {/* Ambient Status Indicator */}
-        <span className={styles.statusText} aria-hidden="true">
-          INITIALIZING...
-        </span>
+        {/* Live Phased Telemetry Status */}
+        <div className={styles.statusRow} aria-hidden="true">
+          <span className={styles.statusPulseDot} />
+          <span className={styles.statusText}>
+            {STATUS_STEPS[statusIndex]}
+          </span>
+        </div>
       </div>
     </div>
   );

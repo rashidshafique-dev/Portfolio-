@@ -18,17 +18,17 @@
 
 /* Frosted elevated surface on scroll (fixed height, matches page surface) */
 .scrolled {
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid var(--md-outline-variant, #e1e4e8);
+  box-shadow: none;
 }
 
 [data-theme='dark'] .scrolled {
-  background-color: rgba(17, 19, 24, 0.92);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  background-color: rgba(17, 19, 24, 0.96);
+  border-bottom-color: var(--md-outline-variant, #2e3138);
+  box-shadow: none;
 }
 
 .inner {
@@ -277,13 +277,13 @@
   flex-direction: column;
   padding: 0;
   overflow-y: auto;
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.1);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme='dark'] .mobileMenu {
   background-color: #14171c;
   border-left-color: rgba(255, 255, 255, 0.08);
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.6);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.35);
 }
 
 .mobileMenuHeader {

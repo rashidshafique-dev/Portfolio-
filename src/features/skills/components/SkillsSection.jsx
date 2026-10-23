@@ -27,48 +27,48 @@ const SKILLS = [
     category: "Core Languages",
     filter: "languages",
     items: [
-      { name: "Python", desc: "Core language for backend systems, asynchronous APIs, automation, and data pipelines.", icon: "FileCode2" },
-      { name: "C++", desc: "Low-level system architecture, algorithm efficiency, and hardware firmware (AquaSync IoT).", icon: "Cpu" },
-      { name: "Java", desc: "Object-oriented architecture, thread concurrency, and computational structures.", icon: "Coffee" },
-      { name: "HTML5 & CSS3", desc: "Semantic markup, modern CSS tokens, responsive flex/grid primitives, and Web Vitals.", icon: "Globe" },
+      { name: "Python", desc: "Core language for backend systems, asynchronous APIs, automation, and data pipelines.", icon: "FileCode2", level: "Production" },
+      { name: "C++", desc: "Low-level system architecture, algorithm efficiency, and hardware firmware (AquaSync IoT).", icon: "Cpu", level: "Systems" },
+      { name: "Java", desc: "Object-oriented architecture, thread concurrency, and computational structures.", icon: "Coffee", level: "Core" },
+      { name: "HTML5 & CSS3", desc: "Semantic markup, modern CSS tokens, responsive flex/grid primitives, and Web Vitals.", icon: "Globe", level: "Production" },
     ]
   },
   {
     category: "Backend & API Engineering",
     filter: "backend",
     items: [
-      { name: "Django", desc: "Production Python framework with robust ORM modeling, middleware, and secure authentication.", icon: "Server" },
-      { name: "FastAPI", desc: "High-throughput asynchronous REST APIs with Pydantic validation and automatic OpenAPI specs.", icon: "Zap" },
-      { name: "Django REST", desc: "Custom viewsets, serializers, declarative permission policies, and token rotation.", icon: "Layers" },
-      { name: "Node.js & Express", desc: "Event-driven asynchronous micro-services and scalable REST API endpoints.", icon: "Box" },
+      { name: "Django", desc: "Production Python framework with robust ORM modeling, middleware, and secure authentication.", icon: "Server", level: "Framework" },
+      { name: "FastAPI", desc: "High-throughput asynchronous REST APIs with Pydantic validation and automatic OpenAPI specs.", icon: "Zap", level: "Async APIs" },
+      { name: "Django REST", desc: "Custom viewsets, serializers, declarative permission policies, and token rotation.", icon: "Layers", level: "REST Architecture" },
+      { name: "Node.js & Express", desc: "Event-driven asynchronous micro-services and scalable REST API endpoints.", icon: "Box", level: "Services" },
     ]
   },
   {
     category: "Frontend & UI",
     filter: "frontend",
     items: [
-      { name: "React.js", desc: "Single-page application architectures, custom hooks, context controllers, and optimized render trees.", icon: "Atom" },
-      { name: "Tailwind CSS", desc: "Rapid responsive interface construction with utility-first modern design systems.", icon: "Paintbrush" },
-      { name: "Vite", desc: "Modern frontend build tooling with hot module replacement and optimized production bundles.", icon: "Flame" },
-      { name: "React Native", desc: "Cross-platform mobile interfaces, native device bridges, and Expo workflow management.", icon: "Component" },
+      { name: "React.js", desc: "Single-page application architectures, custom hooks, context controllers, and optimized render trees.", icon: "Atom", level: "Production" },
+      { name: "Tailwind CSS", desc: "Rapid responsive interface construction with utility-first modern design systems.", icon: "Paintbrush", level: "Modern UI" },
+      { name: "Vite", desc: "Modern frontend build tooling with hot module replacement and optimized production bundles.", icon: "Flame", level: "Build Tooling" },
+      { name: "React Native", desc: "Cross-platform mobile interfaces, native device bridges, and Expo workflow management.", icon: "Component", level: "Mobile" },
     ]
   },
   {
     category: "Databases & Auth",
     filter: "database",
     items: [
-      { name: "PostgreSQL", desc: "Normalized relational schema modeling, composite B-tree indexing, and query optimization.", icon: "Database" },
-      { name: "JWT & OAuth 2.0", desc: "Stateless authentication, single-use token rotation queues, and Google SSO integrations.", icon: "KeyRound" },
-      { name: "Supabase & Firebase", desc: "Cloud database architectures, real-time subscriptions, and managed auth infrastructure.", icon: "ShieldCheck" },
+      { name: "PostgreSQL", desc: "Normalized relational schema modeling, composite B-tree indexing, and query optimization.", icon: "Database", level: "Relational DB" },
+      { name: "JWT & OAuth 2.0", desc: "Stateless authentication, single-use token rotation queues, and Google SSO integrations.", icon: "KeyRound", level: "Security" },
+      { name: "Supabase & Firebase", desc: "Cloud database architectures, real-time subscriptions, and managed auth infrastructure.", icon: "ShieldCheck", level: "Cloud DB" },
     ]
   },
   {
     category: "DevOps & Tools",
     filter: "devops",
     items: [
-      { name: "Git & GitHub", desc: "Version control workflows, trunk-based development, pull request reviews, and CI automation.", icon: "GitBranch" },
-      { name: "Vercel & Railway", desc: "Automated continuous deployment pipelines with zero-downtime production rollouts.", icon: "Triangle" },
-      { name: "Linux & Bash", desc: "Command-line environments, automated shell scripts, system crons, and daemon management.", icon: "Container" },
+      { name: "Git & GitHub", desc: "Version control workflows, trunk-based development, pull request reviews, and CI automation.", icon: "GitBranch", level: "Workflows" },
+      { name: "Vercel & Railway", desc: "Automated continuous deployment pipelines with zero-downtime production rollouts.", icon: "Triangle", level: "CI/CD Cloud" },
+      { name: "Linux & Bash", desc: "Command-line environments, automated shell scripts, system crons, and daemon management.", icon: "Container", level: "Systems" },
     ]
   }
 ];
@@ -167,10 +167,13 @@ export default function SkillsSection() {
                         {/* Header: Clean Icon + Technology name */}
                         <div className={styles.cardHeader}>
                           <div className={styles.iconWrapper}>
-                            <IconComponent size={16} strokeWidth={1.75} aria-hidden="true" />
+                            <IconComponent size={18} strokeWidth={1.8} aria-hidden="true" />
                           </div>
                           <div className={styles.nameBlock}>
                             <span className={styles.skillName}>{skill.name}</span>
+                            {skill.level && (
+                              <span className={styles.skillBadge}>{skill.level}</span>
+                            )}
                           </div>
                         </div>
 

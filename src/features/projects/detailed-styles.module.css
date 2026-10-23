@@ -209,7 +209,7 @@
   border: 1px solid #e1e4e8;
   background-color: #f8f9fa;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -220,7 +220,7 @@
 [data-theme='dark'] .articleHero {
   background-color: #14171c;
   border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: none;
 }
 
 .browserHeader {
@@ -318,7 +318,7 @@
   background-color: #121316;
   border: 7px solid #1a1e26;
   border-radius: 40px;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   overflow: hidden;
   position: relative;
   display: flex;
@@ -327,7 +327,7 @@
 
 [data-theme='dark'] .phoneFrame {
   border-color: #262a34;
-  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .phoneScreenWrapper {
@@ -426,7 +426,7 @@
   background-color: #000000;
   border-left: 14px solid #1a1c22;
   border-right: 14px solid #1a1c22;
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -436,7 +436,7 @@
 [data-theme='dark'] .desktopScreen {
   border-left-color: #121418;
   border-right-color: #121418;
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .desktopBrowserBar {
@@ -530,9 +530,9 @@
   width: calc(100% + 40px);
   max-width: 860px;
   height: 14px;
-  background: linear-gradient(180deg, #d2d6dc 0%, #b8bec8 100%);
+  background-color: #cbd1d8;
   border-radius: 0 0 16px 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
   position: relative;
   display: flex;
   align-items: flex-start;
@@ -542,9 +542,9 @@
 }
 
 [data-theme='dark'] .desktopBaseChassis {
-  background: linear-gradient(180deg, #2b303c 0%, #1c2028 100%);
+  background-color: #242832;
   border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: none;
 }
 
 .desktopBaseNotch {
