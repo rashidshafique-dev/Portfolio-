@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Star, PenTool, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { testimonials } from '../../../constants/portfolioData';
+import { getStoredTestimonials } from '../../../store/adminDataStore';
 import styles from '../styles.module.css';
 
 function TestimonialCard({ testimonial, isAdmin, onDelete }) {
@@ -65,19 +66,15 @@ export default function TestimonialsSection() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const [testimonialList, setTestimonialList] = useState(() => {
-    const saved = localStorage.getItem('user_testimonials');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        const parsedWithCustom = parsed.map(p => ({ ...p, isCustom: true }));
-        return [...testimonials, ...parsedWithCustom];
-      } catch {
-        return testimonials;
-      }
-    }
-    return testimonials;
-  });
+  const [testimonialList, setTestimonialList] = useState(() => getStoredTestimonials());
+
+  useEffect(() => {
+    const handleSync = () => {
+      setTestimonialList(getStoredTestimonials());
+    };
+    window.addEventListener('portfolio_data_updated', handleSync);
+    return () => window.removeEventListener('portfolio_data_updated', handleSync);
+  }, []);
 
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [newReview, setNewReview] = useState({ name: '', role: '', company: '', content: '', rating: 0 });
@@ -85,11 +82,8 @@ export default function TestimonialsSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  // Simple, secure admin checking (URL param: ?admin=true or localStorage flag)
-  const isAdmin = typeof window !== 'undefined' && (
-    window.location.search.includes('admin=true') || 
-    localStorage.getItem('admin_moderator') === 'true'
-  );
+  // Admin checking for direct card actions (only active if ?admin=true is explicitly in URL)
+  const isAdmin = typeof window !== 'undefined' && window.location.search.includes('admin=true');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -220,23 +214,6 @@ export default function TestimonialsSection() {
             Endorsements from clients, engineering collaborators, and mentors on technical execution and product delivery.
           </p>
         </div>
-
-        {/* Dynamic Admin Moderator Banner */}
-        {isAdmin && (
-          <div style={{
-            background: 'rgba(234, 67, 53, 0.08)',
-            border: '1px solid rgba(234, 67, 53, 0.2)',
-            color: '#EA4335',
-            padding: '0.75rem 1.25rem',
-            borderRadius: '28px',
-            fontSize: '0.85rem',
-            fontWeight: '600',
-            textAlign: 'center',
-            marginBottom: '2rem'
-          }}>
-            🛡️ Admin Moderation Mode Active — Custom user-submitted reviews can now be deleted directly from this panel.
-          </div>
-        )}
 
         {/* Testimonials Horizontal Carousel */}
         <div className={styles.carouselWrapper}>

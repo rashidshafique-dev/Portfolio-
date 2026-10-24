@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import { projects } from '../../../constants/portfolioData';
+import { getStoredProjects } from '../../../store/adminDataStore';
 import { formatProjectTitle } from '../../../utils/projectUtils';
 
 const CACHE_KEY = 'github_repos_raw_cache_v13';
 const CACHE_TIME_KEY = 'github_repos_raw_cache_time_v13';
 const ONE_HOUR = 60 * 60 * 1000;
 
-export const mergeProjects = (rawGithubRepos, sortByFeatured = false) => {
+export const mergeProjects = (rawGithubRepos = [], sortByFeatured = false) => {
+  const currentProjects = getStoredProjects();
   const mergedProjects = rawGithubRepos.map((apiProj) => {
-    const matchedStatic = projects.find(
+    const matchedStatic = currentProjects.find(
       (p) =>
         p.title.toLowerCase() === apiProj.repoName.toLowerCase() ||
         (p.githubUrl && p.githubUrl.toLowerCase().includes(apiProj.repoName.toLowerCase()))
@@ -29,7 +30,7 @@ export const mergeProjects = (rawGithubRepos, sortByFeatured = false) => {
     return apiProj;
   });
 
-  const unmatchedStatic = projects.filter(
+  const unmatchedStatic = currentProjects.filter(
     (staticProj) =>
       !rawGithubRepos.some(
         (apiProj) =>
@@ -63,7 +64,8 @@ const getInitialProjects = (sortByFeatured) => {
   } catch (e) {
     console.warn('Failed to parse projects cache on init:', e);
   }
-  return [...projects].sort((a, b) => {
+  const current = getStoredProjects();
+  return [...current].sort((a, b) => {
     if (sortByFeatured) {
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
@@ -77,6 +79,23 @@ const getInitialProjects = (sortByFeatured) => {
 export function useGithubProjects({ sortByFeatured = false } = {}) {
   const [projectList, setProjectList] = useState(() => getInitialProjects(sortByFeatured));
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handlePortfolioDataUpdate = () => {
+      const cachedData = sessionStorage.getItem(CACHE_KEY);
+      if (cachedData) {
+        try {
+          const raw = JSON.parse(cachedData);
+          setProjectList(mergeProjects(raw, sortByFeatured));
+          return;
+        } catch {}
+      }
+      setProjectList(getInitialProjects(sortByFeatured));
+    };
+
+    window.addEventListener('portfolio_data_updated', handlePortfolioDataUpdate);
+    return () => window.removeEventListener('portfolio_data_updated', handlePortfolioDataUpdate);
+  }, [sortByFeatured]);
 
   useEffect(() => {
     let isMounted = true;
@@ -209,7 +228,7 @@ export function useGithubProjects({ sortByFeatured = false } = {}) {
               setProjectList(mergeProjects(JSON.parse(expiredCache), sortByFeatured));
             } catch {
               setProjectList(
-                [...projects].sort((a, b) => {
+                [...getStoredProjects()].sort((a, b) => {
                   if (sortByFeatured) {
                     if (a.featured && !b.featured) return -1;
                     if (!a.featured && b.featured) return 1;

@@ -17,7 +17,8 @@ import {
   Copy,
   ExternalLink,
   FolderGit2,
-  Check
+  Check,
+  Shield,
 } from 'lucide-react';
 import { useUIStore, useThemeStore } from '../../store';
 import { personalInfo } from '../../constants/portfolioData';
@@ -290,6 +291,15 @@ export default function CommandPalette() {
         icon: <ExternalLink size={15} />,
         keywords: ['github', 'code', 'repositories', 'git'],
         perform: () => window.open(personalInfo.socials.github, '_blank', 'noopener,noreferrer'),
+      },
+      {
+        id: 'action-admin',
+        title: 'Portfolio Admin Console',
+        subtitle: 'Manage build logs, projects, profile, and testimonials',
+        category: 'Actions',
+        icon: <Shield size={15} />,
+        keywords: ['admin', 'panel', 'login', 'manage', 'edit', 'dashboard', 'settings'],
+        perform: () => navigate('/rashidshafique.admin'),
       },
       {
         id: 'action-linkedin',

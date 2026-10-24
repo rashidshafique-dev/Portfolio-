@@ -1,14 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { buildLogs } from '../../../constants/portfolioData';
+import { getStoredBuildLogs } from '../../../store/adminDataStore';
 import styles from '../styles.module.css';
 import BuildLogModal from './BuildLogModal';
 
 export default function BuildLogsTeaser() {
+  const [logs, setLogs] = useState(() => getStoredBuildLogs());
   const [selectedLog, setSelectedLog] = useState(null);
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setLogs(getStoredBuildLogs());
+    };
+    window.addEventListener('portfolio_data_updated', handleUpdate);
+    return () => window.removeEventListener('portfolio_data_updated', handleUpdate);
+  }, []);
+
   // Extract the top 3 most relevant build logs for recruiters
-  const latestLogs = buildLogs && buildLogs.length > 0 ? buildLogs.slice(0, 3) : [];
+  const latestLogs = logs && logs.length > 0 ? logs.slice(0, 3) : [];
 
   if (latestLogs.length === 0) return null;
 

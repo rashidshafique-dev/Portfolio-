@@ -11,6 +11,7 @@ const SkillsPage     = lazy(() => import('../pages/SkillsPage'));
 const ExperiencePage = lazy(() => import('../pages/ExperiencePage'));
 const ContactPage    = lazy(() => import('../pages/ContactPage'));
 const BuildLogsPage  = lazy(() => import('../pages/BuildLogsPage'));
+const AdminPage      = lazy(() => import('../pages/AdminPage'));
 
 export default function AppRouter() {
   return (
@@ -22,8 +23,9 @@ export default function AppRouter() {
         <Route path="/skills"     element={<SkillsPage />}     />
         <Route path="/experience" element={<ExperiencePage />} />
         <Route path="/contact"    element={<ContactPage />}    />
-        <Route path="/build-logs" element={<BuildLogsPage />}  />
-        <Route path="*"           element={<NotFoundPage />}   />
+        <Route path="/build-logs"           element={<BuildLogsPage />}  />
+        <Route path="/rashidshafique.admin" element={<AdminPage />}      />
+        <Route path="*"                     element={<NotFoundPage />}   />
       </Routes>
     </MainLayout>
   );

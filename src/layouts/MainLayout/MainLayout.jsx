@@ -31,6 +31,17 @@ export default function MainLayout({ children }) {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  // Isolate admin console from public website Navbar, Footer, and Modals
+  if (pathname.startsWith('/rashidshafique.admin')) {
+    return (
+      <main id="main-content" style={{ minHeight: '100vh', width: '100%', margin: 0, padding: 0 }}>
+        <Suspense fallback={<PageLoader />}>
+          {children}
+        </Suspense>
+      </main>
+    );
+  }
+
   return (
     <div className={styles.layout}>
       <Navbar />

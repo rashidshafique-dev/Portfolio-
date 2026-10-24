@@ -1,19 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
-import { buildLogs } from '../../../constants/portfolioData';
+import { getStoredBuildLogs } from '../../../store/adminDataStore';
 import styles from '../styles.module.css';
 import BuildLogModal from './BuildLogModal';
 
 export default function BuildLogsSection() {
+  const [logs, setLogs] = useState(() => getStoredBuildLogs());
   const [selectedLog, setSelectedLog] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All');
   const location = useLocation();
 
   useEffect(() => {
+    const handleUpdate = () => {
+      setLogs(getStoredBuildLogs());
+    };
+    window.addEventListener('portfolio_data_updated', handleUpdate);
+    return () => window.removeEventListener('portfolio_data_updated', handleUpdate);
+  }, []);
+
+  useEffect(() => {
     const hash = window.location.hash.substring(1);
     if (hash) {
-      const found = buildLogs.find(
+      const found = logs.find(
         (log) => log.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === hash
       );
       if (found) {
@@ -22,7 +31,7 @@ export default function BuildLogsSection() {
         window.scrollTo({ top: 0, behavior: 'instant' });
       }
     }
-  }, [location]);
+  }, [location, logs]);
 
   const openLog = (log) => {
     setSelectedLog(log);
@@ -41,11 +50,11 @@ export default function BuildLogsSection() {
 
   const filteredLogs =
     activeCategory === 'All'
-      ? buildLogs
-      : buildLogs.filter(
+      ? logs
+      : logs.filter(
           (log) =>
-            log.tags.some((tag) => tag.toLowerCase().includes(activeCategory.toLowerCase())) ||
-            log.type.toLowerCase().includes(activeCategory.toLowerCase())
+            (log.tags && log.tags.some((tag) => tag.toLowerCase().includes(activeCategory.toLowerCase()))) ||
+            (log.type && log.type.toLowerCase().includes(activeCategory.toLowerCase()))
         );
 
   return (

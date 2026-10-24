@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../../components/SocialIcons';
 import Logo from '../../components/Logo';
@@ -106,6 +106,9 @@ export default function PortfolioFooter() {
         <p className={styles.copy}>
           &copy; {new Date().getFullYear()} Rashid.dev — Muhammad Rashid Shafique. All rights reserved.
         </p>
+        <Link to="/rashidshafique.admin" className={styles.adminFooterLink} aria-label="Console login">
+          Console
+        </Link>
       </div>
     </footer>
   );

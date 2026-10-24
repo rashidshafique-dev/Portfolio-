@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, MapPin, Phone, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../../../components/SocialIcons';
-import { personalInfo } from '../../../constants/portfolioData';
+import { getStoredProfile } from '../../../store/adminDataStore';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import styles from '../styles.module.css';
 
@@ -22,10 +22,19 @@ function validate(values) {
 }
 
 export default function ContactSection() {
+  const [info, setInfo] = useState(() => getStoredProfile());
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [touched, setTouched] = useState({});
+
+  useEffect(() => {
+    const handleSync = () => {
+      setInfo(getStoredProfile());
+    };
+    window.addEventListener('portfolio_data_updated', handleSync);
+    return () => window.removeEventListener('portfolio_data_updated', handleSync);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -104,8 +113,8 @@ export default function ContactSection() {
               <span className={styles.infoIcon}><Mail size={16} /></span>
               <div>
                 <p className={styles.infoLabel}>Email</p>
-                <a href={`mailto:${personalInfo.email}`} className={styles.infoValue}>
-                  {personalInfo.email}
+                <a href={`mailto:${info.email}`} className={styles.infoValue}>
+                  {info.email}
                 </a>
               </div>
             </div>
@@ -114,8 +123,8 @@ export default function ContactSection() {
               <span className={styles.infoIcon}><Phone size={16} /></span>
               <div>
                 <p className={styles.infoLabel}>Phone / WhatsApp</p>
-                <a href={`tel:${personalInfo.phone}`} className={styles.infoValue}>
-                  {personalInfo.phone}
+                <a href={`tel:${info.phone}`} className={styles.infoValue}>
+                  {info.phone}
                 </a>
               </div>
             </div>
@@ -124,7 +133,7 @@ export default function ContactSection() {
               <span className={styles.infoIcon}><MapPin size={16} /></span>
               <div>
                 <p className={styles.infoLabel}>Location & Timezone</p>
-                <p className={styles.infoValue}>{personalInfo.location} · GMT+5</p>
+                <p className={styles.infoValue}>{info.location} · GMT+5</p>
               </div>
             </div>
           </div>
@@ -141,7 +150,7 @@ export default function ContactSection() {
             <p className={styles.socialHeading}>Profiles & Networks</p>
             <div className={styles.socialGrid}>
               <a
-                href={personalInfo.socials.github}
+                href={info.socials?.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialBtn}
@@ -151,7 +160,7 @@ export default function ContactSection() {
                 <span>GitHub</span>
               </a>
               <a
-                href={personalInfo.socials.linkedin}
+                href={info.socials?.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialBtn}

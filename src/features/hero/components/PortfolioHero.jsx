@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import { ArrowRight, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getStoredProfile } from '../../../store/adminDataStore';
 import styles from '../styles.module.css';
 import profileLargeImg from '../../../assets/profile/profile1.webp';
 
@@ -9,6 +11,16 @@ import profileLargeImg from '../../../assets/profile/profile1.webp';
  * and clear professional positioning.
  */
 export default function HeroSection() {
+  const [profile, setProfile] = useState(() => getStoredProfile());
+
+  useEffect(() => {
+    const handleSync = () => {
+      setProfile(getStoredProfile());
+    };
+    window.addEventListener('portfolio_data_updated', handleSync);
+    return () => window.removeEventListener('portfolio_data_updated', handleSync);
+  }, []);
+
   return (
     <section className={styles.hero} id="hero">
       <div className="container">
@@ -18,7 +30,7 @@ export default function HeroSection() {
           <div className={styles.rightColumn}>
             <div className={styles.profileCard}>
               <img
-                src={profileLargeImg}
+                src={profile.avatarUrl || profileLargeImg}
                 alt="Muhammad Rashid Shafique — Backend-Focused Full-Stack Engineer"
                 className={styles.profileImageLarge}
                 loading="eager"

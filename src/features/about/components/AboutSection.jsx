@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { MapPin, Briefcase, ArrowRight, FileText } from 'lucide-react';
-import { personalInfo, credentials } from '../../../constants/portfolioData';
+import { credentials } from '../../../constants/portfolioData';
+import { getStoredProfile } from '../../../store/adminDataStore';
 import { useUIStore } from '../../../store';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import SectionHeading from '../../../components/SectionHeading';
@@ -10,6 +12,16 @@ import profileImg from '../../../assets/profile/profile.webp';
 
 export default function AboutSection() {
   const { setResumeModalOpen } = useUIStore();
+  const [info, setInfo] = useState(() => getStoredProfile());
+
+  useEffect(() => {
+    const handleSync = () => {
+      setInfo(getStoredProfile());
+    };
+    window.addEventListener('portfolio_data_updated', handleSync);
+    return () => window.removeEventListener('portfolio_data_updated', handleSync);
+  }, []);
+
   return (
     <SectionWrapper id="about">
       <div className={styles.aboutGrid}>
@@ -18,8 +30,8 @@ export default function AboutSection() {
           <div className={styles.avatarCard}>
             <div className={styles.avatar}>
               <img 
-                src={profileImg} 
-                alt={personalInfo.name} 
+                src={info.avatarUrl || profileImg} 
+                alt={info.name} 
                 className={styles.avatarImg} 
                 width="280" 
                 height="320" 
@@ -27,10 +39,10 @@ export default function AboutSection() {
               />
             </div>
             <div className={styles.avatarInfo}>
-              <h3 className={styles.avatarName}>{personalInfo.name}</h3>
-              <p className={styles.avatarRole}>{personalInfo.title}</p>
+              <h3 className={styles.avatarName}>{info.name}</h3>
+              <p className={styles.avatarRole}>{info.title}</p>
               <div className={styles.avatarMeta}>
-                <span><MapPin size={13} /> {personalInfo.location}</span>
+                <span><MapPin size={13} /> {info.location}</span>
                 <span><Briefcase size={13} /> Available for Full-Time & Freelance</span>
               </div>
             </div>

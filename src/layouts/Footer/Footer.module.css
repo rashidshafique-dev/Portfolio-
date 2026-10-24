@@ -280,3 +280,16 @@
   color: var(--md-on-surface-variant);
   margin: 0;
 }
+
+.adminFooterLink {
+  font-size: 0.75rem;
+  color: var(--md-on-surface-variant);
+  opacity: 0.55;
+  text-decoration: none;
+  transition: opacity 140ms ease, color 140ms ease;
+}
+
+.adminFooterLink:hover {
+  opacity: 1;
+  color: var(--md-primary);
+}
