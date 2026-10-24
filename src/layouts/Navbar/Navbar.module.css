@@ -177,6 +177,77 @@
   color: #e8eaed;
 }
 
+/* Search / Command Palette Button */
+.searchBtn {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 10px;
+  color: var(--md-on-surface-variant, #5f6368);
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  transition: all 150ms ease;
+  font-family: inherit;
+}
+
+[data-theme='dark'] .searchBtn {
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #9aa0a6;
+}
+
+.searchBtn:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: var(--md-on-surface, #202124);
+  border-color: rgba(0, 0, 0, 0.16);
+}
+
+[data-theme='dark'] .searchBtn:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #e8eaed;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.searchShortcut {
+  display: none;
+  align-items: center;
+  gap: 2px;
+}
+
+@media (min-width: 768px) {
+  .searchShortcut {
+    display: inline-flex;
+  }
+}
+
+.searchShortcut kbd {
+  font-size: 0.62rem;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--md-on-surface-variant, #5f6368);
+  background-color: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+  padding: 1px 4px;
+  line-height: 1.2;
+}
+
+[data-theme='dark'] .searchShortcut kbd {
+  color: #8c93a0;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 767px) {
+  .searchBtn {
+    width: 36px;
+    padding: 0;
+  }
+}
+
 /* Resume Button — Desktop Pill */
 .resumeBtn {
   display: none;

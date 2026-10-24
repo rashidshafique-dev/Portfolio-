@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sun, Moon, Menu, X, FileText } from 'lucide-react';
+import { Sun, Moon, Menu, X, FileText, Search } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../../components/SocialIcons';
 import Logo from '../../components/Logo';
 import { useThemeStore, useUIStore } from '../../store';
@@ -10,10 +10,23 @@ import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const { theme, toggleTheme } = useThemeStore();
-  const { isMobileMenuOpen, toggleMobileMenu, setMobileMenuOpen, setResumeModalOpen } = useUIStore();
+  const {
+    isMobileMenuOpen,
+    toggleMobileMenu,
+    setMobileMenuOpen,
+    setResumeModalOpen,
+    setCommandPaletteOpen
+  } = useUIStore();
   const [scrolled, setScrolled] = useState(false);
+  const [isMac, setIsMac] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && navigator.platform) {
+      setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
+    }
+  }, []);
 
   // Handle scrolled navbar consistency on scroll and route changes
   useEffect(() => {
@@ -63,6 +76,21 @@ export default function Navbar() {
 
         {/* Actions */}
         <div className={styles.actions}>
+          {/* Command Palette Trigger */}
+          <button
+            type="button"
+            className={styles.searchBtn}
+            onClick={() => setCommandPaletteOpen(true)}
+            aria-label={`Open Command Palette (${isMac ? '⌘K' : 'Ctrl+K'})`}
+            title={`Search & Commands (${isMac ? '⌘K' : 'Ctrl+K'})`}
+          >
+            <Search size={15} aria-hidden="true" />
+            <span className={styles.searchShortcut} aria-hidden="true">
+              <kbd>{isMac ? '⌘' : 'Ctrl'}</kbd>
+              <kbd>K</kbd>
+            </span>
+          </button>
+
           <button
             className={styles.themeBtn}
             onClick={toggleTheme}

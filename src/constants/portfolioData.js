@@ -94,20 +94,20 @@ export const credentials = [
 ];
 
 export const navLinks = [
-  { label: 'Home',       href: '/'           },
-  { label: 'About',      href: '/about'       },
-  { label: 'Projects',   href: '/projects'    },
-  { label: 'Skills',     href: '/skills'      },
-  { label: 'Experience', href: '/experience'  },
-  { label: 'Build Logs', href: '/build-logs'  },
-  { label: 'Contact',    href: '/contact'     },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Build Logs', href: '/build-logs' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export const stats = [
-  { value: '25+',    label: 'Technologies & Tools' },
-  { value: '10+',    label: 'Engineered Systems' },
-  { value: '42%',    label: 'Query Latency Cut' },
-  { value: '99.9%',  label: 'Service Reliability' }
+  { value: '25+', label: 'Technologies & Tools' },
+  { value: '10+', label: 'Engineered Systems' },
+  { value: '42%', label: 'Query Latency Cut' },
+  { value: '99.9%', label: 'Service Reliability' }
 ];
 
 export const projects = [
@@ -265,7 +265,7 @@ export const projects = [
       }
     ]
   },
-    {
+  {
     id: 2,
     title: 'AioVerse',
     description: 'Full-stack cross-platform mobile workspace and multi-utility SaaS application built with React Native, Expo, TypeScript, and Python Django REST Framework. Features 40+ native mobile utilities including Image Processing Studio, PDF Document Workspace, QR Code Studio, Task Organizer, and Guest Session Engine with offline-first persistence.',
@@ -1085,7 +1085,7 @@ export const getCurrentSemesterInfo = () => {
   const progressPercent = Math.min(100, Math.round((semester / 8) * 100));
 
   const suffix = semester === 1 ? '1st' : semester === 2 ? '2nd' : semester === 3 ? '3rd' : `${semester}th`;
-  
+
   return {
     semester,
     semesterText: `${suffix} Semester`,
@@ -1264,7 +1264,7 @@ We implemented a two-tiered auto-recovery architecture:
 
 This eliminated production deployment crashes and guaranteed 100% session continuity for hotel receptionists and guest users.`
   },
-    {
+  {
     id: 2,
     title: 'Architecting Offline-First Local Storage & Native Media Pipelines in React Native & Django',
     date: 'July 02, 2026',

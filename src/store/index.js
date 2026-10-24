@@ -22,6 +22,7 @@ export const useUIStore = create((set) => ({
   activeSection: 'home',
   isPageLoading: true,
   isResumeModalOpen: false,
+  isCommandPaletteOpen: false,
 
   setMobileMenuOpen: (open) => set({ isMobileMenuOpen: open }),
   toggleMobileMenu: () =>
@@ -29,6 +30,9 @@ export const useUIStore = create((set) => ({
   setActiveSection: (section) => set({ activeSection: section }),
   setPageLoading: (loading) => set({ isPageLoading: loading }),
   setResumeModalOpen: (open) => set({ isResumeModalOpen: open }),
+  setCommandPaletteOpen: (open) => set({ isCommandPaletteOpen: open }),
+  toggleCommandPalette: () =>
+    set((state) => ({ isCommandPaletteOpen: !state.isCommandPaletteOpen })),
 }));
 
 // ── Project Filter Store ──
