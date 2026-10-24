@@ -1,7 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/((?!api/|.*\\.[a-zA-Z0-9]+$).*)",
+      "source": "/rashidshafique.admin",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/((?!api/|.*\\.(?:css|js|png|jpg|jpeg|gif|svg|ico|webp|webmanifest|json|pdf|txt|xml|woff|woff2|ttf|eot)$).*)",
       "destination": "/index.html"
     }
   ],
