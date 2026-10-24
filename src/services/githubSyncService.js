@@ -6,7 +6,7 @@ const GITHUB_PAT_KEY = 'portfolio_github_pat_v1';
 const LAST_SYNC_KEY = 'portfolio_github_last_sync_v1';
 
 export const DEFAULT_GITHUB_CONFIG = {
-  owner: 'rashidkhan4067',
+  owner: 'rashidshafique-dev',
   repo: 'Portfolio-',
   branch: 'main',
   path: 'public/data/portfolio-data.json',
