@@ -4,6 +4,12 @@ import {
   personalInfo as defaultPersonalInfo,
   testimonials as defaultTestimonials,
 } from '../constants/portfolioData';
+import {
+  fetchOnlinePortfolioData,
+  pushPortfolioDataToGitHub,
+  getGitHubConfig,
+  getGitHubToken,
+} from '../services/githubSyncService';
 
 const STORAGE_KEYS = {
   BUILD_LOGS: 'portfolio_admin_build_logs_v1',
@@ -294,6 +300,7 @@ export const saveBuildLog = (logData) => {
 
   localStorage.setItem(STORAGE_KEYS.BUILD_LOGS, JSON.stringify(updated));
   window.dispatchEvent(new Event('portfolio_data_updated'));
+  triggerAutoPushIfEnabled();
   return updated;
 };
 
@@ -302,6 +309,7 @@ export const deleteBuildLog = (logId) => {
   const updated = current.filter((item) => item.id !== logId);
   localStorage.setItem(STORAGE_KEYS.BUILD_LOGS, JSON.stringify(updated));
   window.dispatchEvent(new Event('portfolio_data_updated'));
+  triggerAutoPushIfEnabled();
   return updated;
 };
 
@@ -349,6 +357,7 @@ export const saveProject = (projData) => {
 
   localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(updated));
   window.dispatchEvent(new Event('portfolio_data_updated'));
+  triggerAutoPushIfEnabled();
   return updated;
 };
 
@@ -357,6 +366,7 @@ export const deleteProject = (projId) => {
   const updated = current.filter((item) => item.id !== projId);
   localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(updated));
   window.dispatchEvent(new Event('portfolio_data_updated'));
+  triggerAutoPushIfEnabled();
   return updated;
 };
 
@@ -378,6 +388,7 @@ export const getStoredProfile = () => {
 export const saveProfile = (updatedProfile) => {
   localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(updatedProfile));
   window.dispatchEvent(new Event('portfolio_data_updated'));
+  triggerAutoPushIfEnabled();
   return updatedProfile;
 };
 
@@ -409,9 +420,86 @@ export const deleteStoredTestimonial = (testimonialId) => {
     console.warn('Error deleting testimonial:', err);
   }
   window.dispatchEvent(new Event('portfolio_data_updated'));
+  triggerAutoPushIfEnabled();
 };
 
+// ── Online Sync & Cloud Snapshot Helpers ──
+export const getFullPortfolioSnapshot = () => {
+  return {
+    personalInfo: getStoredProfile(),
+    projects: getStoredProjects(),
+    buildLogs: getStoredBuildLogs(),
+    testimonials: getStoredTestimonials(),
+    version: '2.0.0',
+    updatedAt: new Date().toISOString(),
+  };
+};
 
+export const triggerAutoPushIfEnabled = () => {
+  if (typeof window === 'undefined') return;
+  const token = getGitHubToken();
+  const config = getGitHubConfig();
+  if (token && config.autoSync) {
+    const snapshot = getFullPortfolioSnapshot();
+    pushPortfolioDataToGitHub(snapshot)
+      .then((result) => {
+        window.dispatchEvent(new CustomEvent('portfolio_cloud_sync_status', { detail: result }));
+      })
+      .catch((err) => {
+        window.dispatchEvent(
+          new CustomEvent('portfolio_cloud_sync_status', {
+            detail: { success: false, message: err.message || 'Auto-sync failed' },
+          })
+        );
+      });
+  }
+};
+
+let isSyncingOnline = false;
+let hasInitializedOnline = false;
+
+// Hydrates store with online data from GitHub across all browsers and devices
+export const initOnlineDataSync = async () => {
+  if (typeof window === 'undefined' || isSyncingOnline || hasInitializedOnline) return;
+  isSyncingOnline = true;
+
+  try {
+    const result = await fetchOnlinePortfolioData();
+    if (result && result.data) {
+      const { data } = result;
+
+      let changed = false;
+      if (data.buildLogs && Array.isArray(data.buildLogs) && data.buildLogs.length > 0) {
+        localStorage.setItem(STORAGE_KEYS.BUILD_LOGS, JSON.stringify(data.buildLogs));
+        changed = true;
+      }
+      if (data.projects && Array.isArray(data.projects) && data.projects.length > 0) {
+        localStorage.setItem(STORAGE_KEYS.PROJECTS, JSON.stringify(data.projects));
+        changed = true;
+      }
+      if (data.personalInfo && typeof data.personalInfo === 'object') {
+        localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(data.personalInfo));
+        changed = true;
+      }
+      if (data.testimonials && Array.isArray(data.testimonials)) {
+        const customOnly = data.testimonials.filter((t) => t.isCustom);
+        if (customOnly.length > 0) {
+          localStorage.setItem(STORAGE_KEYS.TESTIMONIALS, JSON.stringify(customOnly));
+          changed = true;
+        }
+      }
+
+      if (changed) {
+        window.dispatchEvent(new Event('portfolio_data_updated'));
+      }
+    }
+  } catch (err) {
+    console.warn('Online sync failed, relying on local cache:', err);
+  } finally {
+    isSyncingOnline = false;
+    hasInitializedOnline = true;
+  }
+};
 
 // ── Reset to Defaults ──
 export const resetPortfolioToDefaults = () => {
@@ -420,6 +508,7 @@ export const resetPortfolioToDefaults = () => {
   localStorage.removeItem(STORAGE_KEYS.PROFILE);
   localStorage.removeItem(STORAGE_KEYS.TESTIMONIALS);
   window.dispatchEvent(new Event('portfolio_data_updated'));
+  triggerAutoPushIfEnabled();
 };
 
 // ── Export Formatter ──
@@ -427,9 +516,10 @@ export const generatePortfolioExportCode = () => {
   const profile = getStoredProfile();
   const logs = getStoredBuildLogs();
   const projs = getStoredProjects();
+  const testimonials = getStoredTestimonials();
 
   return {
-    json: JSON.stringify({ personalInfo: profile, projects: projs, buildLogs: logs }, null, 2),
+    json: JSON.stringify({ personalInfo: profile, projects: projs, buildLogs: logs, testimonials }, null, 2),
     timestamp: new Date().toISOString(),
   };
 };

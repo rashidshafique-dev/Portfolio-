@@ -12,6 +12,11 @@ import {
   Activity,
   LogOut,
   RefreshCw,
+  UploadCloud,
+  GitCommit,
+  ExternalLink,
+  AlertCircle,
+  Save,
 } from 'lucide-react';
 import {
   changeAdminPin,
@@ -24,11 +29,30 @@ import {
   getSecurityTelemetry,
   resetLockoutTelemetry,
   logoutAdmin,
+  getFullPortfolioSnapshot,
 } from '../../../store/adminDataStore';
+import {
+  getGitHubConfig,
+  saveGitHubConfig,
+  getGitHubToken,
+  saveGitHubToken,
+  getLastSyncInfo,
+  testGitHubConnection,
+  pushPortfolioDataToGitHub,
+} from '../../../services/githubSyncService';
 import { copyToClipboard } from '../../../utils';
 import styles from '../styles.module.css';
 
 export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole }) {
+  // GitHub Cloud Sync State
+  const [githubConfig, setGithubConfigState] = useState(() => getGitHubConfig());
+  const [tokenInput, setTokenInput] = useState(() => getGitHubToken());
+  const [showToken, setShowToken] = useState(false);
+  const [lastSync, setLastSync] = useState(() => getLastSyncInfo());
+  const [isTesting, setIsTesting] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [testStatus, setTestStatus] = useState(null);
+
   // PIN change state
   const [currentPin, setCurrentPin] = useState('');
   const [newPin, setNewPin] = useState('');
@@ -46,7 +70,61 @@ export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole
 
   useEffect(() => {
     setTelemetry(getSecurityTelemetry());
-  }, []);
+
+    // Listen for automatic background sync events
+    const handleSyncStatus = (e) => {
+      if (e.detail?.success) {
+        setLastSync(getLastSyncInfo());
+        showToast('Auto-synced latest portfolio edits to GitHub.');
+      }
+    };
+
+    window.addEventListener('portfolio_cloud_sync_status', handleSyncStatus);
+    return () => window.removeEventListener('portfolio_cloud_sync_status', handleSyncStatus);
+  }, [showToast]);
+
+  // Test connection to GitHub
+  const handleTestConnection = async () => {
+    if (!tokenInput.trim()) {
+      setTestStatus({ success: false, message: 'Please paste your GitHub Personal Access Token first.' });
+      return;
+    }
+
+    setIsTesting(true);
+    setTestStatus(null);
+
+    const result = await testGitHubConnection(tokenInput.trim());
+    setIsTesting(false);
+    setTestStatus(result);
+
+    if (result.success) {
+      saveGitHubToken(tokenInput.trim());
+      showToast(result.message);
+    }
+  };
+
+  // Save config & sync changes to GitHub
+  const handleSaveAndPublishOnline = async () => {
+    if (!tokenInput.trim()) {
+      showToast('Please provide a GitHub Personal Access Token to publish online.');
+      return;
+    }
+
+    saveGitHubToken(tokenInput.trim());
+    saveGitHubConfig(githubConfig);
+
+    setIsPublishing(true);
+    const snapshot = getFullPortfolioSnapshot();
+    const result = await pushPortfolioDataToGitHub(snapshot);
+    setIsPublishing(false);
+
+    if (result.success) {
+      setLastSync(getLastSyncInfo());
+      showToast('All portfolio edits published online to GitHub! Visible across all browsers.');
+    } else {
+      showToast(`Publishing failed: ${result.message}`);
+    }
+  };
 
   const handlePinChange = async (e) => {
     e.preventDefault();
@@ -140,19 +218,184 @@ export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole
     }
   };
 
+  const hasTokenConfigured = Boolean(tokenInput.trim());
+
   return (
     <div className={styles.panelContainer}>
       <div className={styles.panelHeaderRow}>
         <div>
-          <h2 className={styles.panelTitle}>Security &amp; Data Export Center</h2>
+          <h2 className={styles.panelTitle}>Cloud Sync &amp; Security Center</h2>
           <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.8rem', color: 'var(--md-on-surface-variant)' }}>
-            Configure cryptographic credentials, monitor session telemetry, and download offline backups.
+            Sync changes online across all browsers via GitHub, rotate cryptographic credentials, and manage backups.
           </p>
         </div>
       </div>
 
+      {/* GitHub Cloud Sync & Multi-Browser Online Persistence */}
+      <div className={styles.formCard} style={{ borderColor: 'rgba(26, 115, 232, 0.35)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <UploadCloud size={18} style={{ color: 'var(--md-primary)' }} />
+            <h3 style={{ margin: 0, fontSize: '0.98rem', fontWeight: 600 }}>GitHub Cloud Sync (Multi-Browser Persistence)</h3>
+          </div>
+          {hasTokenConfigured ? (
+            <span className={styles.statusPillActive}>
+              <span className={styles.activeDot} />
+              Cloud Online Sync Active
+            </span>
+          ) : (
+            <span className={styles.statusPillInactive}>
+              <AlertCircle size={12} />
+              Local-Only (Connect Token to Sync Online)
+            </span>
+          )}
+        </div>
+
+        <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--md-on-surface-variant)', lineHeight: 1.5 }}>
+          Local browser storage is limited to a single device. By connecting your GitHub Personal Access Token, all modifications to projects, build logs, and profile info are <strong>committed directly to your GitHub repository</strong>, making your changes visible online across every browser, mobile device, and visitor worldwide.
+        </p>
+
+        <div className={styles.pinFormGrid} style={{ marginTop: '0.25rem' }}>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Repository Target</label>
+            <input
+              type="text"
+              value={`${githubConfig.owner} / ${githubConfig.repo}`}
+              disabled
+              className={styles.input}
+              style={{ backgroundColor: 'rgba(0,0,0,0.03)', opacity: 0.8 }}
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Target Branch &amp; Path</label>
+            <input
+              type="text"
+              value={`${githubConfig.branch} : ${githubConfig.path}`}
+              disabled
+              className={styles.input}
+              style={{ backgroundColor: 'rgba(0,0,0,0.03)', opacity: 0.8 }}
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label className={styles.label}>GitHub Token (PAT) *</label>
+              <a
+                href="https://github.com/settings/tokens/new?scopes=repo&description=Portfolio+Admin+Sync"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '0.72rem', color: 'var(--md-primary)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
+              >
+                <span>Create Token</span>
+                <ExternalLink size={10} />
+              </a>
+            </div>
+            <div className={styles.pinInputWrapper}>
+              <input
+                type={showToken ? 'text' : 'password'}
+                value={tokenInput}
+                onChange={(e) => {
+                  setTokenInput(e.target.value);
+                  setTestStatus(null);
+                }}
+                placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                className={styles.input}
+              />
+              <button
+                type="button"
+                onClick={() => setShowToken(!showToken)}
+                className={styles.pinToggleBtn}
+                tabIndex={-1}
+                aria-label={showToken ? 'Hide Token' : 'Show Token'}
+              >
+                {showToken ? <EyeOff size={14} /> : <Eye size={14} />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Test Result Message */}
+        {testStatus && (
+          <div
+            style={{
+              padding: '0.65rem 0.85rem',
+              borderRadius: '6px',
+              fontSize: '0.8rem',
+              backgroundColor: testStatus.success ? 'rgba(34, 197, 94, 0.1)' : 'rgba(220, 38, 38, 0.1)',
+              color: testStatus.success ? '#16a34a' : '#dc2626',
+              border: `1px solid ${testStatus.success ? 'rgba(34, 197, 94, 0.25)' : 'rgba(220, 38, 38, 0.25)'}`,
+            }}
+          >
+            {testStatus.message}
+          </div>
+        )}
+
+        {/* Sync Metadata Row */}
+        {lastSync && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.76rem', color: 'var(--md-on-surface-variant)', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <GitCommit size={13} style={{ color: 'var(--md-primary)' }} />
+              <span>Last online commit: <strong>{lastSync.commitSha}</strong> ({new Date(lastSync.timestamp).toLocaleTimeString()})</span>
+            </div>
+            {lastSync.commitUrl && (
+              <a
+                href={lastSync.commitUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'var(--md-primary)', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', textDecoration: 'none' }}
+              >
+                <span>View on GitHub</span>
+                <ExternalLink size={11} />
+              </a>
+            )}
+          </div>
+        )}
+
+        {/* Actions & Auto-Sync Toggle */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', paddingTop: '0.35rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <input
+              type="checkbox"
+              id="autoSyncToggle"
+              checked={githubConfig.autoSync}
+              onChange={(e) => {
+                const updated = { ...githubConfig, autoSync: e.target.checked };
+                setGithubConfigState(updated);
+                saveGitHubConfig(updated);
+                showToast(e.target.checked ? 'Auto-sync enabled: Edits will automatically push to GitHub' : 'Auto-sync disabled');
+              }}
+              style={{ cursor: 'pointer' }}
+            />
+            <label htmlFor="autoSyncToggle" style={{ fontSize: '0.8rem', cursor: 'pointer', fontWeight: 500 }}>
+              Auto-Sync: Automatically commit to GitHub when saving edits
+            </label>
+          </div>
+
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              onClick={handleTestConnection}
+              disabled={isTesting || !tokenInput.trim()}
+              className={styles.secondaryBtn}
+            >
+              <span>{isTesting ? 'Verifying...' : 'Test Connection'}</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleSaveAndPublishOnline}
+              disabled={isPublishing || !tokenInput.trim()}
+              className={styles.primaryBtn}
+            >
+              <UploadCloud size={14} />
+              <span>{isPublishing ? 'Publishing Online...' : 'Save & Publish Online Now'}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Security Telemetry & Audit Strip */}
-      <div className={styles.formCard} style={{ borderColor: 'rgba(26, 115, 232, 0.3)' }}>
+      <div className={styles.formCard}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Activity size={17} style={{ color: 'var(--md-primary)' }} />
@@ -163,10 +406,6 @@ export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole
             Cryptographic Guard Active
           </span>
         </div>
-
-        <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--md-on-surface-variant)', lineHeight: 1.5 }}>
-          Real-time security auditing protects this portfolio admin console with hardware-accelerated SHA-256 hash digests and brute-force mitigation.
-        </p>
 
         <div className={styles.securityGrid}>
           <div className={styles.securityCard}>

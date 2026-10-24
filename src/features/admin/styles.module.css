@@ -1008,6 +1008,25 @@
   border-color: rgba(74, 222, 128, 0.25);
 }
 
+.statusPillInactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  background-color: rgba(234, 179, 8, 0.1);
+  color: #ca8a04;
+  border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+[data-theme='dark'] .statusPillInactive {
+  background-color: rgba(250, 204, 21, 0.12);
+  color: #facc15;
+  border-color: rgba(250, 204, 21, 0.25);
+}
+
 .activeDot {
   width: 6px;
   height: 6px;

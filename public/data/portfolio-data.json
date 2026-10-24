@@ -1,0 +1,32 @@
+{
+  "personalInfo": {
+    "name": "Muhammad Rashid Shafique",
+    "title": "Full-Stack Software Engineer · Python · Django · React",
+    "tagline": "Building scalable web applications, secure Python REST APIs, and high-performance backend systems.",
+    "bio": "Software Engineer specializing in Python backends (Django, FastAPI), relational database architecture (PostgreSQL), and modern React frontends. Strong foundation in Data Structures, Algorithms, and System Design with a proven track record of shipping production client solutions.",
+    "location": "Faisalabad, Pakistan",
+    "email": "rashidshafique.dev@gmail.com",
+    "phone": "+92 319 8696623",
+    "avatarUrl": "https://avatars.githubusercontent.com/rashidshafique-dev",
+    "resumeUrl": "/resume.pdf",
+    "socials": {
+      "github": "https://github.com/rashidshafique-dev",
+      "linkedin": "https://www.linkedin.com/in/rashidshafique-dev",
+      "newsletter": "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7495340020820512769",
+      "twitter": "https://x.com/rashidshafiqdev",
+      "x": "https://x.com/rashidshafiqdev",
+      "facebook": "https://www.facebook.com/share/1DQzUBXR7e/",
+      "instagram": "https://www.instagram.com/rashidshafique.dev",
+      "tiktok": "https://www.tiktok.com/@rashidshafique.dev",
+      "threads": "https://www.threads.com/@rashidshafique.dev",
+      "whatsapp": "https://wa.me/923198696623",
+      "whatsappBusiness": "https://wa.me/923198696623",
+      "dribbble": "https://github.com/rashidshafique-dev"
+    }
+  },
+  "projects": [],
+  "buildLogs": [],
+  "testimonials": [],
+  "version": "2.0.0",
+  "syncedAt": "2026-10-24T11:00:00.000Z"
+}
