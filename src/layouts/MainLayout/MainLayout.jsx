@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
+import ResumeModal from '../../components/ResumeModal/ResumeModal';
 
 import PageLoader from '../../components/PageLoader';
 import styles from './MainLayout.module.css';
@@ -48,6 +49,7 @@ export default function MainLayout({ children }) {
         </Suspense>
       </main>
       <Footer />
+      <ResumeModal />
     </div>
   );
 }

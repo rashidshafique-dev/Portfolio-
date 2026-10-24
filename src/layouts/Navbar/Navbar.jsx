@@ -10,7 +10,7 @@ import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const { theme, toggleTheme } = useThemeStore();
-  const { isMobileMenuOpen, toggleMobileMenu, setMobileMenuOpen } = useUIStore();
+  const { isMobileMenuOpen, toggleMobileMenu, setMobileMenuOpen, setResumeModalOpen } = useUIStore();
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -82,16 +82,14 @@ export default function Navbar() {
             </AnimatePresence>
           </button>
 
-          <a
-            href={personalInfo.resumeUrl}
+          <button
+            type="button"
             className={styles.resumeBtn}
-            target="_blank"
-            rel="noopener noreferrer"
-            download="Muhammad_Rashid_Resume.pdf"
-            aria-label="Download Resume"
+            onClick={() => setResumeModalOpen(true)}
+            aria-label="View and Download Resume"
           >
             Resume
-          </a>
+          </button>
 
           {/* Hamburger */}
           <button
@@ -179,17 +177,18 @@ export default function Navbar() {
             </ul>
             
             <div className={styles.mobileActions}>
-              <a
-                href={personalInfo.resumeUrl}
+              <button
+                type="button"
                 className={styles.mobileResume}
-                target="_blank"
-                rel="noopener noreferrer"
-                download="Muhammad_Rashid_Resume.pdf"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setResumeModalOpen(true);
+                }}
+                aria-label="Resume"
               >
                 <FileText size={15} className={styles.mobileResumeBtnIcon} />
-                <span>Download Resume</span>
-              </a>
+                <span>Resume</span>
+              </button>
               
               <div className={styles.mobileSocials}>
                 <a 

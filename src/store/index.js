@@ -21,12 +21,14 @@ export const useUIStore = create((set) => ({
   isMobileMenuOpen: false,
   activeSection: 'home',
   isPageLoading: true,
+  isResumeModalOpen: false,
 
   setMobileMenuOpen: (open) => set({ isMobileMenuOpen: open }),
   toggleMobileMenu: () =>
     set((state) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
   setActiveSection: (section) => set({ activeSection: section }),
   setPageLoading: (loading) => set({ isPageLoading: loading }),
+  setResumeModalOpen: (open) => set({ isResumeModalOpen: open }),
 }));
 
 // ── Project Filter Store ──

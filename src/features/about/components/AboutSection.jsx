@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { MapPin, Briefcase, ArrowRight } from 'lucide-react';
+import { MapPin, Briefcase, ArrowRight, FileText } from 'lucide-react';
 import { personalInfo, credentials } from '../../../constants/portfolioData';
+import { useUIStore } from '../../../store';
 import SectionWrapper, { itemVariants } from '../../../components/SectionWrapper';
 import SectionHeading from '../../../components/SectionHeading';
 import styles from '../styles.module.css';
 import profileImg from '../../../assets/profile/profile.webp';
 
 export default function AboutSection() {
+  const { setResumeModalOpen } = useUIStore();
   return (
     <SectionWrapper id="about">
       <div className={styles.aboutGrid}>
@@ -32,8 +34,18 @@ export default function AboutSection() {
                 <span><Briefcase size={13} /> Available for Full-Time & Freelance</span>
               </div>
             </div>
-            <div className={styles.avatarActions}>
-              <Link to="/contact" className={styles.resumeButton} style={{ width: '100%', textAlign: 'center', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className={styles.avatarActions} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%' }}>
+              <button
+                type="button"
+                onClick={() => setResumeModalOpen(true)}
+                className={styles.resumeButton}
+                style={{ width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.45rem' }}
+                aria-label="View Resume"
+              >
+                <FileText size={14} aria-hidden="true" />
+                <span>View Resume</span>
+              </button>
+              <Link to="/contact" className={styles.socialBtn} style={{ width: '100%', height: '36px', borderRadius: '9999px', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.82rem', fontWeight: 500 }}>
                 Get in Touch
               </Link>
             </div>

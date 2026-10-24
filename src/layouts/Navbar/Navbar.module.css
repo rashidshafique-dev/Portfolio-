@@ -191,6 +191,8 @@
   border: 1px solid var(--md-primary, #1a73e8);
   border-radius: var(--btn-radius);
   text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
   transition: all 150ms ease;
 }
 
@@ -466,6 +468,8 @@
   border: 1px solid var(--md-primary, #1a73e8);
   border-radius: var(--btn-radius);
   text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
   transition: all 150ms ease;
 }
 
