@@ -35,7 +35,8 @@ export default function AboutSection() {
                 className={styles.avatarImg} 
                 width="280" 
                 height="320" 
-                loading="eager"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className={styles.avatarInfo}>

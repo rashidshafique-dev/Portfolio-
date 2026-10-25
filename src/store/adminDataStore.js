@@ -480,6 +480,15 @@ export const getStoredProfile = () => {
     const raw = localStorage.getItem(STORAGE_KEYS.PROFILE);
     if (raw) {
       const parsed = JSON.parse(raw);
+      // Auto-purge legacy multi-megabyte base64 avatar to prevent main thread freeze
+      if (parsed.avatarUrl && parsed.avatarUrl.length > 250000) {
+        parsed.avatarUrl = defaultPersonalInfo.avatarUrl;
+        try {
+          localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(parsed));
+        } catch (e) {
+          // ignore
+        }
+      }
       return { ...defaultPersonalInfo, ...parsed };
     }
   } catch (err) {

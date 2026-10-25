@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Check, RotateCcw, Upload, Image as ImageIcon, X, User } from 'lucide-react';
 import { saveProfile } from '../../../store/adminDataStore';
-import { generateSemanticImageName } from '../../../utils/projectUtils';
+import { generateSemanticImageName, compressImageClient } from '../../../utils/projectUtils';
 import styles from '../styles.module.css';
 
 export default function ProfileManager({ profile, onProfileUpdated, showToast }) {
@@ -28,28 +28,41 @@ export default function ProfileManager({ profile, onProfileUpdated, showToast })
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleAvatarUpload = (e) => {
+  const handleAvatarUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 2 * 1024 * 1024) {
-      showToast('Image size exceeds 2MB limit. Please upload a smaller photo.');
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('Image size exceeds 5MB limit. Please upload a smaller photo.');
       return;
     }
 
     const semanticName = generateSemanticImageName(formData.name || 'Rashid Shafique', file.name, 'profile');
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
+    try {
+      showToast('Optimizing photo for fast page load...');
+      const optimized = await compressImageClient(file, 600, 0.82);
       setFormData((prev) => ({
         ...prev,
-        avatarUrl: event.target.result,
+        avatarUrl: optimized,
         avatarName: semanticName,
       }));
-      showToast(`Profile photo attached and renamed as "${semanticName}"`);
-    };
-    reader.readAsDataURL(file);
+      showToast(`Profile photo optimized & renamed as "${semanticName}"`);
+    } catch (err) {
+      console.warn('Avatar compression failed, using fallback:', err);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setFormData((prev) => ({
+          ...prev,
+          avatarUrl: event.target.result,
+          avatarName: semanticName,
+        }));
+        showToast(`Profile photo attached and renamed as "${semanticName}"`);
+      };
+      reader.readAsDataURL(file);
+    }
   };
+
 
   const handleSocialChange = (key, value) => {
     setFormData((prev) => ({

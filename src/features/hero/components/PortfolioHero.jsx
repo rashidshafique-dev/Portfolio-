@@ -34,6 +34,7 @@ export default function HeroSection() {
                 alt="Muhammad Rashid Shafique — Backend-Focused Full-Stack Engineer"
                 className={styles.profileImageLarge}
                 loading="eager"
+                decoding="async"
                 width="340"
                 height="425"
                 fetchPriority="high"

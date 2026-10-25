@@ -298,6 +298,8 @@ export default function DetailedProjects() {
                               src={currentImgUrl}
                               alt={`${selectedProject.title} Mobile Preview`}
                               className={styles.phoneScreenImg}
+                              loading="lazy"
+                              decoding="async"
                             />
                           ) : (
                             <ProjectVisualPlaceholder project={selectedProject} />
@@ -327,6 +329,8 @@ export default function DetailedProjects() {
                           src={currentImgUrl}
                           alt={`${selectedProject.title} Architecture Diagram`}
                           className={styles.diagramImage}
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -371,6 +375,8 @@ export default function DetailedProjects() {
                               src={currentImgUrl}
                               alt={`${selectedProject.title} Desktop Preview`}
                               className={styles.desktopScreenImg}
+                              loading="lazy"
+                              decoding="async"
                             />
                           ) : (
                             <ProjectVisualPlaceholder project={selectedProject} />

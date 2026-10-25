@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Plus, Edit3, Trash2, Search, X, Check, Star, Image as ImageIcon, Upload, Download, RefreshCw, Sparkles } from 'lucide-react';
 import { saveProject, deleteProject, resolveProjectImage } from '../../../store/adminDataStore';
-import { generateSemanticImageName } from '../../../utils/projectUtils';
+import { generateSemanticImageName, compressImageClient } from '../../../utils/projectUtils';
 import styles from '../styles.module.css';
 
 const CATEGORIES = ['Full-Stack', 'Backend', 'Mobile / Full-Stack', 'AI / ML', 'Frontend'];
@@ -64,27 +64,39 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
     setIsEditing(true);
   };
 
-  const handleImageFileChange = (e) => {
+  const handleImageFileChange = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 2 * 1024 * 1024) {
-      showToast('Image size exceeds 2MB limit. Please upload a smaller image.');
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('Image size exceeds 5MB limit. Please upload a smaller image.');
       return;
     }
 
     const semanticName = generateSemanticImageName(formData.title, file.name, 'cover');
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
+    try {
+      showToast('Compressing image for maximum speed...');
+      const optimizedDataUrl = await compressImageClient(file, 1200, 0.82);
       setFormData((prev) => ({
         ...prev,
-        imageUrl: event.target.result,
+        imageUrl: optimizedDataUrl,
         imageName: semanticName,
       }));
-      showToast(`Renamed image to "${semanticName}"`);
-    };
-    reader.readAsDataURL(file);
+      showToast(`Renamed & optimized: "${semanticName}"`);
+    } catch (err) {
+      console.warn('Compression failed, using fallback:', err);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setFormData((prev) => ({
+          ...prev,
+          imageUrl: event.target.result,
+          imageName: semanticName,
+        }));
+        showToast(`Renamed image to "${semanticName}"`);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleAutoRenameImage = () => {
@@ -384,6 +396,8 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
                   <img
                     src={resolveProjectImage({ imageUrl: formData.imageUrl, title: formData.title, id: editingId })}
                     alt="Preview"
+                    loading="lazy"
+                    decoding="async"
                     style={{ width: '100%', height: '180px', objectFit: 'cover', display: 'block' }}
                     onError={(e) => {
                       e.target.style.display = 'none';
@@ -458,6 +472,8 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
                             <img
                               src={resolvedThumbnail}
                               alt={proj.title || 'Project thumbnail'}
+                              loading="lazy"
+                              decoding="async"
                               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                               onError={(e) => {
                                 e.currentTarget.style.display = 'none';
