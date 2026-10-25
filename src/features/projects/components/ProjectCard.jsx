@@ -8,6 +8,7 @@ import { getProjectSlug, stripEmojis } from '../../../utils/projectUtils';
 
 export default function ProjectCard({ project, onClick }) {
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const slug = getProjectSlug(project);
   
   // Enforce maximum of 5 tech stack chips per card
@@ -29,7 +30,7 @@ export default function ProjectCard({ project, onClick }) {
     >
       {/* 16:9 Image or Fallback */}
       <div className={styles.cardImageContainer}>
-        {project.imageUrl ? (
+        {project.imageUrl && !imgError ? (
           <img 
             src={project.imageUrl} 
             alt={`${project.title} Preview`} 
@@ -38,6 +39,7 @@ export default function ProjectCard({ project, onClick }) {
             width="380"
             height="214"
             style={{ objectPosition: 'top' }}
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className={styles.cardImageFallback}>

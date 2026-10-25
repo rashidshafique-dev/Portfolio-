@@ -1,8 +1,3 @@
-/**
- * utils/projectUtils.js
- * Centralized utility functions for project slugs, repository names, and title sanitization.
- */
-
 export const repoTitleOverrides = {
   'sales-data-analysis-system': 'Sales Data Analysis System',
   'medicare / hospital management': 'MediCare / Hospital Management',
@@ -91,5 +86,39 @@ export const matchesCategory = (projectCategory, filterCategory) => {
     return cat.includes('backend') || cat.includes('api') || cat.includes('python');
   }
   return cat.includes(filter);
+};
+
+/**
+ * Generates a clean, SEO-friendly semantic image file name based on project/portfolio context.
+ * e.g. "Sunrise Imperial Resort" -> "sunrise-imperial-resort-cover.webp"
+ * e.g. "Rashid Shafique Portfolio" -> "rashid-shafique-portfolio-cover.webp"
+ * e.g. "Profile" -> "rashid-shafique-portfolio-profile.png"
+ */
+export const generateSemanticImageName = (titleOrContext, originalFileName = '', defaultType = 'cover') => {
+  let ext = 'webp';
+  if (originalFileName && typeof originalFileName === 'string' && originalFileName.includes('.')) {
+    const parts = originalFileName.split('.');
+    const rawExt = parts[parts.length - 1].toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (rawExt) ext = rawExt;
+  }
+  if (ext === 'jpeg') ext = 'jpg';
+
+  const raw = (titleOrContext || '').toLowerCase().trim();
+
+  if (!raw || raw === 'portfolio' || raw.includes('rashid shafique portfolio') || raw.includes('profile')) {
+    if (defaultType === 'profile' || defaultType === 'avatar') {
+      return `rashid-shafique-portfolio-profile.${ext}`;
+    }
+    if (raw.includes('portfolio')) {
+      return `rashid-shafique-portfolio-showcase.${ext}`;
+    }
+  }
+
+  const cleanSlug = raw
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
+  const base = cleanSlug || 'portfolio-project';
+  return `${base}-${defaultType}.${ext}`;
 };
 

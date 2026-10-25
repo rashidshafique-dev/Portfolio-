@@ -10,6 +10,7 @@ import {
   getGitHubConfig,
   getGitHubToken,
 } from '../services/githubSyncService';
+import { generateSemanticImageName } from '../utils/projectUtils';
 
 const STORAGE_KEYS = {
   BUILD_LOGS: 'portfolio_admin_build_logs_v1',
@@ -313,6 +314,80 @@ export const deleteBuildLog = (logId) => {
   return updated;
 };
 
+// Fast lookup maps for bundled Vite default assets
+const defaultProjectImageById = new Map();
+const defaultProjectImageByTitle = new Map();
+
+(defaultProjects || []).forEach((p) => {
+  if (p.id != null && p.imageUrl) {
+    defaultProjectImageById.set(Number(p.id), p.imageUrl);
+  }
+  if (p.title && p.imageUrl) {
+    defaultProjectImageByTitle.set(p.title.toLowerCase().trim(), p.imageUrl);
+  }
+});
+
+/**
+ * Resolves project image to ensure it is always a valid, loadable URL:
+ * - Keeps base64 data URLs (uploaded screenshots)
+ * - Keeps external web URLs (https:// / http://)
+ * - Keeps blob URLs
+ * - Resolves unbundled '/src/assets/...' or broken paths to the bundled Vite asset URL
+ *   via ID and title mapping against defaultProjects.
+ */
+export const resolveProjectImage = (project) => {
+  if (!project) return '';
+
+  const rawUrl = typeof project === 'string' ? project : project.imageUrl;
+
+  // 1. Data URLs (uploaded images) or blob URLs
+  if (rawUrl && (rawUrl.startsWith('data:') || rawUrl.startsWith('blob:'))) {
+    return rawUrl;
+  }
+
+  // 2. External web URLs
+  if (rawUrl && (rawUrl.startsWith('http://') || rawUrl.startsWith('https://'))) {
+    return rawUrl;
+  }
+
+  // 3. Already compiled Vite asset path (starts with /assets/ or /@fs/ or has ?import)
+  if (rawUrl && !rawUrl.startsWith('/src/assets/') && (rawUrl.startsWith('/assets/') || rawUrl.includes('?import'))) {
+    return rawUrl;
+  }
+
+  // 4. Look up from default project map by ID or Title
+  if (typeof project === 'object') {
+    if (project.id != null && defaultProjectImageById.has(Number(project.id))) {
+      return defaultProjectImageById.get(Number(project.id));
+    }
+    if (project.title && defaultProjectImageByTitle.has(project.title.toLowerCase().trim())) {
+      return defaultProjectImageByTitle.get(project.title.toLowerCase().trim());
+    }
+  }
+
+  // 5. Look up by rawUrl matching keywords in default project assets
+  if (rawUrl && typeof rawUrl === 'string') {
+    const lower = rawUrl.toLowerCase();
+    for (const def of defaultProjects) {
+      if (!def.imageUrl) continue;
+      const key = (def.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (key && lower.includes(key.slice(0, 6))) {
+        return def.imageUrl;
+      }
+    }
+  }
+
+  // 6. Look up in screenshots if available
+  if (typeof project === 'object' && Array.isArray(project.screenshots) && project.screenshots.length > 0) {
+    const firstShot = project.screenshots[0]?.url;
+    if (firstShot && firstShot !== rawUrl) {
+      return resolveProjectImage({ ...project, imageUrl: firstShot, screenshots: [] });
+    }
+  }
+
+  return rawUrl || '';
+};
+
 // ── Projects Store ──
 export const getStoredProjects = () => {
   if (typeof window === 'undefined') return defaultProjects;
@@ -320,12 +395,22 @@ export const getStoredProjects = () => {
     const raw = localStorage.getItem(STORAGE_KEYS.PROJECTS);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed.map((p) => ({
+          ...p,
+          imageUrl: resolveProjectImage(p),
+          imageName: p.imageName || generateSemanticImageName(p.title, p.imageUrl, 'cover'),
+        }));
+      }
     }
   } catch (err) {
     console.warn('Error reading admin projects:', err);
   }
-  return defaultProjects;
+  return defaultProjects.map((p) => ({
+    ...p,
+    imageUrl: resolveProjectImage(p),
+    imageName: p.imageName || generateSemanticImageName(p.title, p.imageUrl, 'cover'),
+  }));
 };
 
 export const saveProject = (projData) => {
@@ -336,10 +421,25 @@ export const saveProject = (projData) => {
     ? projData.techStack
     : (projData.techStack || '').split(',').map(t => t.trim()).filter(Boolean);
 
+  const resolvedImg = projData.imageUrl && projData.imageUrl.startsWith('data:')
+    ? projData.imageUrl
+    : resolveProjectImage(projData);
+
+  const semanticName = projData.imageName || generateSemanticImageName(projData.title, projData.imageUrl, 'cover');
+
   if (projData.id) {
     // Update existing
     updated = current.map((item) =>
-      item.id === projData.id ? { ...item, ...projData, techStack: techArray, tech: techArray } : item
+      item.id === projData.id
+        ? {
+            ...item,
+            ...projData,
+            techStack: techArray,
+            tech: techArray,
+            imageUrl: resolvedImg,
+            imageName: semanticName,
+          }
+        : item
     );
   } else {
     // Create new
@@ -351,6 +451,8 @@ export const saveProject = (projData) => {
       featured: Boolean(projData.featured),
       techStack: techArray,
       tech: techArray,
+      imageUrl: resolvedImg,
+      imageName: semanticName,
     };
     updated = [newProj, ...current];
   }
@@ -369,6 +471,7 @@ export const deleteProject = (projId) => {
   triggerAutoPushIfEnabled();
   return updated;
 };
+
 
 // ── Profile / Personal Info Store ──
 export const getStoredProfile = () => {

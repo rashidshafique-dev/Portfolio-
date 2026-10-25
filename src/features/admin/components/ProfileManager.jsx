@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Check, RotateCcw, Upload, Image as ImageIcon, X, User } from 'lucide-react';
 import { saveProfile } from '../../../store/adminDataStore';
+import { generateSemanticImageName } from '../../../utils/projectUtils';
 import styles from '../styles.module.css';
 
 export default function ProfileManager({ profile, onProfileUpdated, showToast }) {
@@ -13,6 +14,7 @@ export default function ProfileManager({ profile, onProfileUpdated, showToast })
     email: profile.email || '',
     phone: profile.phone || '',
     avatarUrl: profile.avatarUrl || '',
+    avatarName: profile.avatarName || '',
     socials: {
       github: profile.socials?.github || '',
       linkedin: profile.socials?.linkedin || '',
@@ -35,10 +37,16 @@ export default function ProfileManager({ profile, onProfileUpdated, showToast })
       return;
     }
 
+    const semanticName = generateSemanticImageName(formData.name || 'Rashid Shafique', file.name, 'profile');
+
     const reader = new FileReader();
     reader.onload = (event) => {
-      setFormData((prev) => ({ ...prev, avatarUrl: event.target.result }));
-      showToast('New profile photo attached');
+      setFormData((prev) => ({
+        ...prev,
+        avatarUrl: event.target.result,
+        avatarName: semanticName,
+      }));
+      showToast(`Profile photo attached and renamed as "${semanticName}"`);
     };
     reader.readAsDataURL(file);
   };
@@ -162,6 +170,12 @@ export default function ProfileManager({ profile, onProfileUpdated, showToast })
                   style={{ fontSize: '0.78rem', padding: '0.4rem 0.75rem', width: '100%' }}
                 />
               </div>
+
+              {formData.avatarName && (
+                <div style={{ fontSize: '0.72rem', color: 'var(--md-on-surface-variant)', opacity: 0.85 }}>
+                  🏷️ Semantic File: <code>{formData.avatarName}</code>
+                </div>
+              )}
             </div>
           </div>
 

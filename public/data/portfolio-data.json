@@ -224,7 +224,8 @@
             "Circular Reveal Animation: CSS View Transitions API ripple effect for seamless light/dark toggling."
           ]
         }
-      ]
+      ],
+      "imageName": "sunrise-imperial-resort-cover.webp"
     },
     {
       "id": 2,
@@ -394,7 +395,8 @@
             "Offline Storage Engine: Zero-latency local caching with background cloud sync."
           ]
         }
-      ]
+      ],
+      "imageName": "aioverse-cover.webp"
     },
     {
       "id": 3,
@@ -465,7 +467,8 @@
         "Eliminated visual layout shifts by designing fixed-ratio bounding containers and shimmer skeletons before image decode.",
         "Constructed a lightweight React Context cart controller with debounced LocalStorage synchronization, ensuring sub-second response times on mobile devices."
       ],
-      "outcome": "Delivered a sub-second, 100% stable storefront resulting in 0 CLS layout shift, verified mobile responsiveness, and 100% client satisfaction."
+      "outcome": "Delivered a sub-second, 100% stable storefront resulting in 0 CLS layout shift, verified mobile responsiveness, and 100% client satisfaction.",
+      "imageName": "bhutta-scents-cover.webp"
     },
     {
       "id": 4,
@@ -652,7 +655,8 @@
             "Report Submissions: Allows technicians to log findings summary, write detailed observation notes, and attach digital documents/scan images (X-Rays, MRIs)."
           ]
         }
-      ]
+      ],
+      "imageName": "al-shifaa-clinic-cover.webp"
     },
     {
       "id": 5,
@@ -768,7 +772,8 @@
             "Radar Telemetry: Simulates geographic scattering offsets of search squads and active subject boundaries."
           ]
         }
-      ]
+      ],
+      "imageName": "rescue-project-cover.webp"
     },
     {
       "id": 6,
@@ -850,7 +855,8 @@
             "Supports live settings control: theme, layout toggle, haptic toggles, and direct ADB stream clearing."
           ]
         }
-      ]
+      ],
+      "imageName": "rashid-shafique-portfolio-cover.webp"
     },
     {
       "id": 7,
@@ -941,7 +947,8 @@
             "Licensed under the MIT License for open-source Core distribution."
           ]
         }
-      ]
+      ],
+      "imageName": "venturetwist-cover.webp"
     },
     {
       "id": 8,
@@ -984,7 +991,8 @@
         "Implementing low-latency client-side menu searches and dynamic cart updates. Configured a lightweight state context to handle subtotal adjustments and item additions without server roundtrips.",
         "Securing user authentication with form validation. Designed beautiful, outline-styled login panels that integrate seamless input checking and responsive layout scaling."
       ],
-      "outcome": "Delivered an aesthetic, fast, and responsive user flow for dish selection, checkout verification, and session entry."
+      "outcome": "Delivered an aesthetic, fast, and responsive user flow for dish selection, checkout verification, and session entry.",
+      "imageName": "fooddash-cover.webp"
     },
     {
       "id": 9,
@@ -1039,7 +1047,8 @@
         "Engineered automated data cleaning routines to handle missing values and normalize multi-category transaction records.",
         "Constructed interactive charts with Plotly to visualize regional sales distributions and category profit ratios."
       ],
-      "outcome": "Successfully delivered an intuitive semester project dashboard with interactive filters and predictive revenue forecasts."
+      "outcome": "Successfully delivered an intuitive semester project dashboard with interactive filters and predictive revenue forecasts.",
+      "imageName": "sales-data-analysis-system-cover.webp"
     },
     {
       "id": 10,
@@ -1074,7 +1083,8 @@
         "Engineered low-power serial communication protocols in C++ on Arduino microcontrollers to sample ultrasonic flow and level sensors.",
         "Constructed a multi-threaded Python monitoring dashboard to aggregate live sensor feeds and trigger threshold alerts with 99.9% uptime."
       ],
-      "outcome": "Maintains 99.9% uptime across active device connections, processing 100k+ telemetry packets daily."
+      "outcome": "Maintains 99.9% uptime across active device connections, processing 100k+ telemetry packets daily.",
+      "imageName": "aquasync-cover.webp"
     },
     {
       "id": 11,
@@ -1109,7 +1119,8 @@
         "Designed atomic SQLite transaction models with parameterized query sanitization to prevent race conditions during concurrent bed bookings.",
         "Constructed an Express.js API gateway with custom validation middleware to authenticate staff and manage doctor shift rosters."
       ],
-      "outcome": "Used to streamline patient registration and check-in workflows for over 150 daily admissions."
+      "outcome": "Used to streamline patient registration and check-in workflows for over 150 daily admissions.",
+      "imageName": "medicare-hospital-management-cover.webp"
     },
     {
       "id": 12,
@@ -1144,7 +1155,8 @@
         "Optimized DOM re-render pipelines using requestAnimationFrame to render dynamic pathfinding grid updates at a locked 60 FPS.",
         "Engineered custom state-machine step controllers allowing users to pause, rewind, and inspect algorithm call stacks."
       ],
-      "outcome": "Provides fluid 60fps renders for complex graph visualisations containing up to 10k nodes."
+      "outcome": "Provides fluid 60fps renders for complex graph visualisations containing up to 10k nodes.",
+      "imageName": "algoviz-pro-cover.webp"
     },
     {
       "id": 13,
@@ -1179,7 +1191,8 @@
         "Optimized OpenCV Haar Cascade face detection pipeline and Keras embeddings to achieve sub-120ms inference latency per video frame.",
         "Implemented anti-spoofing liveness detection heuristics to reject static 2D photo spoof attempts."
       ],
-      "outcome": "Automates secure real-time student check-ins under 120ms with near-zero false positive errors."
+      "outcome": "Automates secure real-time student check-ins under 120ms with near-zero false positive errors.",
+      "imageName": "face-recognition-attendance-system-cover.webp"
     },
     {
       "id": 14,
@@ -1214,7 +1227,8 @@
         "Implemented stateless JWT authentication with role-based routing middleware in Node/Express.",
         "Constructed MongoDB aggregations to compute class grade distributions and outstanding fee summaries under 50ms."
       ],
-      "outcome": "Successfully handles multi-role administrative workflows for school directories, grades, and fee records."
+      "outcome": "Successfully handles multi-role administrative workflows for school directories, grades, and fee records.",
+      "imageName": "taleempro-cover.webp"
     }
   ],
   "buildLogs": [

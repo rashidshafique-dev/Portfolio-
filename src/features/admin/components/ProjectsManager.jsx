@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Plus, Edit3, Trash2, Search, X, Check, Star, Image as ImageIcon, Upload } from 'lucide-react';
-import { saveProject, deleteProject } from '../../../store/adminDataStore';
+import { Plus, Edit3, Trash2, Search, X, Check, Star, Image as ImageIcon, Upload, Download, RefreshCw, Sparkles } from 'lucide-react';
+import { saveProject, deleteProject, resolveProjectImage } from '../../../store/adminDataStore';
+import { generateSemanticImageName } from '../../../utils/projectUtils';
 import styles from '../styles.module.css';
 
 const CATEGORIES = ['Full-Stack', 'Backend', 'Mobile / Full-Stack', 'AI / ML', 'Frontend'];
@@ -21,6 +22,7 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
     techStack: '',
     description: '',
     imageUrl: '',
+    imageName: '',
   });
 
   const handleStartNew = () => {
@@ -35,12 +37,14 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
       techStack: '',
       description: '',
       imageUrl: '',
+      imageName: '',
     });
     setEditingId(null);
     setIsEditing(true);
   };
 
   const handleStartEdit = (proj) => {
+    const defaultImg = resolveProjectImage(proj);
     setFormData({
       title: proj.title || '',
       tagline: proj.tagline || '',
@@ -53,7 +57,8 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
         ? proj.techStack.join(', ')
         : (proj.tech ? proj.tech.join(', ') : ''),
       description: proj.description || '',
-      imageUrl: proj.imageUrl || (proj.screenshots && proj.screenshots[0]?.url) || '',
+      imageUrl: proj.imageUrl || defaultImg || (proj.screenshots && proj.screenshots[0]?.url) || '',
+      imageName: proj.imageName || generateSemanticImageName(proj.title, proj.imageUrl, 'cover'),
     });
     setEditingId(proj.id);
     setIsEditing(true);
@@ -68,12 +73,24 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
       return;
     }
 
+    const semanticName = generateSemanticImageName(formData.title, file.name, 'cover');
+
     const reader = new FileReader();
     reader.onload = (event) => {
-      setFormData((prev) => ({ ...prev, imageUrl: event.target.result }));
-      showToast('Screenshot attached successfully');
+      setFormData((prev) => ({
+        ...prev,
+        imageUrl: event.target.result,
+        imageName: semanticName,
+      }));
+      showToast(`Renamed image to "${semanticName}"`);
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleAutoRenameImage = () => {
+    const newName = generateSemanticImageName(formData.title, formData.imageName || 'cover.webp', 'cover');
+    setFormData((prev) => ({ ...prev, imageName: newName }));
+    showToast(`Renamed image file to "${newName}"`);
   };
 
   const handleCancel = () => {
@@ -88,10 +105,13 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
       return;
     }
 
+    const semanticName = formData.imageName || generateSemanticImageName(formData.title, formData.imageUrl, 'cover');
+
     const payload = {
       ...formData,
       id: editingId,
       featured: Boolean(formData.featured),
+      imageName: semanticName,
     };
 
     const updated = saveProject(payload);
@@ -103,6 +123,7 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
 
   const handleDelete = (id, title) => {
     if (window.confirm(`Delete project "${title}"?`)) {
+
       const updated = deleteProject(id);
       onProjectsUpdated(updated);
       showToast('Project deleted');
@@ -286,7 +307,7 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
                 {formData.imageUrl && (
                   <button
                     type="button"
-                    onClick={() => setFormData({ ...formData, imageUrl: '' })}
+                    onClick={() => setFormData({ ...formData, imageUrl: '', imageName: '' })}
                     className={styles.dangerBtn}
                     style={{ padding: '0.45rem 0.65rem' }}
                     title="Remove Image"
@@ -296,6 +317,58 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
                   </button>
                 )}
               </div>
+
+              {/* Semantic Image Name Controls & Badge */}
+              {(formData.imageUrl || formData.imageName) && (
+                <div style={{
+                  marginTop: '0.65rem',
+                  padding: '0.65rem 0.85rem',
+                  borderRadius: '6px',
+                  backgroundColor: 'var(--md-surface-container, rgba(0,0,0,0.03))',
+                  border: '1px solid var(--md-outline-variant, #e1e4e8)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--md-on-surface-variant)' }}>
+                      🏷️ Semantic Image Name:
+                    </span>
+                    <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+                      <button
+                        type="button"
+                        onClick={handleAutoRenameImage}
+                        className={styles.secondaryBtn}
+                        style={{ padding: '0.2rem 0.5rem', fontSize: '0.72rem' }}
+                        title="Auto-rename image according to project title"
+                      >
+                        <RefreshCw size={11} style={{ marginRight: '3px' }} />
+                        <span>Auto-Rename</span>
+                      </button>
+                      {formData.imageUrl && formData.imageUrl.startsWith('data:') && (
+                        <a
+                          href={formData.imageUrl}
+                          download={formData.imageName || 'project-cover.webp'}
+                          className={styles.secondaryBtn}
+                          style={{ padding: '0.2rem 0.5rem', fontSize: '0.72rem', textDecoration: 'none' }}
+                          title="Download renamed file"
+                        >
+                          <Download size={11} style={{ marginRight: '3px' }} />
+                          <span>Download</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    value={formData.imageName}
+                    onChange={(e) => setFormData({ ...formData, imageName: e.target.value })}
+                    placeholder="e.g. sunrise-imperial-resort-cover.webp"
+                    className={styles.input}
+                    style={{ fontSize: '0.78rem', padding: '0.35rem 0.6rem' }}
+                  />
+                </div>
+              )}
 
               {/* Live Thumbnail Preview */}
               {formData.imageUrl && (
@@ -309,7 +382,7 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
                   background: 'var(--md-surface-container, #f1f3f4)'
                 }}>
                   <img
-                    src={formData.imageUrl}
+                    src={resolveProjectImage({ imageUrl: formData.imageUrl, title: formData.title, id: editingId })}
                     alt="Preview"
                     style={{ width: '100%', height: '180px', objectFit: 'cover', display: 'block' }}
                     onError={(e) => {
@@ -361,24 +434,42 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
             {filtered.length > 0 ? (
               filtered.map((proj) => {
                 const stack = proj.techStack || proj.tech || [];
+                const resolvedThumbnail = resolveProjectImage(proj);
                 return (
                   <div key={proj.id} className={styles.tableRow}>
                     <div className={styles.rowMainInfo}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                        {proj.imageUrl && (
-                          <img
-                            src={proj.imageUrl}
-                            alt=""
-                            style={{
-                              width: '38px',
-                              height: '24px',
-                              objectFit: 'cover',
-                              borderRadius: '4px',
-                              border: '1px solid var(--md-outline-variant, #e1e4e8)',
-                              flexShrink: 0,
-                            }}
-                          />
-                        )}
+                        <div
+                          style={{
+                            width: '44px',
+                            height: '30px',
+                            borderRadius: '4px',
+                            overflow: 'hidden',
+                            border: '1px solid var(--md-outline-variant, #e1e4e8)',
+                            background: 'var(--md-surface-container, rgba(0,0,0,0.04))',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                          title={proj.imageName ? `Asset: ${proj.imageName}` : (proj.title || '')}
+                        >
+                          {resolvedThumbnail ? (
+                            <img
+                              src={resolvedThumbnail}
+                              alt={proj.title || 'Project thumbnail'}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                                if (e.currentTarget.parentElement) {
+                                  e.currentTarget.parentElement.innerHTML = '<span style="font-size:9px;font-weight:600;opacity:0.5;">IMG</span>';
+                                }
+                              }}
+                            />
+                          ) : (
+                            <ImageIcon size={14} style={{ opacity: 0.35 }} />
+                          )}
+                        </div>
                         {proj.featured && <Star size={13} fill="#f59e0b" stroke="#f59e0b" title="Featured" />}
                         <h4 className={styles.rowTitle}>{proj.title}</h4>
                       </div>
@@ -386,6 +477,11 @@ export default function ProjectsManager({ projects, onProjectsUpdated, showToast
                         <span className={styles.rowTag}>{proj.category || 'Full-Stack'}</span>
                         {proj.metric && <span>&middot; <strong>{proj.metric}</strong></span>}
                         {stack.length > 0 && <span>&middot; {stack.slice(0, 4).join(', ')}</span>}
+                        {proj.imageName && (
+                          <span style={{ opacity: 0.7, fontSize: '0.72rem' }}>
+                            &middot; 📷 {proj.imageName}
+                          </span>
+                        )}
                       </div>
                     </div>
 
