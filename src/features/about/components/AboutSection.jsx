@@ -22,6 +22,10 @@ export default function AboutSection() {
     return () => window.removeEventListener('portfolio_data_updated', handleSync);
   }, []);
 
+  const aboutImageSrc = (info?.avatarUrl && info.avatarUrl.startsWith('data:') && info.avatarUrl.length < 250000)
+    ? info.avatarUrl
+    : profileImg;
+
   return (
     <SectionWrapper id="about">
       <div className={styles.aboutGrid}>
@@ -30,13 +34,16 @@ export default function AboutSection() {
           <div className={styles.avatarCard}>
             <div className={styles.avatar}>
               <img 
-                src={info.avatarUrl || profileImg} 
+                src={aboutImageSrc} 
                 alt={info.name} 
                 className={styles.avatarImg} 
                 width="280" 
                 height="320" 
                 loading="lazy"
                 decoding="async"
+                onError={(e) => {
+                  e.currentTarget.src = profileImg;
+                }}
               />
             </div>
             <div className={styles.avatarInfo}>

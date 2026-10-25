@@ -48,7 +48,7 @@ export const personalInfo = {
   location: 'Faisalabad, Pakistan',
   email: 'rashidshafique.dev@gmail.com',
   phone: '+92 319 8696623',
-  avatarUrl: 'https://avatars.githubusercontent.com/rashidshafique-dev',
+  avatarUrl: '',
   resumeUrl: '/resume.pdf',
   socials: {
     github: 'https://github.com/rashidshafique-dev',

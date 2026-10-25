@@ -21,6 +21,10 @@ export default function HeroSection() {
     return () => window.removeEventListener('portfolio_data_updated', handleSync);
   }, []);
 
+  const heroImageSrc = (profile?.avatarUrl && profile.avatarUrl.startsWith('data:') && profile.avatarUrl.length < 250000)
+    ? profile.avatarUrl
+    : profileLargeImg;
+
   return (
     <section className={styles.hero} id="hero">
       <div className="container">
@@ -30,7 +34,7 @@ export default function HeroSection() {
           <div className={styles.rightColumn}>
             <div className={styles.profileCard}>
               <img
-                src={profile.avatarUrl || profileLargeImg}
+                src={heroImageSrc}
                 alt="Muhammad Rashid Shafique — Backend-Focused Full-Stack Engineer"
                 className={styles.profileImageLarge}
                 loading="eager"
@@ -39,6 +43,9 @@ export default function HeroSection() {
                 height="425"
                 fetchPriority="high"
                 style={{ objectPosition: 'center 25%' }}
+                onError={(e) => {
+                  e.currentTarget.src = profileLargeImg;
+                }}
               />
             </div>
           </div>

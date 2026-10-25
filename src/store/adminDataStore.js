@@ -480,9 +480,9 @@ export const getStoredProfile = () => {
     const raw = localStorage.getItem(STORAGE_KEYS.PROFILE);
     if (raw) {
       const parsed = JSON.parse(raw);
-      // Auto-purge legacy multi-megabyte base64 avatar to prevent main thread freeze
-      if (parsed.avatarUrl && parsed.avatarUrl.length > 250000) {
-        parsed.avatarUrl = defaultPersonalInfo.avatarUrl;
+      // Auto-purge legacy multi-megabyte base64 avatar or external GitHub avatar to keep hero rendering instant
+      if (parsed.avatarUrl && (parsed.avatarUrl.length > 200000 || parsed.avatarUrl.includes('avatars.githubusercontent.com'))) {
+        delete parsed.avatarUrl;
         try {
           localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(parsed));
         } catch (e) {
