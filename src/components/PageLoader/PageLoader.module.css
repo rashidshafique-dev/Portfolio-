@@ -40,22 +40,7 @@
 }
 
 .markGlow {
-  position: absolute;
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(26, 115, 232, 0.16) 0%, transparent 70%);
-  pointer-events: none;
-  animation: haloPulse 2.4s ease-in-out infinite alternate;
-}
-
-[data-theme='dark'] .markGlow {
-  background: radial-gradient(circle, rgba(138, 180, 248, 0.20) 0%, transparent 70%);
-}
-
-@keyframes haloPulse {
-  0%   { transform: scale(0.92); opacity: 0.5; }
-  100% { transform: scale(1.15); opacity: 1;   }
+  display: none;
 }
 
 .monogramBox {
@@ -200,12 +185,12 @@
   bottom: 0;
   width: 35%;
   border-radius: 9999px;
-  background: linear-gradient(90deg, transparent, var(--md-primary, #1a73e8) 50%, #4285f4 100%);
+  background-color: var(--md-primary, #1a73e8);
   animation: indeterminateBar 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
 [data-theme='dark'] .progressBar {
-  background: linear-gradient(90deg, transparent, #8ab4f8 50%, #a8c7fa 100%);
+  background-color: #8ab4f8;
 }
 
 @keyframes indeterminateBar {

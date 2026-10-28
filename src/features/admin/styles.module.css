@@ -377,7 +377,7 @@
 /* ── Overview Metrics Strip ── */
 .statsStrip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -1133,9 +1133,7 @@
   align-items: center;
   justify-content: center;
   padding: 1.25rem;
-  background-color: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: rgba(15, 23, 42, 0.7);
 }
 
 [data-theme='dark'] .authModalBackdrop {

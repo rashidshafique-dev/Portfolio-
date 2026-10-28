@@ -8,7 +8,7 @@ const projectsSchema = {
   '@type': 'CollectionPage',
   'name': 'Projects by Muhammad Rashid Shafique',
   'url': `${BASE_URL}/projects`,
-  'description': '10+ engineering projects by Muhammad Rashid Shafique — AI facial recognition, data analytics dashboards, Django/FastAPI backends, React web apps, IoT dashboards, and hospital management systems.',
+  'description': 'Production engineering projects by Muhammad Rashid Shafique — Enterprise hotel management, cross-platform mobile workspace, Django/FastAPI backends, React web apps, and IoT systems.',
   'author': {
     '@type': 'Person',
     'name': 'Muhammad Rashid Shafique',
@@ -18,9 +18,9 @@ const projectsSchema = {
     {
       '@type': 'SoftwareApplication',
       'name': 'Al Shifaa Clinic',
-      'description': 'AI-powered Hospital Management System with face recognition attendance, billing automation, and real-time ward management. Built with PyQt5, SQLite, and TensorFlow.',
+      'description': 'Full-stack clinic system with 7 role-based portals, secure Django REST APIs, stateless JWT token auto-rotation, and PostgreSQL composite indexing.',
       'applicationCategory': 'Healthcare Software',
-      'programmingLanguage': ['Python', 'PyQt5', 'TensorFlow', 'SQLite'],
+      'programmingLanguage': ['Python', 'Django REST Framework', 'React', 'PostgreSQL', 'JavaScript'],
     },
     {
       '@type': 'SoftwareApplication',
@@ -43,16 +43,16 @@ export default function ProjectsPage() {
   return (
     <>
       <Helmet>
-        <title>Projects | Muhammad Rashid Shafique — AI, Full-Stack & Systems Engineering</title>
-        <meta name="description" content="10+ engineering projects by Muhammad Rashid Shafique — AI hospital management system, data analytics dashboards, Django/FastAPI REST APIs, React web apps, IoT dashboards, and algorithm visualisers. Explore technical case studies and GitHub repositories." />
-        <meta name="keywords" content="Muhammad Rashid Shafique projects, Python projects Pakistan, React projects, AI hospital management system, data analytics project, Django REST API project, full stack web app portfolio, open source engineer Pakistan" />
+        <title>Projects | Muhammad Rashid Shafique — Full-Stack Software Engineer</title>
+        <meta name="description" content="Engineering projects by Muhammad Rashid Shafique — Enterprise PMS systems, cross-platform mobile utilities, Django/FastAPI REST APIs, React web apps, and IoT dashboards. Explore technical case studies and GitHub repositories." />
+        <meta name="keywords" content="Muhammad Rashid Shafique projects, Python projects Pakistan, React projects, Django REST API project, full stack web app portfolio, open source engineer Pakistan" />
         <link rel="canonical" href={`${BASE_URL}/projects`} />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${BASE_URL}/projects`} />
-        <meta property="og:title" content="Projects | Muhammad Rashid Shafique — Full-Stack & Systems Developer" />
-        <meta property="og:description" content="Technical projects: AI/ML systems, full-stack web apps, IoT dashboards, and REST APIs. Explore case studies and code." />
+        <meta property="og:title" content="Projects | Muhammad Rashid Shafique — Full-Stack Software Engineer" />
+        <meta property="og:description" content="Technical projects: Full-stack web platforms, Django/FastAPI REST APIs, React applications, and system design case studies." />
         <meta property="og:image" content={`${BASE_URL}/og-preview.jpg`} />
         <meta property="og:image:secure_url" content={`${BASE_URL}/og-preview.jpg`} />
         <meta property="og:image:type" content="image/jpeg" />
@@ -64,7 +64,7 @@ export default function ProjectsPage() {
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Projects | Muhammad Rashid Shafique" />
-        <meta name="twitter:description" content="Engineering projects: AI/ML, Full-Stack, IoT. Deep case-study breakdowns." />
+        <meta name="twitter:description" content="Engineering projects: Full-Stack web platforms, Django REST APIs, React systems. Deep case-study breakdowns." />
         <meta name="twitter:image" content={`${BASE_URL}/og-preview.jpg`} />
 
         {/* Structured Data */}

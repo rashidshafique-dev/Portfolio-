@@ -170,7 +170,7 @@ export default function Navbar() {
               <Logo
                 withLink
                 size="md"
-                subtitle="Systems & Full-Stack"
+                subtitle="Full-Stack Engineer"
                 onClick={() => setMobileMenuOpen(false)}
               />
               <button

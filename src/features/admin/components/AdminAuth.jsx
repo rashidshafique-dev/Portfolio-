@@ -77,7 +77,7 @@ export default function AdminAuth({ onAuthenticated }) {
         setError(result.message || 'Invalid PIN');
         setPin('');
       }
-    } catch (err) {
+    } catch {
       setError('Verification failed');
       triggerShake();
     } finally {

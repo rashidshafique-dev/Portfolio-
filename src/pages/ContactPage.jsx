@@ -30,16 +30,16 @@ export default function ContactPage() {
   return (
     <>
       <Helmet>
-        <title>Contact Muhammad Rashid Shafique | Hire Systems Engineer & Full-Stack Developer</title>
-        <meta name="description" content="Hire Muhammad Rashid Shafique — Systems Engineer & Full-Stack Developer from Faisalabad, Pakistan. Available for full-time roles, freelance contracts, and open-source collaboration. Expertise in Python, Django, FastAPI, React, and modern web applications." />
-        <meta name="keywords" content="contact Muhammad Rashid Shafique, hire systems engineer Pakistan, hire full stack developer Pakistan, hire Python developer, hire React developer, freelance backend developer Pakistan, software engineer for hire" />
+        <title>Contact | Muhammad Rashid Shafique — Full-Stack Software Engineer</title>
+        <meta name="description" content="Get in touch with Muhammad Rashid Shafique — Full-Stack Software Engineer specializing in Python, Django, FastAPI, React, and TypeScript. Available for full-time roles and engineering contracts." />
+        <meta name="keywords" content="contact Muhammad Rashid Shafique, hire Full Stack Software Engineer Pakistan, hire Python developer, hire React developer, software engineer for hire" />
         <link rel="canonical" href={`${BASE_URL}/contact`} />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${BASE_URL}/contact`} />
-        <meta property="og:title" content="Contact Muhammad Rashid Shafique | Hire Systems Engineer" />
-        <meta property="og:description" content="Available for full-time, freelance, and contract opportunities. Reach out to discuss systems engineering, backend APIs, or full-stack projects." />
+        <meta property="og:title" content="Contact | Muhammad Rashid Shafique — Full-Stack Software Engineer" />
+        <meta property="og:description" content="Available for full-time engineering roles and contracts. Reach out to discuss scalable full-stack applications, Python backends, or React systems." />
         <meta property="og:image" content={`${BASE_URL}/og-preview.jpg`} />
         <meta property="og:image:secure_url" content={`${BASE_URL}/og-preview.jpg`} />
         <meta property="og:image:type" content="image/jpeg" />
@@ -50,8 +50,10 @@ export default function ContactPage() {
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact | Muhammad Rashid Shafique" />
-        <meta name="twitter:description" content="Hire Muhammad Rashid Shafique for your next engineering project. Full-time, freelance, or contract." />
+        <meta name="twitter:site" content="@rashidshafiqdev" />
+        <meta name="twitter:creator" content="@rashidshafiqdev" />
+        <meta name="twitter:title" content="Contact | Muhammad Rashid Shafique — Full-Stack Software Engineer" />
+        <meta name="twitter:description" content="Hire Muhammad Rashid Shafique for your next engineering project. Full-time or contract." />
         <meta name="twitter:image" content={`${BASE_URL}/og-preview.jpg`} />
 
         {/* Structured Data */}

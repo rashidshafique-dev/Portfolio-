@@ -13,7 +13,7 @@
 }
 
 .code {
-  font-size: clamp(6rem, 15vw, 10rem);
+  font-size: 6rem;
   font-weight: 900;
   letter-spacing: -0.06em;
   line-height: 1;
@@ -21,11 +21,23 @@
   margin-bottom: var(--space-4);
 }
 
+@media (min-width: 768px) {
+  .code {
+    font-size: 8.5rem;
+  }
+}
+
 .title {
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-size: 1.75rem;
   font-weight: 800;
   color: var(--text-primary);
   margin-bottom: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 2.25rem;
+  }
 }
 
 .desc {

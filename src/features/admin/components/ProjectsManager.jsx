@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Edit3, Trash2, Search, X, Check, Star, Image as ImageIcon, Upload, Download, RefreshCw, Sparkles } from 'lucide-react';
+import { Plus, Edit3, Trash2, Search, X, Check, Star, Image as ImageIcon, Upload, Download, RefreshCw } from 'lucide-react';
 import { saveProject, deleteProject, resolveProjectImage } from '../../../store/adminDataStore';
 import { generateSemanticImageName, compressImageClient } from '../../../utils/projectUtils';
 import styles from '../styles.module.css';

@@ -39,16 +39,16 @@ export default function ExperiencePage() {
   return (
     <>
       <Helmet>
-        <title>Experience | Muhammad Rashid Shafique — Engineer & BS CS Candidate</title>
-        <meta name="description" content="Work experience and academic timeline of Muhammad Rashid Shafique — open-source contributor, freelance systems engineer, and BS Computer Science candidate at UAF Faisalabad. Experience with Selenium automation, Node.js APIs, hospital management systems, and data analytics workflows." />
-        <meta name="keywords" content="Muhammad Rashid Shafique experience, software engineer work history, open source contributor Pakistan, BS Computer Science UAF, Selenium automation engineer, Node.js backend experience, Django API experience" />
+        <title>Experience | Muhammad Rashid Shafique — Full-Stack Software Engineer</title>
+        <meta name="description" content="Work experience and academic timeline of Muhammad Rashid Shafique — Full-Stack Software Engineer and BS Computer Science student at UAF Faisalabad. Experience with Python backend systems, Django REST APIs, React platforms, and relational databases." />
+        <meta name="keywords" content="Muhammad Rashid Shafique experience, software engineer work history, Full Stack Software Engineer Pakistan, BS Computer Science UAF, Django API experience, React experience" />
         <link rel="canonical" href={`${BASE_URL}/experience`} />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${BASE_URL}/experience`} />
-        <meta property="og:title" content="Experience | Muhammad Rashid Shafique — Engineer & BS CS Candidate" />
-        <meta property="og:description" content="Systems Engineer with experience in Python automation, REST APIs, hospital management systems, and modern web applications." />
+        <meta property="og:title" content="Experience | Muhammad Rashid Shafique — Full-Stack Software Engineer" />
+        <meta property="og:description" content="Full-Stack Software Engineer with experience in Python backends, Django REST APIs, and modern React & TypeScript applications." />
         <meta property="og:image" content={`${BASE_URL}/og-preview.jpg`} />
         <meta property="og:image:secure_url" content={`${BASE_URL}/og-preview.jpg`} />
         <meta property="og:image:type" content="image/jpeg" />
@@ -59,8 +59,10 @@ export default function ExperiencePage() {
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Experience | Muhammad Rashid Shafique" />
-        <meta name="twitter:description" content="Open Source Engineer & BS CS Candidate. Delivering scalable systems with Python, React, and Django." />
+        <meta name="twitter:site" content="@rashidshafiqdev" />
+        <meta name="twitter:creator" content="@rashidshafiqdev" />
+        <meta name="twitter:title" content="Experience | Muhammad Rashid Shafique — Full-Stack Software Engineer" />
+        <meta name="twitter:description" content="Delivering scalable full-stack systems with Python, Django, React, and TypeScript." />
         <meta name="twitter:image" content={`${BASE_URL}/og-preview.jpg`} />
 
         {/* Structured Data */}

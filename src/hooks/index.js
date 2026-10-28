@@ -94,3 +94,5 @@ export function useLocalStorage(key, initialValue) {
 
   return [storedValue, setValue];
 }
+
+export { useNetworkStatus } from './useNetworkStatus';

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useThemeStore } from '../store';
 import AppRouter from '../routes';
-import { initOnlineDataSync } from '../store/adminDataStore';
+import GlobalNetworkBar from '../components/NetworkStatus/GlobalNetworkBar';
 
 export default function App() {
   const { theme } = useThemeStore();
@@ -11,13 +11,9 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Hydrate portfolio with online data from GitHub across all browsers
-  useEffect(() => {
-    initOnlineDataSync();
-  }, []);
-
   return (
     <>
+      <GlobalNetworkBar />
       <AppRouter />
     </>
   );

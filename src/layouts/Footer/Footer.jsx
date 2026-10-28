@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../../components/SocialIcons';
 import Logo from '../../components/Logo';
@@ -86,11 +86,14 @@ export default function PortfolioFooter() {
           <div className={styles.availabilityCard}>
             <div className={styles.statusHeader}>
               <span className={styles.pulseDot} />
-              <span className={styles.statusText}>Status</span>
+              <span className={styles.statusText}>Availability</span>
             </div>
             <p className={styles.availabilityMessage}>
-              Available for engineering contracts & roles.
+              Available for engineering contracts &amp; full-time roles.
             </p>
+            <a href={`mailto:${personalInfo.email}`} className={styles.statusAction}>
+              Start a conversation &rarr;
+            </a>
           </div>
         </div>
 
@@ -106,9 +109,6 @@ export default function PortfolioFooter() {
         <p className={styles.copy}>
           &copy; {new Date().getFullYear()} Rashid.dev — Muhammad Rashid Shafique. All rights reserved.
         </p>
-        <Link to="/rashidshafique.admin" className={styles.adminFooterLink} aria-label="Console login">
-          Console
-        </Link>
       </div>
     </footer>
   );

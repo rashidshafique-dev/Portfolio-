@@ -103,8 +103,8 @@
   color: var(--md-primary, #1a73e8);
   background-color: rgba(26, 115, 232, 0.08);
   border: 1px solid rgba(26, 115, 232, 0.15);
-  padding: 4px 10px;
-  border-radius: 9999px;
+  padding: 3px 8px;
+  border-radius: 6px;
   display: inline-flex;
   align-items: center;
   letter-spacing: 0.04em;
@@ -127,8 +127,8 @@
   gap: 6px;
   background-color: #f8f9fa;
   border: 1px solid #e1e4e8;
-  padding: 4px 10px;
-  border-radius: 9999px;
+  padding: 3px 8px;
+  border-radius: 6px;
   color: var(--md-on-surface-variant, #5f6368);
   white-space: nowrap;
   flex-shrink: 0;

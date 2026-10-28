@@ -5,6 +5,7 @@ import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 import ResumeModal from '../../components/ResumeModal/ResumeModal';
 import CommandPalette from '../../components/CommandPalette/CommandPalette';
+import { recordPageView } from '../../services/analyticsService';
 
 import PageLoader from '../../components/PageLoader';
 import styles from './MainLayout.module.css';
@@ -26,9 +27,12 @@ const pageVariants = {
 export default function MainLayout({ children }) {
   const { pathname } = useLocation();
 
-  // Scroll to top on route change
+  // Scroll to top and record pageview telemetry on route change
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (!pathname.startsWith('/rashidshafique.admin')) {
+      recordPageView(pathname);
+    }
   }, [pathname]);
 
   // Isolate admin console from public website Navbar, Footer, and Modals

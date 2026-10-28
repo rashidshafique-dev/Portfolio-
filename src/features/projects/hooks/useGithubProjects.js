@@ -88,7 +88,9 @@ export function useGithubProjects({ sortByFeatured = false } = {}) {
           const raw = JSON.parse(cachedData);
           setProjectList(mergeProjects(raw, sortByFeatured));
           return;
-        } catch {}
+        } catch {
+          // ignore cache parse failure and fallback to initial
+        }
       }
       setProjectList(getInitialProjects(sortByFeatured));
     };

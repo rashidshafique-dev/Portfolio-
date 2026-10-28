@@ -16,17 +16,15 @@
   transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
 }
 
-/* Frosted elevated surface on scroll (fixed height, matches page surface) */
+/* Elevated surface on scroll (fixed height, matches page surface) */
 .scrolled {
-  background-color: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: var(--color-surface, #ffffff);
   border-bottom: 1px solid var(--md-outline-variant, #e1e4e8);
   box-shadow: none;
 }
 
 [data-theme='dark'] .scrolled {
-  background-color: rgba(17, 19, 24, 0.96);
+  background-color: var(--color-surface, #111318);
   border-bottom-color: var(--md-outline-variant, #2e3138);
   box-shadow: none;
 }
@@ -330,8 +328,6 @@
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   z-index: 10001; /* above navbar (10000) */
 }
 

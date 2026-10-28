@@ -157,14 +157,14 @@ export const compressImageClient = (file, maxWidth = 1200, quality = 0.82) => {
         ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(img, 0, 0, width, height);
 
-        let compressed = '';
+        let compressed;
         try {
           compressed = canvas.toDataURL('image/webp', quality);
           // If browser doesn't support webp export, toDataURL falls back to png
           if (!compressed.startsWith('data:image/webp')) {
             compressed = canvas.toDataURL('image/jpeg', quality);
           }
-        } catch (err) {
+        } catch {
           compressed = canvas.toDataURL('image/jpeg', quality);
         }
 

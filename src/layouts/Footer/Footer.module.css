@@ -234,6 +234,23 @@
   margin: 0;
 }
 
+.statusAction {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--md-primary, #1a73e8);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: opacity var(--transition-fast, 150ms ease);
+}
+
+.statusAction:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
 @keyframes pulse-ring-footer {
   0% {
     transform: scale(0.95);

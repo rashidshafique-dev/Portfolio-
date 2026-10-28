@@ -6,12 +6,8 @@ import {
   ExternalLink,
   FileText,
   Eye,
-  MapPin,
-  Phone,
-  Mail
 } from 'lucide-react';
 import Modal from '../Modal/Modal';
-import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../SocialIcons';
 import { copyToClipboard } from '../../utils';
 import { personalInfo } from '../../constants/portfolioData';
 import { useUIStore } from '../../store';
@@ -50,21 +46,21 @@ Live: https://al-shifaa-hms.vercel.app | GitHub: https://github.com/rashidshafiq
 • Utilized: Django REST Framework, React 18, Vite, Tailwind CSS, Supabase (PostgreSQL), Groq API, Whisper STT, Coqui TTS, JWT, Git, GitHub.
 
 Sunrise Imperial Resort — Hotel PMS & Guest SaaS Platform
-Live: https://sunrise-hotel-plum.vercel.app | GitHub: https://github.com/rashidkhan4067/Sunrise-Hotel.git
+Live: https://sunrise-hotel-plum.vercel.app | GitHub: https://github.com/rashidshafique-dev/Sunrise-Hotel.git
 • Architected full-stack luxury Hotel Property Management System (PMS) and guest reservation portal with React 19, TypeScript, Tailwind CSS v4, and Radix UI.
 • Built real-time hospitality modules: visual calendar reservation matrix, housekeeping inspection workflows, itemized POS folio invoicing, and ADR/RevPAR analytics.
 • Optimized web vitals (INP < 10ms) via requestAnimationFrame CSS token batching and engineered automated dynamic chunk retry listeners for 100% deployment reliability.
 • Utilized: React 19, TypeScript, Vite 7, Tailwind CSS v4, Radix UI, Zustand 5, TanStack Query, Recharts, Clerk Auth, Git, GitHub.
 
 AioVerse — Mobile Workspace & Multi-Utility Platform
-GitHub: https://github.com/rashidkhan4067/AioVerse
+GitHub: https://github.com/rashidshafique-dev/AioVerse
 • Architected cross-platform mobile workspace app integrating 40+ native utilities in React Native (Expo) and TypeScript.
 • Engineered high-performance Python Django REST Framework backend with stateless JWT token auto-rotation, guest mode isolation, and pytest validation suites.
 • Offloaded binary media transformations to native thread workers and implemented offline-first local AsyncStorage caching, achieving locked 60 FPS performance.
 • Utilized: React Native, Expo, TypeScript, Python, Django, Django REST Framework, PostgreSQL, JWT, AsyncStorage, Git, GitHub.
 
 Rescue Project — Missing Person Search & Coordination System
-Live: https://rescue-project.vercel.app | GitHub: https://github.com/rashidkhan4067/Rescue_Project-
+Live: https://rescue-project.vercel.app | GitHub: https://github.com/rashidshafique-dev/Rescue_Project-
 • Engineered search-and-rescue web console for missing person registrations and volunteer squad coordination as part of a team project.
 • Applied difference hashing algorithms for image comparison and configured secure JWT-based authentication workflows.
 • Utilized: Data Structures, Algorithms, Python, FastAPI, Django, React.js, SQL, JWT, Git, GitHub.
@@ -351,7 +347,7 @@ export default function ResumeModal() {
                       </a>
                       &middot;
                       <a
-                        href="https://github.com/rashidkhan4067/Sunrise-Hotel.git"
+                        href="https://github.com/rashidshafique-dev/Sunrise-Hotel.git"
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.projectLinkItem}
@@ -379,7 +375,7 @@ export default function ResumeModal() {
                     <h3 className={styles.entryTitle}>AioVerse &mdash; Mobile Workspace &amp; Multi-Utility Platform</h3>
                     <div className={styles.projectLinks}>
                       <a
-                        href="https://github.com/rashidkhan4067/AioVerse"
+                        href="https://github.com/rashidshafique-dev/AioVerse"
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.projectLinkItem}
@@ -416,7 +412,7 @@ export default function ResumeModal() {
                       </a>
                       &middot;
                       <a
-                        href="https://github.com/rashidkhan4067/Rescue_Project-"
+                        href="https://github.com/rashidshafique-dev/Rescue_Project-"
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.projectLinkItem}

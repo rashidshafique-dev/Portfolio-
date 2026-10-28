@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Star, Trash2, Plus, X, Check } from 'lucide-react';
-import { deleteStoredTestimonial, getStoredTestimonials } from '../../../store/adminDataStore';
+import {
+  deleteStoredTestimonial,
+  getStoredTestimonials,
+  triggerAutoPushIfEnabled,
+  recordAuditLog,
+} from '../../../store/adminDataStore';
 import styles from '../styles.module.css';
 
 export default function TestimonialsManager({ testimonials, onTestimonialsUpdated, showToast }) {
@@ -39,6 +44,15 @@ export default function TestimonialsManager({ testimonials, onTestimonialsUpdate
     const updated = [newEntry, ...currentSaved];
     localStorage.setItem('user_testimonials', JSON.stringify(updated));
     window.dispatchEvent(new Event('portfolio_data_updated'));
+    recordAuditLog({
+      action: 'TESTIMONIAL_ADDED',
+      category: 'Profile',
+      severity: 'success',
+      title: 'Client Recommendation Published',
+      details: `Added testimonial from ${formData.name} (${formData.company || 'Client'}).`,
+      actor: 'Administrator',
+    });
+    triggerAutoPushIfEnabled();
 
     onTestimonialsUpdated(getStoredTestimonials());
     setIsAdding(false);

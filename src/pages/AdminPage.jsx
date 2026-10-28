@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import {
@@ -7,9 +7,11 @@ import {
   User,
   MessageSquareQuote,
   ShieldCheck,
+  History,
   LogOut,
   ExternalLink,
   CheckCircle2,
+  BarChart3,
 } from 'lucide-react';
 import {
   isUserAdminAuthenticated,
@@ -18,13 +20,18 @@ import {
   getStoredProjects,
   getStoredProfile,
   getStoredTestimonials,
+  getStoredAuditLogs,
 } from '../store/adminDataStore';
+import { getStoredAnalytics } from '../services/analyticsService';
 import AdminAuth from '../features/admin/components/AdminAuth';
 import BuildLogsManager from '../features/admin/components/BuildLogsManager';
 import ProjectsManager from '../features/admin/components/ProjectsManager';
 import ProfileManager from '../features/admin/components/ProfileManager';
 import TestimonialsManager from '../features/admin/components/TestimonialsManager';
 import ExportSyncCenter from '../features/admin/components/ExportSyncCenter';
+import AuditLogManager from '../features/admin/components/AuditLogManager';
+import AnalyticsManager from '../features/admin/components/AnalyticsManager';
+import NetworkStatusBadge from '../features/admin/components/NetworkStatusBadge';
 import styles from '../features/admin/styles.module.css';
 
 export default function AdminPage() {
@@ -37,6 +44,15 @@ export default function AdminPage() {
   const [projects, setProjects] = useState(() => getStoredProjects());
   const [profile, setProfile] = useState(() => getStoredProfile());
   const [testimonials, setTestimonials] = useState(() => getStoredTestimonials());
+  const [auditLogs, setAuditLogs] = useState(() => getStoredAuditLogs());
+  const [analyticsData, setAnalyticsData] = useState(() => getStoredAnalytics());
+
+  const showToast = useCallback((msg) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage('');
+    }, 3200);
+  }, []);
 
   // Listen for background updates
   useEffect(() => {
@@ -45,11 +61,42 @@ export default function AdminPage() {
       setProjects(getStoredProjects());
       setProfile(getStoredProfile());
       setTestimonials(getStoredTestimonials());
+      setAuditLogs(getStoredAuditLogs());
+      setAnalyticsData(getStoredAnalytics());
+    };
+
+    const handleAuditUpdate = () => {
+      setAuditLogs(getStoredAuditLogs());
+    };
+
+    const handleAnalyticsUpdate = () => {
+      setAnalyticsData(getStoredAnalytics());
+    };
+
+    const handleCloudSyncStatus = (e) => {
+      const detail = e.detail;
+      if (!detail) return;
+      if (detail.success) {
+        showToast(`Auto-pushed code to GitHub (${detail.syncInfo?.commitSha || 'latest'})! Live online.`);
+      } else if (detail.isOffline) {
+        showToast('Offline Mode: Changes saved locally & will auto-push once reconnected.');
+      }
     };
 
     window.addEventListener('portfolio_data_updated', handleSync);
-    return () => window.removeEventListener('portfolio_data_updated', handleSync);
-  }, []);
+    window.addEventListener('portfolio_audit_log_added', handleAuditUpdate);
+    window.addEventListener('portfolio_audit_log_cleared', handleAuditUpdate);
+    window.addEventListener('portfolio_analytics_updated', handleAnalyticsUpdate);
+    window.addEventListener('portfolio_cloud_sync_status', handleCloudSyncStatus);
+
+    return () => {
+      window.removeEventListener('portfolio_data_updated', handleSync);
+      window.removeEventListener('portfolio_audit_log_added', handleAuditUpdate);
+      window.removeEventListener('portfolio_audit_log_cleared', handleAuditUpdate);
+      window.removeEventListener('portfolio_analytics_updated', handleAnalyticsUpdate);
+      window.removeEventListener('portfolio_cloud_sync_status', handleCloudSyncStatus);
+    };
+  }, [showToast]);
 
   // Inactivity Auto-Lockout Guard (15 minutes of inactivity)
   useEffect(() => {
@@ -81,13 +128,6 @@ export default function AdminPage() {
     };
   }, [isAuthenticated]);
 
-  const showToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => {
-      setToastMessage('');
-    }, 3200);
-  };
-
   const handleLogout = () => {
     logoutAdmin();
     setIsAuthenticated(false);
@@ -98,6 +138,7 @@ export default function AdminPage() {
     setProjects(freshData.projects);
     setProfile(freshData.profile);
     setTestimonials(freshData.testimonials);
+    setAuditLogs(getStoredAuditLogs());
   };
 
   if (!isAuthenticated) {
@@ -125,6 +166,7 @@ export default function AdminPage() {
           <div className={styles.headerTitleGroup}>
             <h1 className={styles.consoleTitle}>Portfolio Console</h1>
             <span className={styles.adminBadge}>Active Session</span>
+            <NetworkStatusBadge />
           </div>
 
           <div className={styles.headerActionRow}>
@@ -159,10 +201,22 @@ export default function AdminPage() {
             <span className={styles.statLabel}>Testimonials</span>
           </div>
           <div className={styles.statCard}>
-            <span className={styles.statValue} style={{ color: 'var(--md-primary)' }}>
-              Local-First
+            <span className={styles.statValue} style={{ color: '#10b981' }}>
+              {(analyticsData?.totalPageviews || 0).toLocaleString()}
             </span>
-            <span className={styles.statLabel}>Storage Mode</span>
+            <span className={styles.statLabel}>Total Pageviews</span>
+          </div>
+          <div className={styles.statCard}>
+            <span className={styles.statValue} style={{ color: '#0284c7' }}>
+              {auditLogs.length}
+            </span>
+            <span className={styles.statLabel}>Audit Trail</span>
+          </div>
+          <div className={styles.statCard}>
+            <span className={styles.statValue} style={{ color: '#16a34a' }}>
+              Auto-Sync
+            </span>
+            <span className={styles.statLabel}>GitHub Cloud</span>
           </div>
         </section>
 
@@ -209,6 +263,26 @@ export default function AdminPage() {
 
           <button
             type="button"
+            onClick={() => setActiveTab('analytics')}
+            className={`${styles.tabBtn} ${activeTab === 'analytics' ? styles.activeTab : ''}`}
+          >
+            <BarChart3 size={15} aria-hidden="true" />
+            <span>Traffic &amp; Analytics</span>
+            <span className={styles.tabCount}>{(analyticsData?.totalPageviews || 0).toLocaleString()}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('audit-logs')}
+            className={`${styles.tabBtn} ${activeTab === 'audit-logs' ? styles.activeTab : ''}`}
+          >
+            <History size={15} aria-hidden="true" />
+            <span>Audit Logs</span>
+            <span className={styles.tabCount}>{auditLogs.length}</span>
+          </button>
+
+          <button
+            type="button"
             onClick={() => setActiveTab('security')}
             className={`${styles.tabBtn} ${activeTab === 'security' ? styles.activeTab : ''}`}
           >
@@ -249,6 +323,14 @@ export default function AdminPage() {
               onTestimonialsUpdated={setTestimonials}
               showToast={showToast}
             />
+          )}
+
+          {activeTab === 'analytics' && (
+            <AnalyticsManager showToast={showToast} />
+          )}
+
+          {activeTab === 'audit-logs' && (
+            <AuditLogManager showToast={showToast} />
           )}
 
           {activeTab === 'security' && (

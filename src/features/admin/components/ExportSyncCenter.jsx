@@ -14,10 +14,12 @@ import {
   RefreshCw,
   UploadCloud,
   GitCommit,
-  ExternalLink,
   AlertCircle,
-  Save,
+  ExternalLink,
+  Wifi,
+  WifiOff,
 } from 'lucide-react';
+import { useNetworkStatus } from '../../../hooks/useNetworkStatus';
 import {
   changeAdminPin,
   generatePortfolioExportCode,
@@ -30,6 +32,7 @@ import {
   resetLockoutTelemetry,
   logoutAdmin,
   getFullPortfolioSnapshot,
+  recordAuditLog,
 } from '../../../store/adminDataStore';
 import {
   getGitHubConfig,
@@ -44,6 +47,8 @@ import { copyToClipboard } from '../../../utils';
 import styles from '../styles.module.css';
 
 export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole }) {
+  const network = useNetworkStatus();
+
   // GitHub Cloud Sync State
   const [githubConfig, setGithubConfigState] = useState(() => getGitHubConfig());
   const [tokenInput, setTokenInput] = useState(() => getGitHubToken());
@@ -121,8 +126,24 @@ export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole
     if (result.success) {
       setLastSync(getLastSyncInfo());
       showToast('All portfolio edits published online to GitHub! Visible across all browsers.');
+      recordAuditLog({
+        action: 'CLOUD_SYNC_MANUAL',
+        category: 'Cloud Sync',
+        severity: 'success',
+        title: 'Manual Cloud Sync Succeeded',
+        details: `Published portfolio snapshot to GitHub repository (${githubConfig.owner}/${githubConfig.repo}@${githubConfig.branch}). Commit: ${result.syncInfo?.commitSha || 'latest'}`,
+        actor: 'Administrator',
+      });
     } else {
       showToast(`Publishing failed: ${result.message}`);
+      recordAuditLog({
+        action: 'CLOUD_SYNC_MANUAL_FAILED',
+        category: 'Cloud Sync',
+        severity: 'danger',
+        title: 'Manual Cloud Sync Failed',
+        details: `Failed to publish to GitHub: ${result.message}`,
+        actor: 'Administrator',
+      });
     }
   };
 
@@ -159,7 +180,7 @@ export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole
       } else {
         setPinError(result.message || 'Failed to update PIN.');
       }
-    } catch (err) {
+    } catch {
       setPinError('An unexpected error occurred while updating the PIN.');
     } finally {
       setPinSubmitting(false);
@@ -202,6 +223,14 @@ export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    recordAuditLog({
+      action: 'BACKUP_DOWNLOAD',
+      category: 'System',
+      severity: 'info',
+      title: 'Portfolio Backup Downloaded',
+      details: 'Full portfolio JSON snapshot generated and downloaded.',
+      actor: 'Administrator',
+    });
     showToast('Backup file downloaded');
   };
 
@@ -255,6 +284,87 @@ export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole
           Local browser storage is limited to a single device. By connecting your GitHub Personal Access Token, all modifications to projects, build logs, and profile info are <strong>committed directly to your GitHub repository</strong>, making your changes visible online across every browser, mobile device, and visitor worldwide.
         </p>
 
+        {/* Live Internet Situation & Network Health */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '0.75rem',
+          padding: '0.75rem 1rem',
+          borderRadius: '8px',
+          backgroundColor: network.isOffline
+            ? 'rgba(220, 38, 38, 0.08)'
+            : network.isSlow
+            ? 'rgba(217, 119, 6, 0.08)'
+            : 'rgba(22, 163, 74, 0.08)',
+          border: `1px solid ${
+            network.isOffline
+              ? 'rgba(220, 38, 38, 0.25)'
+              : network.isSlow
+              ? 'rgba(217, 119, 6, 0.25)'
+              : 'rgba(22, 163, 74, 0.25)'
+          }`,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <span style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: network.isOffline ? '#dc2626' : network.isSlow ? '#d97706' : '#16a34a',
+              boxShadow: `0 0 0 2px ${network.isOffline ? 'rgba(220, 38, 38, 0.2)' : network.isSlow ? 'rgba(217, 119, 6, 0.2)' : 'rgba(22, 163, 74, 0.2)'}`,
+              animation: network.isOffline ? 'none' : 'statusPulse 2s infinite ease-in-out',
+            }} />
+            {network.isOffline ? (
+              <WifiOff size={16} style={{ color: '#dc2626' }} />
+            ) : (
+              <Wifi size={16} style={{ color: network.isSlow ? '#d97706' : '#16a34a' }} />
+            )}
+            <div>
+              <div style={{ fontSize: '0.82rem', fontWeight: 700, color: network.isOffline ? '#dc2626' : network.isSlow ? '#d97706' : '#16a34a' }}>
+                {network.isOffline
+                  ? 'No Internet Connection (Offline Mode)'
+                  : network.isSlow
+                  ? 'Slow Internet Connection Detected'
+                  : 'Internet Connection Online & Fast'}
+              </div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--md-on-surface-variant)' }}>
+                {network.isOffline
+                  ? 'Any edits you save are securely stored locally and queued to auto-push once reconnected.'
+                  : network.isSlow
+                  ? `Round-trip ping: ${network.latency || 420}ms · Pushes are saved locally and pushed in background.`
+                  : `Round-trip ping: ${network.latency || 45}ms · Ready for instant auto-push to GitHub on every save.`}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            {network.effectiveType && (
+              <span style={{
+                fontSize: '0.68rem',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                padding: '0.2rem 0.5rem',
+                borderRadius: '4px',
+                backgroundColor: 'var(--md-surface, #ffffff)',
+                border: '1px solid var(--md-outline-variant, #e1e4e8)',
+              }}>
+                {network.effectiveType} {network.downlink ? `(${network.downlink} Mbps)` : ''}
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={() => network.checkNow()}
+              className={styles.secondaryBtn}
+              style={{ padding: '0.25rem 0.6rem', fontSize: '0.72rem' }}
+              title="Test real-time connection speed"
+            >
+              <RefreshCw size={11} />
+              <span>Test Ping</span>
+            </button>
+          </div>
+        </div>
+
         <div className={styles.pinFormGrid} style={{ marginTop: '0.25rem' }}>
           <div className={styles.formGroup}>
             <label className={styles.label}>Repository Target</label>
@@ -281,15 +391,22 @@ export default function ExportSyncCenter({ onDataReset, showToast, onLockConsole
           <div className={styles.formGroup}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <label className={styles.label}>GitHub Token (PAT) *</label>
-              <a
-                href="https://github.com/settings/tokens/new?scopes=repo&description=Portfolio+Admin+Sync"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ fontSize: '0.72rem', color: 'var(--md-primary)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
-              >
-                <span>Create Token</span>
-                <ExternalLink size={10} />
-              </a>
+              {hasTokenConfigured ? (
+                <span style={{ fontSize: '0.72rem', color: '#16a34a', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontWeight: 600 }}>
+                  <Check size={11} />
+                  <span>Configured (.env.local)</span>
+                </span>
+              ) : (
+                <a
+                  href="https://github.com/settings/tokens/new?scopes=repo&description=Portfolio+Admin+Sync"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: '0.72rem', color: 'var(--md-primary)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
+                >
+                  <span>Create Token</span>
+                  <ExternalLink size={10} />
+                </a>
+              )}
             </div>
             <div className={styles.pinInputWrapper}>
               <input

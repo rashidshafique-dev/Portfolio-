@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Check, RotateCcw, Upload, Image as ImageIcon, X, User } from 'lucide-react';
+import { Check, Upload, Image as ImageIcon, X, User } from 'lucide-react';
 import { saveProfile } from '../../../store/adminDataStore';
 import { generateSemanticImageName, compressImageClient } from '../../../utils/projectUtils';
 import styles from '../styles.module.css';

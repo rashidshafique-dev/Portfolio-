@@ -18,12 +18,13 @@ const homeSchema = {
         '@type': 'Person',
         'name': 'Muhammad Rashid Shafique',
         'alternateName': ['Rashid Shafique', 'rashidshafique-dev', 'Rashid Khan'],
-        'jobTitle': 'Full-Stack Developer & Systems Engineer',
-        'description': 'Muhammad Rashid Shafique (Rashid Shafique) is a Full-Stack Developer & Systems Engineer from Faisalabad, Pakistan specialising in Python, Django, FastAPI, React, and AI-integrated applications.',
+        'jobTitle': 'Full-Stack Software Engineer',
+        'description': 'Muhammad Rashid Shafique (Rashid Shafique) is a Full-Stack Software Engineer from Faisalabad, Pakistan specialising in Python backends (Django, FastAPI), React, TypeScript, and relational databases.',
         'url': `${BASE_URL}/`,
         'sameAs': [
           'https://github.com/rashidshafique-dev',
           'https://www.linkedin.com/in/rashidshafique-dev',
+          'https://x.com/rashidshafiqdev',
         ],
       },
     },
@@ -34,21 +35,21 @@ const homeSchema = {
           '@type': 'Question',
           'name': 'Who is Rashid Shafique?',
           'acceptedAnswer': {
-            'text': 'Muhammad Rashid Shafique (Rashid Shafique) is a Full-Stack Developer and Systems Engineer from Faisalabad, Pakistan. He specializes in Python backends (Django, FastAPI), React, and AI-integrated web applications.',
+            'text': 'Muhammad Rashid Shafique (Rashid Shafique) is a Full-Stack Software Engineer from Faisalabad, Pakistan. He specializes in Python backends (Django, FastAPI), React, TypeScript, and scalable web architectures.',
           },
         },
         {
           '@type': 'Question',
           'name': 'Is Rashid Shafique a software developer?',
           'acceptedAnswer': {
-            'text': 'Yes, Rashid Shafique is a Full-Stack Developer and Systems Engineer specializing in Python, Django, FastAPI, React.js, and modern full-stack development.',
+            'text': 'Yes, Rashid Shafique is a Full-Stack Software Engineer specializing in Python, Django, FastAPI, React, TypeScript, and modern system design.',
           },
         },
         {
           '@type': 'Question',
           'name': 'What services does Rashid Shafique offer?',
           'acceptedAnswer': {
-            'text': 'Rashid Shafique offers full-stack web application development, custom backend REST API engineering, data analytics dashboards, and AI-powered software solutions.',
+            'text': 'Rashid Shafique offers full-stack web application development, custom backend REST API engineering, relational database design, and high-performance frontend interfaces.',
           },
         },
       ],
@@ -60,16 +61,16 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Muhammad Rashid Shafique | Full-Stack Developer & Systems Engineer | Pakistan</title>
-        <meta name="description" content="Official portfolio of Muhammad Rashid Shafique — Full-Stack Developer & Systems Engineer from Faisalabad, Pakistan. Expert in Python (Django, FastAPI), React, and modern web applications." />
-        <meta name="keywords" content="Rashid Shafique, Muhammad Rashid Shafique, Rashid Shafique developer, Systems Engineer Pakistan, Full Stack Developer Pakistan, Python developer, React developer, Django FastAPI, backend developer, hire software engineer, rashidshafique-dev" />
+        <title>Muhammad Rashid Shafique | Full-Stack Software Engineer · Python · Django · React · TypeScript</title>
+        <meta name="description" content="Official portfolio of Muhammad Rashid Shafique — Full-Stack Software Engineer from Faisalabad, Pakistan. Expert in Python (Django, FastAPI), React, TypeScript, and scalable database architecture." />
+        <meta name="keywords" content="Rashid Shafique, Muhammad Rashid Shafique, Rashid Shafique developer, Full Stack Software Engineer Pakistan, Python developer, React developer, Django FastAPI, backend developer, hire software engineer, rashidshafique-dev" />
         <link rel="canonical" href={`${BASE_URL}/`} />
 
         {/* Open Graph */}
         <meta property="og:type" content="profile" />
         <meta property="og:url" content={`${BASE_URL}/`} />
-        <meta property="og:title" content="Muhammad Rashid Shafique | Full-Stack Developer & Systems Engineer" />
-        <meta property="og:description" content="Systems Engineer & Full-Stack Developer from Pakistan. Python · Django · FastAPI · React. Building scalable APIs and modern web apps." />
+        <meta property="og:title" content="Muhammad Rashid Shafique | Full-Stack Software Engineer" />
+        <meta property="og:description" content="Full-Stack Software Engineer specializing in Python (Django, FastAPI), React, TypeScript, and relational databases." />
         <meta property="og:image" content={`${BASE_URL}/og-preview.jpg`} />
         <meta property="og:image:secure_url" content={`${BASE_URL}/og-preview.jpg`} />
         <meta property="og:image:type" content="image/jpeg" />
@@ -80,10 +81,10 @@ export default function HomePage() {
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@rashidshafique-dev" />
-        <meta name="twitter:creator" content="@rashidshafique-dev" />
-        <meta name="twitter:title" content="Muhammad Rashid Shafique | Full-Stack Developer & Systems Engineer" />
-        <meta name="twitter:description" content="Systems Engineer & Full-Stack Developer from Pakistan. Python · Django · FastAPI · React." />
+        <meta name="twitter:site" content="@rashidshafiqdev" />
+        <meta name="twitter:creator" content="@rashidshafiqdev" />
+        <meta name="twitter:title" content="Muhammad Rashid Shafique | Full-Stack Software Engineer" />
+        <meta name="twitter:description" content="Full-Stack Software Engineer specializing in Python (Django, FastAPI), React, TypeScript, and relational databases." />
         <meta name="twitter:image" content={`${BASE_URL}/og-preview.jpg`} />
 
         {/* Structured Data */}

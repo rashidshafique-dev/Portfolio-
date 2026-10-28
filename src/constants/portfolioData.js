@@ -42,9 +42,9 @@ export const SITE_URL = 'https://rashid-shafique-portfolio.vercel.app';
 export const personalInfo = {
   name: 'Muhammad Rashid Shafique',
   websiteUrl: SITE_URL,
-  title: 'Full-Stack Software Engineer · Python · Django · React',
-  tagline: 'Building scalable web applications, secure Python REST APIs, and high-performance backend systems.',
-  bio: 'Software Engineer specializing in Python backends (Django, FastAPI), relational database architecture (PostgreSQL), and modern React frontends. Strong foundation in Data Structures, Algorithms, and System Design with a proven track record of shipping production client solutions.',
+  title: 'Full-Stack Software Engineer · Python · Django · React · TypeScript',
+  tagline: 'Building scalable web applications, secure Python REST APIs, and high-performance React & TypeScript systems.',
+  bio: 'Software Engineer specializing in Python backends (Django, FastAPI), relational database architecture (PostgreSQL), and modern React/TypeScript frontends. Strong foundation in Data Structures, Algorithms, and System Design with a proven track record of shipping production client solutions.',
   location: 'Faisalabad, Pakistan',
   email: 'rashidshafique.dev@gmail.com',
   phone: '+92 319 8696623',
@@ -62,7 +62,6 @@ export const personalInfo = {
     threads: 'https://www.threads.com/@rashidshafique.dev',
     whatsapp: 'https://wa.me/923198696623',
     whatsappBusiness: 'https://wa.me/923198696623',
-    dribbble: 'https://github.com/rashidshafique-dev',
   },
 };
 
@@ -120,7 +119,7 @@ export const projects = [
     category: 'Full-Stack',
     featured: true,
     liveUrl: 'https://sunrise-hotel-plum.vercel.app',
-    githubUrl: 'https://github.com/rashidkhan4067/Sunrise-Hotel.git',
+    githubUrl: 'https://github.com/rashidshafique-dev/Sunrise-Hotel',
     accentColor: '#D97706', // Luxury Gold / Amber
     imageUrl: sunriseMainImg,
     metric: 'INP < 10ms · React 19 · 50+ Themes',
@@ -274,7 +273,7 @@ export const projects = [
     category: 'Mobile / Full-Stack',
     featured: true,
     liveUrl: null,
-    githubUrl: 'https://github.com/rashidkhan4067/AioVerse',
+    githubUrl: 'https://github.com/rashidshafique-dev/AioVerse',
     accentColor: '#6366F1',
     imageUrl: aioverseMainImg,
     metric: '40+ Mobile Utilities · 60 FPS Native Performance · Offline-First Sync',
@@ -632,7 +631,7 @@ export const projects = [
     category: 'Full-Stack',
     featured: true,
     liveUrl: 'https://rescue-project.vercel.app/',
-    githubUrl: 'https://github.com/rashidkhan4067/Rescue_Project-',
+    githubUrl: 'https://github.com/rashidshafique-dev/Rescue_Project-',
     accentColor: '#EA4335', // Google Red
     imageUrl: rescueDashboardImg,
     metric: '99% Match Accuracy',
@@ -725,9 +724,9 @@ export const projects = [
     techStack: ['React', 'Node.js', 'Express', 'TypeScript', 'Gemini AI'],
     tech: ['React', 'Node.js', 'Express', 'TypeScript', 'Gemini AI'],
     category: 'Full-Stack',
-    featured: true,
-    liveUrl: 'https://github.com/rashidkhan4067',
-    githubUrl: 'https://github.com/rashidkhan4067/rashid-shafique-portfolio-',
+    featured: false,
+    liveUrl: null,
+    githubUrl: 'https://github.com/rashidshafique-dev/rashid-shafique-portfolio-',
     accentColor: '#10B981', // Emerald theme
     imageUrl: portfolioDarkOrangeImg,
     metric: '<300ms Load Time',
@@ -790,8 +789,8 @@ export const projects = [
     tech: ['Vanilla JS', 'Bootstrap 5', 'HTML5', 'CSS3'],
     category: 'Open Source',
     featured: true,
-    liveUrl: 'https://rashidkhang4067.github.io/VentureTwist',
-    githubUrl: 'https://github.com/rashidkhang4067/VentureTwist',
+    liveUrl: 'https://rashidshafique-dev.github.io/VentureTwist',
+    githubUrl: 'https://github.com/rashidshafique-dev/VentureTwist',
     accentColor: '#FEA116', // Gold accent
     imageUrl: venturetwistImg,
     metric: 'Zero-Dependency JS',
@@ -872,7 +871,7 @@ export const projects = [
     category: 'Full-Stack',
     featured: true,
     liveUrl: 'https://fooddash-web.vercel.app/',
-    githubUrl: 'https://github.com/rashidkhan4067/FoodDash',
+    githubUrl: 'https://github.com/rashidshafique-dev/FoodDash',
     accentColor: '#F97316', // Google/Material orange
     imageUrl: fooddashLandingImg,
     metric: 'Low-Latency State',
@@ -898,8 +897,8 @@ export const projects = [
     tech: ['Python', 'Pandas', 'Scikit-Learn', 'Streamlit', 'Plotly'],
     category: 'AI/ML',
     featured: true,
-    liveUrl: 'https://github.com/rashidkhan4067/Sales-Data-Analysis-System',
-    githubUrl: 'https://github.com/rashidkhan4067/Sales-Data-Analysis-System.git',
+    liveUrl: null,
+    githubUrl: 'https://github.com/rashidshafique-dev/Sales-Data-Analysis-System',
     accentColor: '#1A73E8', // Google Blue Brand colors
     imageUrl: salesPipelineImg,
     metric: 'Predictive ML Analytics',
@@ -941,8 +940,8 @@ export const projects = [
     tech: ['C++', 'Python', 'Arduino', 'IoT', 'Tkinter'],
     category: 'IoT',
     featured: true,
-    liveUrl: 'https://github.com/rashidkhan4067/AquaSync',
-    githubUrl: 'https://github.com/rashidkhan4067/AquaSync',
+    liveUrl: null,
+    githubUrl: 'https://github.com/rashidshafique-dev/AquaSync',
     accentColor: '#00C1D4', // Teal Accent
     imageUrl: aquasyncImg,
     metric: '99.9% Device Uptime',
@@ -964,8 +963,8 @@ export const projects = [
     tech: ['React', 'Node.js', 'Express', 'SQLite', 'Python'],
     category: 'Full-Stack',
     featured: true,
-    liveUrl: 'https://github.com/rashidkhan4067/MediCare',
-    githubUrl: 'https://github.com/rashidkhan4067/MediCare',
+    liveUrl: null,
+    githubUrl: 'https://github.com/rashidshafique-dev/MediCare',
     accentColor: '#818CF8', // Slate Indigo
     imageUrl: medicareImg,
     metric: '150+ Daily Admissions',
@@ -987,8 +986,8 @@ export const projects = [
     tech: ['React', 'Flask', 'D3.js', 'Python', 'JavaScript'],
     category: 'Open Source',
     featured: true,
-    liveUrl: 'https://github.com/rashidkhan4067/Algoviz-pro',
-    githubUrl: 'https://github.com/rashidkhan4067/Algoviz-pro',
+    liveUrl: null,
+    githubUrl: 'https://github.com/rashidshafique-dev/Algoviz-pro',
     accentColor: '#7C3AED', // Deep Violet
     imageUrl: algovizImg,
     metric: '60 FPS Visualization',
@@ -1010,8 +1009,8 @@ export const projects = [
     tech: ['TensorFlow', 'Python', 'OpenCV', 'Keras', 'HTML5'],
     category: 'AI/ML',
     featured: true,
-    liveUrl: 'https://github.com/rashidkhan4067/Face-Recognition-Attendance-System',
-    githubUrl: 'https://github.com/rashidkhan4067/Face-Recognition-Attendance-System',
+    liveUrl: null,
+    githubUrl: 'https://github.com/rashidshafique-dev/Face-Recognition-Attendance-System',
     accentColor: '#059669', // Emerald Green
     imageUrl: faceAttendanceImg,
     metric: '<120ms AI Inference',
@@ -1033,8 +1032,8 @@ export const projects = [
     tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
     category: 'Full-Stack',
     featured: false,
-    liveUrl: 'https://github.com/rashidkhan4067/TaleemPro',
-    githubUrl: 'https://github.com/rashidkhan4067/TaleemPro',
+    liveUrl: null,
+    githubUrl: 'https://github.com/rashidshafique-dev/TaleemPro',
     accentColor: '#E91E63', // Google Rose pink
     imageUrl: taleemproImg,
     metric: 'Multi-Role Security',
@@ -1223,12 +1222,11 @@ export const testimonials = [
 
 export const timeline = [
   { year: 'Oct 2023', event: 'Started BS Computer Science at the University of Agriculture Faisalabad (UAF)' },
-  { year: 'Dec 2023', event: 'Mastered Python and started building commercial automation scripts & web crawlers' },
-  { year: 'Jun 2024', event: 'Transitioned into Full-Stack Web Development, building React and Node.js products' },
-  { year: 'Nov 2024', event: 'Engineered comprehensive Hospital Management System' },
-  { year: 'Aug 2025', event: 'Developed Sales Data Analysis System with predictive ML modeling' },
-  { year: 'Jun 2026', event: 'Presenting a fully modern production-grade portfolio' },
-  { year: 'Jul 2026', event: 'Architected Sunrise Imperial Resort — Enterprise Hotel PMS & Guest Experience SaaS' },
+  { year: 'Dec 2023', event: 'Built high-throughput Python automation scripts, multi-threaded crawlers, and data pipelines' },
+  { year: 'Jun 2024', event: 'Transitioned into Full-Stack Web Development, building React, TypeScript, and modern backend systems' },
+  { year: 'Nov 2024', event: 'Engineered Al Shifaa Clinic — AI-integrated Healthcare Management Platform' },
+  { year: 'Feb 2025', event: 'Developed Sales Data Analysis System with predictive ML modeling' },
+  { year: 'Present', event: 'Architected Sunrise Imperial Resort (Enterprise Hotel PMS) & scalable engineering solutions' },
 ];
 
 export const buildLogs = [
